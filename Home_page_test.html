@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AAC Assessment</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style>
+	 /* Changes the font of the page */
+
+	body {
+		font: Arial, "arial";  
+		text-align: center;
+	}
+	
+	.row {
+		margin: 100px;
+	}
+	
+	div input[type="file"] {
+		margin-right: 500px;
+	}
+	
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin: auto;
+		width: 100%;
+		font-size: 19px;
+	}
+	
+	/* Creates a link button for the AAC assessment */
+	a:link, a:visited {
+		background-color: lightblue;
+		color: black;
+		padding: 14px 15px;
+		text-decoration: none;
+		display: inline-block;
+	}
+	a:hover, a:active {
+		background-color: #6a5acd;
+		color: black;
+		}
+		
+	/* Positions the image to the bottom right of the page */
+	img {
+		display: block;
+		position: fixed;
+		right: 0px;
+		bottom: 0px;
+		max-width:100%;
+		width: 200px;
+		height: 170px;
+	}
+	
+	.upload-btn-wrapper {
+	  position: relative;
+	  overflow: hidden;
+	  display: inline-block;
+	}
+
+	.btn {
+	  border: 2px solid gray;
+	  color: gray;
+	  background-color: white;
+	  padding: 8px 20px;
+	  border-radius: 8px;
+	  font-size: 20px;
+	  font-weight: bold;
+	}
+
+	 input[name="myfile"] {
+	  font-size: 100px;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  opacity: 0;
+	}
+
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <h1>AAC Device Diagnostic Tool</h1>
+  <div class="row">
+    <div class="col-sm-6">
+		<h3>Please click the button below to<br> start a new AAC assessment.</h3>
+		<div class="center">
+			<a href="Page 2 - AAC Assessment 2-25-19.html" target="_self">
+				Start AAC assessment
+			</a>
+		</div>
+	</div>
+    <div class="col-sm-6">
+		<h3>To access a previous AAC assessment,<br> please upload
+		the appropriate file below.</h3>
+		<form action="">
+			<input type="file" name="text" accept="txt/*">
+			<input type="submit">
+		</form>
+	</div>
+   </div>
+</div>   
+
+<!-- <div class="upload-btn-wrapper">
+  <button class="btn">Upload a file</button>
+  <input type="file" name="myfile" />
+</div> -->
+
+<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" alt="Logo">
+
+</body>
+</html>
