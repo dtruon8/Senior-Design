@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity=
+"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin=
+"anonymous">
+<style>
+	* {box-sizing: border-box}
+	body {
+	  font-family: "Arial";
+	  text-align: center;
+	}
+
+	/* Style the tab */
+	.tab {
+	  float: left;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+	  width: 28%;
+	  height: 430px;
+	  overflow: auto;
+	}
+
+	/* Style the buttons inside the tab */
+	.tab button {
+	  display: block;
+	  background-color: inherit;
+	  color: black;
+	  padding: 22px 16px;
+	  width: 100%;
+	  border: none;
+	  outline: none;
+	  text-align: left;
+	  cursor: pointer;
+	  transition: 0.3s;
+	  font-size: 17px;
+	}
+
+	/* Change background color of buttons on hover */
+	  .tab button:hover {
+	  background-color: #6a5acd;
+	}
+
+	/* Create an active/current "tab button" class */
+	  .tab button.active {
+	  background-color: #ccc;
+	}
+
+	/* Style the tab content */
+	.tabcontent {
+	  float: left;
+	  padding: 0px 12px;
+	  border: 1px solid #ccc;
+	  width: 55%;
+	  border-left: none;
+	  height: 430px;
+	  overflow: auto;
+	}
+
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin-top: 450px;
+		margin-left, margin-right: auto;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	
+	/* Creates a link button for the AAC assessment */
+	a:link, a:visited {
+		background-color: lightblue;
+		color: black;
+		padding: 14px 15px;
+		text-decoration: none;
+		display: inline-block;
+	}
+	a:hover, a:active {
+		background-color: #6a5acd;
+		color: black;
+	}
+	
+	i {
+		font-size: 26px;
+		color: #32CD32;
+		float: right;
+		visibility: hidden;
+	}
+	
+	#timer {
+		float: right;
+	}
+	
+	.stop_timer, .resume_timer {
+		float: right;
+	}
+	
+</style>
+</head>
+<body>
+	<div style="text-align:center;">
+		<div id="timer"></div><br>
+		<button class="stop_timer" onclick="stopTimer()">Stop</button>
+		<button class="resume_timer" onclick="resumeTimer()">Resume</button>
+	</div>
+
+<h1>AAC Device Diagnostic Tool</h1>
+<h2>AAC Assessment</h2>
+
+<div class="tab">
+	<button class="tablinks" onclick="openSection(event, 'Motor')" id="defaultOpen">
+		<i class="fas fa-check"></i>
+		Motor Skills & Access Methods Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 'Comm')">
+		<i class="fas fa-check"></i>
+		Communication Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 'Rec&Leis')">
+		<i class="fas fa-check"></i>
+		Recreation & Leisure Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 'Seat&Pos')">
+		<i class="fas fa-check"></i>
+		Seating & Positioning Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 'Sens&Perc')">
+		<i class="fas fa-check"></i>
+		Sensory & Perceptual Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 'Comments')">
+		Comments
+	</button>
+	</div>
+
+	<div id="Motor" class="tabcontent">
+		<h3>Motor Skills & Access Methods Assessment</h3>
+		<h4>Fine Motor Related to Computer (or Device) Access</h4>
+		<p>Observe the student using paper and pencil, typewriter, computer, switch, etc. 
+		Look at the movements as well as activities and situations. Does the student
+		have voluntary, isolated, controlled movements, using the following? (Check 
+		all that apply.)</p>
+	</div>
+	
+	<div id="Comm" class="tabcontent">
+		<h3>Communication Assessment</h3>
+		<h4>Student's Present Means of Communication</h4>
+		<p>Check all that are used and the primary method the student uses.</p>
+	</div>
+	
+	<div id="Rec&Leis" class="tabcontent">
+		<h3>Recreation & Leisure Assessment</h3>
+		<h4>Difficulties Student Experiences Participating in Recreation and Leisure</h4>
+		<p>Check all that are used and the primary method the student uses.</p>
+	</div>
+	
+	<div id="Seat&Pos" class="tabcontent">
+		<h3>Seating & Positioning Assessment</h3>
+		<h4>Current Seating and Positioning of Student</h4>
+		<p>Check all that apply.</p>
+	</div>
+	
+	<div id="Sens&Perc" class="tabcontent">
+		<h3>Sensory & Perceptual Assessment</h3>
+		<h4>Vision</h4>
+		<h5>A vision specialist should be consulted to complete this section.</h5>
+		<h5>Visual Abilities</h5>
+		<p>Check all that apply.</p>
+	</div>
+	
+	<div id="Comments" class="tabcontent">
+		<h3>Comments</h3>
+		<p>Put text boxes with questions here.</p>
+	</div>
+
+	<div class="center">
+		<a href="Page 3 - Results Page.html" target="_self">Submit</a> 
+	</div>
+
+<script>
+//Creation of tabs with content inside them
+function openSection(evt, sectionName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(sectionName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+//Timer function with resume and pause button
+var timerVar = setInterval(countTimer, 1000);
+var totalSeconds = 0;
+var checkTimer = true;
+function countTimer() {
+   ++totalSeconds;
+   var hour = Math.floor(totalSeconds /3600);
+   var minute = Math.floor((totalSeconds - hour*3600)/60);
+   var seconds = totalSeconds - (hour*3600 + minute*60);
+
+	hour = hour.toString().padStart(2, "0");
+	minute = minute.toString().padStart(2, "0");
+	seconds = seconds.toString().padStart(2, "0");
+   document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+}
+function stopTimer() {
+	checkTimer = false;
+	clearInterval(timerVar);
+}
+function resumeTimer() {
+	if (checkTimer == false) {
+		checkTimer = true;
+		timerVar = setInterval(countTimer, 1000);
+	}
+}
+</script>  
+</body>
+</html> 
+
