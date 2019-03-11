@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/progbar.css">
+<script src="js/jquery-3.3.1.js"></script>
+<script src="js/progressBar.js"></script>
+<script src="js/polyfills.js"></script>
+<script>
+//window.onunbeforeunload = clearStorage();
+var upload = false;
+var saveStr = ""
+
+var arraySum = function(arr) {
+	return arr.reduce(function(acc, cur) {return acc + cur;}, 0);
+}
+
+//checks whether the number of questions that have been answered is equal to the number of 
+function checkCompletion(){
+	var totalAns = arraySum(numberAnswered);
+	console.log(totalAns);
+	var totalQ = arraySum(numQs);
+	console.log(totalQ);
+	done = totalQ === totalAns;
+	console.log("Done yet? " + done);
+}
+
+function press(){
+	$("#s4q2").val($("#s4q1").val());
+	checkCompletion();
+}
+
+function closing(){
+	if (done || saved)
+		return null;
+	else return "";
+}
+
+
+function clearStorage(){
+	localStorage.clear();
+	sessionStorage.clear();
+}
+
+
+function displayWarning(){
+	if (!done){
+		document.getElementById("popUp");
+		popUp.style.visibility = "visible";
+	}
+}
+
+var enableAns = ["s3q6a1", "s1q4a2"];
+
+$(function(){
+    $("#bottomButton").click(press);
+	//window.onbeforeunload = closing;
+	
+	$(".A").click( function(event) {
+		var id = event.target.id;
+		console.log("ID: " + id);
+		answerSelected(id);
+	});
+	//When a question that has an answer that enables another answer is selected:
+	//if the enable answer is selected: get the section and question number of the next question
+	//This means that an optional question must follow the enabling question.
+	//This function gets the name of the optional question
+	//If the enable answer was selected, remove the disabled property from the optional question
+	//and add the old numQs array to storage. The new numQs has one more question in this section than the old.
+	//If the enable answer was not selected: the optional question is disabled and its answers are unselected.
+	//Additionally, the numberAnswered, numQs, and questionAnswered have their values reverted.
+	$(".enables").change( function (event) {
+		var id = event.target.id;
+		var s = id[1]-1;
+		var q = Number(id[3])+1;
+		var item = "numQs" + s;
+		var enabledQ = id.substring(0,3); //s#q
+		enabledQ += q + "a";
+		console.log(id);
+		console.log(enabledQ);
+		console.log("JQuery");
+		if (enableAns.includes(id)) {
+			$('input[name=' + enabledQ +']').prop('disabled', false);
+			sessionStorage.setItem(item, numQs[s]); 
+			console.log("in here");
+			numQs[s] += 1; 
+		} else {
+			$('input[name=' + enabledQ +']').prop('disabled', true);
+			console.log("does it make it here");
+			if ($('input[name=' + enabledQ +']').is(':checked')){
+				numberAnswered[s] -= 1;
+				questionAnswered[s].length -= 1;
+				$('input[name=' + enabledQ +']').prop('checked', false);
+			}
+			var qs = sessionStorage.getItem(item);
+			if (qs != null){
+				numQs[s] -= 1;
+				sessionStorage.removeItem(item);
+			}
+		}
+		if (!upload){
+			var len = numberAnswered[s] / numQs[s] * 100;
+			console.log("len: " + len);
+			changeBar(s, len);
+		}
+	});
+
+});
+
+
+
+/*	
+  Creates an string with the ids of every answer that is selected
+  Each id is put on its own line
+  Also puts the current value of the timer into the string\
+  And puts the ids and contents of every non-empty textarea
+  Then saves the string to a local file
+*/
+function saveText(){
+	var time = 10043;
+	var s = time + "\r\n";
+	$('.A:checked').each(function() {
+		//console.log(this.id);
+		s += this.id + "\r\n";
+	});
+	//console.log(checkedArray);
+	//s += ".\r\n";
+	var texts = $('input[type="text"], textarea').filter(function() { return $(this).val()}); 
+	console.log(texts);
+	texts.each(function(){
+		s += this.id + "\t" + this.value + "\r\n"
+	});
+	
+	var blob = new Blob([s], { type: "text/plain;charset=utf-8" });
+	var url = URL.createObjectURL(blob);
+	var dl = document.getElementById("saveBtn");
+	dl.href = url;
+	dl.download = "savefile.txt";
+	dl.click();
+	dl.href ="javascript:;";
+	dl.download = ".";
+}
+
+function uploadFile(){
+	console.log("In uploadFile");
+	var f = document.getElementById("file").files[0];
+	var reader = new FileReader();
+	var contents = [];
+	reader.onload = function(progressEvent){
+		//console.log(this.result);
+		var lines = this.result.split('\n');
+		lines = lines.filter(function(el){
+			return el != "";
+		});
+		var checks = [];
+		for (var i = 0; i < lines.length; i++){
+			if (i == 0){
+				sessionStorage.setItem('timer', lines[i]);
+			} else if (lines[i].includes('\t')){
+				var c = lines[i].split('\t');
+				sessionStorage.setItem(c[0], c[1]);
+			} else {
+				checks.push(lines[i]);
+			}
+			contents.push(lines[i]);
+		}
+		sessionStorage.setItem('selectedAnswers', checks);
+	}
+	reader.readAsText(f);
+	sessionStorage.setItem("uploadSuccessful", true);
+	//upload = true;
+}
+
+function getAnswersFromStorage(){
+	//upload = true;
+	upload = sessionStorage.getItem("uploadSuccessful");
+	console.log("Value of upload: " + upload);
+	var x = sessionStorage.getItem('selectedAnswers');
+	x = x.split(',');
+	console.log(x);
+	for (var i = 0; i < x.length; i++){
+		//$('#' + x[i]).prop("checked", true);
+		//$('#' + x[i]).prop("disabled", false);
+		$('#' + x[i]).click();
+		console.log(questionAnswered);
+	}
+	for (var i = 0; i < numSec; i++){
+		var len = numberAnswered[i] / numQs[i] * 100;
+		if (len > 100) len = 100;	//caps the length at 100
+		changeBar(i, len);
+	}
+	var comments = ["s3q8", "s4q1", "s4q2"];
+	comments.forEach(function(id){
+		//console.log(id);
+		document.getElementById(id).value = sessionStorage.getItem(id);
+	});
+	upload = false;
+}
+
+</script>
+<noscript>
+<h3>This site requires JavaScript to function. Enable JavaScript and try again.</h3>
+</noscript>
+</head>
+<body onload="initialize()">
+<h3>Progress Bar Demo</h3>
+
+<div class="questions" id="s1">
+	<h4>Section 1</h4>
+	<div class="bar">
+		<div id="barText1" class="barTxt"> 0%</div>
+		<div id="progbar1" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s1q1a1" name="s1q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s1q1a2" name="s1q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s1q2a1" name="s1q2a" value="true" class="A" />Yes
+	<input type="radio" id="s1q2a2" name="s1q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s1q3a1" name="s1q3a" value="true" class="A" />Yes
+	<input type="radio" id="s1q3a2" name="s1q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s1q4a1" name="s1q4a" value="true" class="A enables" />Yes
+	<input type="radio" id="s1q4a2" name="s1q4a" value="false" class="A enables" />No
+
+	<p class="Qn optional">Q5: .............</p>
+	<input type="radio" id="s1q5a1" name="s1q5a" value="true" class="A" disabled/>Option 1
+	<input type="radio" id="s1q5a2" name="s1q5a" value="true" class="A" disabled/>Option 2
+	<input type="radio" id="s1q5a3" name="s1q5a" value="false" class="A" disabled/>Option 3
+</div>
+
+
+<div class="questions" id="s2">
+	<h4>Section 2</h4>
+	<div class="bar">
+		<div id="barText2" class="barTxt"> 0%</div>
+		<div id="progbar2" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s2q1a1" name="s2q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s2q1a2" name="s2q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s2q2a1" name="s2q2a" value="true" class="A" />Yes
+	<input type="radio" id="s2q2a2" name="s2q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s2q3a1" name="s2q3a" value="true" class="A" />Yes
+	<input type="radio" id="s2q3a2" name="s2q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s2q4a1" name="s2q4a" value="true" class="A" />Yes
+	<input type="radio" id="s2q4a2" name="s2q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s2q5a1" name="s2q5a" value="true" class="A" />Yes
+	<input type="radio" id="s2q5a2" name="s2q5a" value="false" class="A" />No
+
+	<p class="Qn">Q6: .............</p>
+	<input type="checkbox" id="s2q6a1" name="s2q6a" value="true" class="A" />one
+	<input type="checkbox" id="s2q6a2" name="s2q6a" value="false" class="A" />two
+	<input type="checkbox" id="s2q6a3" name="s2q6a" value="false" class="A" />three
+	<input type="checkbox" id="s2q6a4" name="s2q6a" value="false" class="A" />four
+
+</div>
+
+<div class="questions" id="s3">
+	<h4>Section 3</h4>
+	<div class="bar">
+		<div id="barText3" class="barTxt"> 0%</div>
+		<div id="progbar3" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s3q1a1" name="q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s3q1a2" name="q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s3q2a1" name="q2a" value="true" class="A" />Yes
+	<input type="radio" id="s3q2a2" name="q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s3q3a1" name="q3a" value="true" class="A" />Yes
+	<input type="radio" id="s3q3a2" name="q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s3q4a1" name="q4a" value="true" class="A" />Yes
+	<input type="radio" id="s3q4a2" name="q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s3q5a1" name="q5a" value="true" class="A" />Yes
+	<input type="radio" id="s3q5a2" name="q5a" value="false" class="A" />No
+	
+	<p class="Qn">Q6: .............</p>
+	<input type="radio" id="s3q6a1" name="s3q6a" value="true" class="A enables" />Option 1
+	<input type="radio" id="s3q6a2" name="s3q6a" value="true" class="A enables" />Option 2
+	<input type="radio" id="s3q6a3" name="s3q6a" value="false" class="A enables" />Option 3
+	
+	<p class="Qn optional">Q7: .............</p>
+	<input type="checkbox" id="s3q7a1" name="s3q7a" value="true" class="A" disabled/>one
+	<input type="checkbox" id="s3q7a2" name="s3q7a" value="false" class="A" disabled/>two
+	<input type="checkbox" id="s3q7a3" name="s3q7a" value="false" class="A" disabled/>three
+	<input type="checkbox" id="s3q7a4" name="s3q7a" value="false" class="A" disabled/>four
+	<input type="checkbox" id="s3q7a5" name="s3q7a" value="false" class="A" disabled/>five
+
+	<p class="Qn" class="comment">Q8 .............</p>
+	<textarea id="s3q8" class="comment" placeholder="Type something..."></textarea>
+	
+</div>
+
+<div class="questions" id="s4">
+	<h4>Section 4</h4>
+	<p class="Qn" class="s4">Q1: .............</p>
+	<textarea id="s4q1" class="comment" placeholder="44444"></textarea>
+	
+	<p class="Qn" class="s4">Q2: .............</p>
+	<textarea id="s4q2" class="comment" placeholder="Fill this in"></textarea>
+</div>
+
+<br />
+<button id="bottomButton">Finish</button>
+
+<button onclick="saveText()">Click to display warning</button><br />
+
+<!--for the sections: The value of the button clicked to display the section will be its number (1, 2, 3, etc.).
+There will be an onclick event that passes the value. onclick="whateverFunction(this.value)";
+//////
+In the function, have a case statement like
+switch (valu):
+	case (1): display section 1, hide other sections;
+	case (2) ...
+Or could do ifs
+ if (val === 1): display section 1; else hide sectino 1
+  //similar for other sections//
+/////
+-->
+<input type="file" id="file" />
+<button onclick="uploadFile()">Click after uploading a file</button>	
+
+<br />
+<button onclick="getAnswersFromStorage()">Click after the upload finshed</button>
+
+<div id="popUp" style="z-index:5; margin: 20px; padding: 5px; visibility: collapse">Warning: <br />.........</div>
+
+
+<!--for downloading the save file. This is separate from the button the user clicks to save the file-->
+<a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
+
+
+</body>
+</html>
