@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<!-- Controls the width and scaling of the browser's viewport -->
+<meta name="viewport" content="width=device-width, 
+initial-scale=1">
+<head>
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+<link href="password-strength.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://www.solodev.com/assets/password/strength.js"></script>
+
+<script>
+var complexity;
+var len;
+function pwCheck() {
+	var val = document.getElementById("pwtxt").value;
+	
+	len = val.length >= 10;	//is the pw at least 10 characters?
+	var dig = /\d/.test(val);	//contains digit?
+	var low = /[a-z]/.test(val);	//contains lowercase letter?
+	var up = /[A-Z]/.test(val);	//contains uppercase letter?
+	var spec = /[~`!@#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/.test(val); //contains special character?
+	complexity = dig + low + up + spec; //OWASP recommends at least 3 of these be met
+	//console.log("Compelxity: " + complexity);
+	var requirementsMet = len && complexity >= 3;
+	if (requirementsMet) {
+		//console.log("Password meets requirements");
+		var s = "Requirements Met";
+	} else {
+		var s = "Requirements Not Met"; 
+	}
+	document.getElementById("req").innerHTML = s;
+	
+	//change the colors of the requirements if they are met:
+	document.getElementById("pwLen").style.color = len ? "green" : "red";
+	document.getElementById("pwLow").style.color = low ? "green" : "red";
+	document.getElementById("pwUp").style.color = up ? "green" : "red";
+	document.getElementById("pwNum").style.color = dig ? "green" : "red";
+	document.getElementById("pwSpe").style.color = spec ? "green" : "red";
+	
+}
+function checkInfo() {
+	var msg = "";
+	var pw = document.getElementById("pwtxt").value;
+	var conf = document.getElementById("confirmPw").value;
+	console.log(pw);
+	console.log(conf);
+	console.log(len);
+	if (pw == "") {
+		msg = "Please enter a password";
+	} else if (len == false) {
+		msg = "Password must be at least 10 characters";
+	} else if (complexity < 3) {
+		msg = "Password doesn't meet requirements";
+	} else if (pw != conf){
+		msg = "Passwords don't match";
+	}
+	
+	if (msg != ""){
+		alert(msg);
+		return false;
+	} else {
+		document.getElementById("req").innerHTML = "Password successfully entered.";
+		return true;
+	}
+	
+}
+
+function togglePW(id) {
+	var pw = document.getElementById(id);
+	if (pw.type === "password") {
+		pw.type = "text";
+	} else {
+		pw.type = "password";
+	}
+}
+
+// When the user clicks on the password field, show the message box
+myInput.onfocus = function() {
+  document.getElementById("message").style.display = "block";
+}
+
+// When the user clicks outside of the password field, hide the message box
+myInput.onblur = function() {
+  document.getElementById("message").style.display = "none";
+}
+</script>
+<style> 
+/* Changes the font of the page */
+* {
+	font-family: Arial; 
+	text-align: center;
+	}
+	
+	/* Changes text size of title page */
+	h1 {
+		font-size: 40px;
+	}
+	
+	/* Changes size and position of paragraph text */
+	p {
+		margin-top: 100px;
+		font-size: 20px;
+	}	
+
+	/* Positions the image to the bottom right of the page */
+	img {
+		display: block;
+		margin: auto;
+		padding: 120px;
+		max-width: 100%;
+		width: 200px;
+		height: 170px;
+	}
+
+	.pwReq {
+		color: red;
+	}
+	.login {
+		border-radius: 10px;
+		-moz-border-radius: 10px; 
+		-webkit-border-radius: 10px;
+		border: 2px solid black;
+		padding: 10px;
+		height: 15px;
+		width: 125px;
+		margin: 5px;
+	}
+	.login:focus, .login:hover {
+		outline: none;
+		border: 2px solid blue;
+	}
+	input[type=submit] {
+		margin: 0 auto;
+		height: 30px;
+		line-height: 5px;	/* height - padding */
+		font-weight: bold;
+		width: 100px;
+		background-color: white;
+	}
+	
+</style>
+</head>
+<body>
+	<h1>AAC Device Diagnostic Tool</h1>
+	<h2>Reset Your Password</h2>
+
+	<form action="Home_page_test.html" method="post" onsubmit="return checkInfo()">
+		<input class="login" placeholder="Password" type="password" id="pwtxt" oninput="pwCheck(this.value)" required /><br />
+		<input type="checkbox" value="pwtxt" onclick="togglePW(this.value)" />Show Password<br />
+		
+		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required /><br />
+		<input type="checkbox" value="confirmPw" onclick="togglePW(this.value)" />Show Password<br /><br />
+		
+		<input class="login" value="Submit" type="submit" />
+		<p id="req">Requirements Not Met</p>
+	</form> 
+	
+<div class="pwMsg" id="message">
+	Password must contain:<br>
+	<span class="pwReq" id="pwLen">at least 10 characters</span><br>
+	<span class="pwReq" id="pwLow">a lowercase letter</span><br>
+	<span class="pwReq" id="pwUp">a uppercase letter</span><br> 
+	<span class="pwReq" id="pwNum">a number</span><br>
+	<span class="pwReq" id="pwSpe">a special character</span>
+</div>
+	
+	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
+	alt="Logo">
+	
+</body>
+</html>

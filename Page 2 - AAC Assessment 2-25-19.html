@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity=
+"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin=
+"anonymous">
+<link rel="stylesheet" type="text/css" href="css_files/progbar.css">
+<script src="js_files/jquery-3.3.1.js"></script>
+<script src="js_files/progressBar.js"></script>
+<script src="js_files/polyfills.js"></script>
+<script src="js_files/timer.js"></script>
+<script src="js_files/open_tab_content.js"></script>
+<script src="js_files/save_file.js"></script>
+<script src="js_files/upload_file.js"></script>
+<noscript>
+<h3>This site requires JavaScript to function. Enable JavaScript and try again.</h3>
+</noscript>
+<style>
+	* {box-sizing: border-box}
+	body {
+	  font-family: "Arial";
+	  text-align: center;
+	}
+
+	/* Style the tab */
+	.tab {
+	  float: left;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+	  width: 28%;
+	  height: 430px;
+	  overflow: auto;
+	}
+
+	/* Style the buttons inside the tab */
+	.tab button {
+	  display: block;
+	  background-color: inherit;
+	  color: black;
+	  padding: 22px 16px;
+	  width: 100%;
+	  border: none;
+	  outline: none;
+	  text-align: left;
+	  cursor: pointer;
+	  transition: 0.3s;
+	  font-size: 17px;
+	}
+
+	/* Change background color of buttons on hover */
+	  .tab button:hover {
+	  background-color: #6a5acd;
+	}
+
+	/* Create an active/current "tab button" class */
+	  .tab button.active {
+	  background-color: #ccc;
+	}
+
+	/* Style the tab content */
+	.tabcontent {
+	  float: left;
+	  padding: 0px 12px;
+	  border: 1px solid #ccc;
+	  width: 55%;
+	  border-left: none;
+	  height: 430px;
+	  overflow: auto;
+	  display: none;
+	}
+
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin-top: 450px;
+		margin-left, margin-right: auto;
+		width: 100%;
+		box-sizing: border-box;
+	}
+	
+	/* Creates a link button for the AAC assessment */
+	a:link, a:visited {
+		background-color: lightblue;
+		color: black;
+		padding: 14px 15px;
+		text-decoration: none;
+		display: inline-block;
+	}
+	a:hover, a:active {
+		background-color: #6a5acd;
+		color: black;
+	}
+	
+	i {
+		font-size: 26px;
+		color: #32CD32;
+		float: right;
+		visibility: hidden;
+	}
+	
+	#timer {
+		float: right;
+	}
+	
+	.stop_timer, .resume_timer {
+		float: right;
+	}
+	
+</style>
+</head>
+<body onload="initialize()">
+	<div style="text-align:center;">
+		<div id="timer"></div><br>
+		<button class="stop_timer" onclick="stopTimer()">Stop</button>
+		<button class="resume_timer" onclick="resumeTimer()">Resume</button>
+	</div>
+
+<h1>AAC Device Diagnostic Tool</h1>
+<h2>AAC Assessment</h2>
+
+<div class="tab questions" style="display: block;">
+	<button class="tablinks" id="defaultOpen" onclick="openSection(event, 's1')" >
+		<i class="fas fa-check"></i>
+		Motor Skills & Access Methods Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 's2')">
+		<i class="fas fa-check"></i>
+		Communication Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 's3')">
+		<i class="fas fa-check"></i>
+		Recreation & Leisure Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 's4')">
+		<i class="fas fa-check"></i>
+		Seating & Positioning Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 's5')">
+		<i class="fas fa-check"></i>
+		Sensory & Perceptual Assessment
+	</button>
+	
+	<button class="tablinks" onclick="openSection(event, 's6')">
+		Comments
+	</button>
+	</div>
+
+<div class="tabcontent" id="s1">
+		<h3>Motor Skills & Access Methods Assessment</h3>
+		<h4>Fine Motor Related to Computer (or Device) Access</h4>
+		<p>Observe the student using paper and pencil, typewriter, computer, switch, etc. 
+		Look at the movements as well as activities and situations. Does the student
+		have voluntary, isolated, controlled movements, using the following? (Check 
+		all that apply.)</p>
+		
+	<div class="bar">
+		<div id="barText1" class="barTxt"> 0%</div>
+		<div id="progbar1" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s1q1a1" name="s1q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s1q1a2" name="s1q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s1q2a1" name="s1q2a" value="true" class="A" />Yes
+	<input type="radio" id="s1q2a2" name="s1q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s1q3a1" name="s1q3a" value="true" class="A" />Yes
+	<input type="radio" id="s1q3a2" name="s1q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s1q4a1" name="s1q4a" value="true" class="A enables" />Yes
+	<input type="radio" id="s1q4a2" name="s1q4a" value="false" class="A enables" />No
+
+	<p class="Qn optional">Q5: .............</p>
+	<input type="radio" id="s1q5a1" name="s1q5a" value="true" class="A" disabled/>Option 1
+	<input type="radio" id="s1q5a2" name="s1q5a" value="true" class="A" disabled/>Option 2
+	<input type="radio" id="s1q5a3" name="s1q5a" value="false" class="A" disabled/>Option 3
+</div>
+	
+<div class="tabcontent questions" id="s2">
+		<h3>Communication Assessment</h3>
+		<h4>Student's Present Means of Communication</h4>
+		<p>Check all that are used and the primary method the student uses.</p>
+		<div class="bar">
+			<div id="barText2" class="barTxt"> 0%</div>
+			<div id="progbar2" name="progbar" class="pbar"></div>
+		</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s2q1a1" name="s2q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s2q1a2" name="s2q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s2q2a1" name="s2q2a" value="true" class="A" />Yes
+	<input type="radio" id="s2q2a2" name="s2q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s2q3a1" name="s2q3a" value="true" class="A" />Yes
+	<input type="radio" id="s2q3a2" name="s2q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s2q4a1" name="s2q4a" value="true" class="A" />Yes
+	<input type="radio" id="s2q4a2" name="s2q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s2q5a1" name="s2q5a" value="true" class="A" />Yes
+	<input type="radio" id="s2q5a2" name="s2q5a" value="false" class="A" />No
+
+	<p class="Qn">Q6: .............</p>
+	<input type="checkbox" id="s2q6a1" name="s2q6a" value="true" class="A" />one
+	<input type="checkbox" id="s2q6a2" name="s2q6a" value="false" class="A" />two
+	<input type="checkbox" id="s2q6a3" name="s2q6a" value="false" class="A" />three
+	<input type="checkbox" id="s2q6a4" name="s2q6a" value="false" class="A" />four
+
+</div>
+	
+<div class="tabcontent questions" id="s3">
+	<h3>Recreation & Leisure Assessment</h3>
+	<h4>Difficulties Student Experiences Participating in Recreation and Leisure</h4>
+	<p>Check all that are used and the primary method the student uses.</p>
+	<div class="bar">
+		<div id="barText3" class="barTxt"> 0%</div>
+		<div id="progbar3" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s3q1a1" name="q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s3q1a2" name="q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s3q2a1" name="q2a" value="true" class="A" />Yes
+	<input type="radio" id="s3q2a2" name="q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s3q3a1" name="q3a" value="true" class="A" />Yes
+	<input type="radio" id="s3q3a2" name="q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s3q4a1" name="q4a" value="true" class="A" />Yes
+	<input type="radio" id="s3q4a2" name="q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s3q5a1" name="q5a" value="true" class="A" />Yes
+	<input type="radio" id="s3q5a2" name="q5a" value="false" class="A" />No
+	
+	<p class="Qn">Q6: .............</p>
+	<input type="radio" id="s3q6a1" name="s3q6a" value="true" class="A enables" />Option 1
+	<input type="radio" id="s3q6a2" name="s3q6a" value="true" class="A enables" />Option 2
+	<input type="radio" id="s3q6a3" name="s3q6a" value="false" class="A enables" />Option 3
+	
+	<p class="Qn optional">Q7: .............</p>
+	<input type="checkbox" id="s3q7a1" name="s3q7a" value="true" class="A" disabled/>one
+	<input type="checkbox" id="s3q7a2" name="s3q7a" value="false" class="A" disabled/>two
+	<input type="checkbox" id="s3q7a3" name="s3q7a" value="false" class="A" disabled/>three
+	<input type="checkbox" id="s3q7a4" name="s3q7a" value="false" class="A" disabled/>four
+	<input type="checkbox" id="s3q7a5" name="s3q7a" value="false" class="A" disabled/>five
+
+	<p class="Qn" class="comment">Q8 .............</p>
+	<textarea id="s3q8" class="comment" placeholder="Type something..."></textarea>
+	
+</div>
+	
+	<div id="s4" class="tabcontent">
+		<h3>Seating & Positioning Assessment</h3>
+		<h4>Current Seating and Positioning of Student</h4>
+		<p>Check all that apply.</p>
+	<div class="bar">
+		<div id="barText4" class="barTxt"> 0%</div>
+		<div id="progbar4" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s4q1a1" name="q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s4q1a2" name="q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s4q2a1" name="q2a" value="true" class="A" />Yes
+	<input type="radio" id="s4q2a2" name="q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s4q3a1" name="q3a" value="true" class="A" />Yes
+	<input type="radio" id="s4q3a2" name="q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s4q4a1" name="q4a" value="true" class="A" />Yes
+	<input type="radio" id="s4q4a2" name="q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s4q5a1" name="q5a" value="true" class="A" />Yes
+	<input type="radio" id="s4q5a2" name="q5a" value="false" class="A" />No
+	
+	<p class="Qn">Q6: .............</p>
+	<input type="radio" id="s4q6a1" name="s4q6a" value="true" class="A enables" />Option 1
+	<input type="radio" id="s4q6a2" name="s4q6a" value="true" class="A enables" />Option 2
+	<input type="radio" id="s4q6a3" name="s4q6a" value="false" class="A enables" />Option 3
+	
+	<p class="Qn optional">Q7: .............</p>
+	<input type="checkbox" id="s4q7a1" name="s4q7a" value="true" class="A" disabled/>one
+	<input type="checkbox" id="s4q7a2" name="s4q7a" value="false" class="A" disabled/>two
+	<input type="checkbox" id="s4q7a3" name="s4q7a" value="false" class="A" disabled/>three
+	<input type="checkbox" id="s4q7a4" name="s4q7a" value="false" class="A" disabled/>four
+	<input type="checkbox" id="s4q7a5" name="s4q7a" value="false" class="A" disabled/>five
+		
+	</div>
+	
+	<div id="s5" class="tabcontent">
+		<h3>Sensory & Perceptual Assessment</h3>
+		<h4>Vision</h4>
+		<h5>A vision specialist should be consulted to complete this section.</h5>
+		<h5>Visual Abilities</h5>
+		<p>Check all that apply.</p>
+		
+	<div class="bar">
+		<div id="barText5" class="barTxt"> 0%</div>
+		<div id="progbar5" name="progbar" class="pbar"></div>
+	</div>
+
+	<p class="Qn">Q1: .............</p>
+	<input type="radio" id="s5q1a1" name="q1a" value="yes" class="A" />Yes
+	<input type="radio" id="s5q1a2" name="q1a" value="no" class="A" />No
+
+	<p class="Qn">Q2: .............</p>
+	<input type="radio" id="s5q2a1" name="q2a" value="true" class="A" />Yes
+	<input type="radio" id="s5q2a2" name="q2a" value="false" class="A" />No
+
+	<p class="Qn">Q3: .............</p>
+	<input type="radio" id="s5q3a1" name="q3a" value="true" class="A" />Yes
+	<input type="radio" id="s5q3a2" name="q3a" value="false" class="A" />No
+
+	<p class="Qn">Q4: .............</p>
+	<input type="radio" id="s5q4a1" name="q4a" value="true" class="A" />Yes
+	<input type="radio" id="s5q4a2" name="q4a" value="false" class="A" />No
+
+	<p class="Qn">Q5: .............</p>
+	<input type="radio" id="s5q5a1" name="q5a" value="true" class="A" />Yes
+	<input type="radio" id="s5q5a2" name="q5a" value="false" class="A" />No
+	
+	<p class="Qn">Q6: .............</p>
+	<input type="radio" id="s5q6a1" name="s5q6a" value="true" class="A enables" />Option 1
+	<input type="radio" id="s5q6a2" name="s5q6a" value="true" class="A enables" />Option 2
+	<input type="radio" id="s5q6a3" name="s5q6a" value="false" class="A enables" />Option 3
+	
+	<p class="Qn optional">Q7: .............</p>
+	<input type="checkbox" id="s5q7a1" name="s5q7a" value="true" class="A" disabled/>one
+	<input type="checkbox" id="s5q7a2" name="s5q7a" value="false" class="A" disabled/>two
+	<input type="checkbox" id="s5q7a3" name="s5q7a" value="false" class="A" disabled/>three
+	<input type="checkbox" id="s5q7a4" name="s5q7a" value="false" class="A" disabled/>four
+	<input type="checkbox" id="s5q7a5" name="s5q7a" value="false" class="A" disabled/>five
+	</div>
+	
+<div class="tabcontent questions" id="s6">
+		<h3>Comments</h3>
+		<p>Put text boxes with questions here.</p>
+		
+	<p class="Qn" class="s6">Q1: .............</p>
+	<textarea id="s6q1" class="comment" placeholder="44444"></textarea>
+	
+	<p class="Qn" class="s6">Q2: .............</p>
+	<textarea id="s6q2" class="comment" placeholder="Fill this in"></textarea>
+	
+	<p class="Qn" class="s6">Q2: .............</p>
+	<textarea id="s6q3" class="comment" placeholder="Fill this in"></textarea>
+		
+	<p class="Qn" class="s6">Q2: .............</p>
+	<textarea id="s6q4" class="comment" placeholder="Fill this in"></textarea>
+		
+	<p class="Qn" class="s6">Q2: .............</p>
+	<textarea id="s6q5" class="comment" placeholder="Fill this in"></textarea>
+</div>
+
+	<div class="center">
+		<a href="Page 3 - Results Page.html" target="_self">Submit</a> 
+	</div>
+<button onclick="saveText()">Click to display warning</button><br />
+
+<button id="bottomButton">Finish</button>
+
+
+<!--for the sections: The value of the button clicked to display the section will be its number (1, 2, 3, etc.).
+There will be an onclick event that passes the value. onclick="whateverFunction(this.value)";
+//////
+In the function, have a case statement like
+switch (valu):
+	case (1): display section 1, hide other sections;
+	case (2) ...
+Or could do ifs
+ if (val === 1): display section 1; else hide sectino 1
+  //similar for other sections//
+/////
+
+<input type="file" id="file" />
+<button onclick="uploadFile()">Click after uploading a file</button>	
+
+<br />
+<button onclick="getAnswersFromStorage()">Click after the upload finshed</button>
+
+<div id="popUp" style="z-index:5; margin: 20px; padding: 5px; visibility: collapse">Warning: <br />.........</div>
+
+
+<!--for downloading the save file. This is separate from the button the user clicks to save the file-->
+<a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
+
+</body>
+</html> 
+<!------------------------------------------------------------------ -------------------------------------------------->
+
+
