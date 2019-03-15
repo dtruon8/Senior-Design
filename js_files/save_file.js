@@ -6,7 +6,7 @@
   Then saves the string to a local file
 */
 function saveText(){
-	var time = 10043;
+	var time = totalSeconds;
 	var s = time + "\r\n";
 	$('.A:checked').each(function() {
 		//console.log(this.id);

@@ -1,0 +1,53 @@
+/* Changes the font */
+* {font-family: Arial}
+
+	h1 {
+		font-size: 40px;
+	}
+	h2 {
+		font-size: 30px;
+	}
+	h1, h2 {
+		text-align: center;
+	}
+	p {
+		margin-left: 20px;
+	}
+	
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin: auto;
+		font-size: 19px;
+		text-align: center;
+	}
+
+	/* Creates a link button for the AAC assessment */
+	a:link, a:visited {
+		background-color: lightblue;
+		color: black;
+		padding: 14px 15px;
+		text-decoration: none;
+		display: inline-block;
+	}
+
+	a:hover, a:active {
+		background-color: #6a5acd;
+		color: black;
+	}
+	
+	/* Positions the image to the bottom right of the page */
+	img {
+		display: block;
+		position: fixed;
+		right: 0px;
+		bottom: 0px;
+		max-width: 100%;
+		width: 200px;
+		height: 170px;
+	}
+	
+	i {
+		position: relative;
+		font-size: 20px;
+		text-align: center;
+	}

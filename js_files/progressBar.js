@@ -361,3 +361,10 @@ function getAnswersFromStorage(){
 	});
 	upload = false;
 }
+
+//When the user completes a section, the hidden green checkmark becomes revealed beside the section tab title.
+function sectionComplete() {
+	if (done == true){
+		document.getElementsByClassName('fas fa-check').style.visibility='none' ;
+	}		
+}

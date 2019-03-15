@@ -1,0 +1,68 @@
+	 /* Changes the font of the page */
+	body {
+		font: Arial, "arial";  
+		text-align: center;
+	}
+	
+	.row {
+		margin: 100px;
+	}
+	
+	div input[type="file"] {
+		margin-right: 500px;
+	}
+	
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin: auto;
+		width: 100%;
+		font-size: 19px;
+	}
+	
+	/* Creates a link button for the AAC assessment */
+	a:link, a:visited {
+		background-color: lightblue;
+		color: black;
+		padding: 14px 15px;
+		text-decoration: none;
+		display: inline-block;
+	}
+	a:hover, a:active {
+		background-color: #6a5acd;
+		color: black;
+		}
+		
+	/* Positions the image to the bottom right of the page */
+	img {
+		display: block;
+		position: fixed;
+		right: 0px;
+		bottom: 0px;
+		max-width:100%;
+		width: 200px;
+		height: 170px;
+	}
+	
+	.upload-btn-wrapper {
+	  position: relative;
+	  overflow: hidden;
+	  display: inline-block;
+	}
+
+	.upload-btn {
+	  border: 2px solid gray;
+	  color: gray;
+	  background-color: white;
+	  padding: 8px 20px;
+	  border-radius: 8px;
+	  font-size: 20px;
+	  font-weight: bold;
+	}
+
+	 input[name="myfile"] {
+	  font-size: 100px;
+	  position: absolute;
+	  left: 0;
+	  top: 0;
+	  opacity: 0;
+	}
