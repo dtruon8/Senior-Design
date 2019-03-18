@@ -17,39 +17,21 @@ initial-scale=1">
 </head>
 <body>
 	<h1>AAC Device Diagnostic Tool</h1>
-	<h2>Reset Your Password</h2>
-	<!--<form action="Home_page_test.html" method="post" onsubmit="return checkInfo()">
-		<input class="login" placeholder="Password" type="password" id="pwtxt" oninput=
-		"pwCheck(this.value)" required /><br />
-		<input type="checkbox" value="pwtxt" onclick="togglePW(this.value)" />Show Password<br />
-		
-		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required /><br />
-		<input type="checkbox" value="confirmPw" onclick="togglePW(this.value)" />Show Password<br /><br />
-		
-		<input class="login" value="Submit" type="submit" />
-		<p id="req">Requirements Not Met</p>
-	</form> -->
-	
-	
+	<h2>Reset Your Password</h2>	
+			
 <div id="login-wrapper">
 	<form>
 		<i class="fas fa-eye-slash"><input class="login" placeholder="Password" type="password" id="pwtxt" 
-				pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{10,}$/" required /></i>
+				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required /></i>
 		<input type="checkbox" value="pwtxt" onclick="togglePW(this.value)" />Show<br />
 		<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
 			<div class="bar">
 				<div class="pbar" id="pwmeter"></div>
 			</div>
-		</div>
-		<br /><br />	
-		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required />
+		</div>	
+		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required oninput="confirmPass()" />
 		<input type="checkbox" value="confirmPw" onclick="togglePW(this.value)" />Show<br />
-		<!--<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
-			<div class="bar">
-				<div class="pbar" id="pwmeter"></div>
-			</div>
-		</div>-->
-		<input action="Page 9 - registration msg.html" class="login" value="Submit" type="submit" onclick="checkInfo()"/>
+		<input action="Page 9 - registration msg.html" id="pw-submit" class="login" value="Submit" type="submit" onclick="checkPasswordMatch()"/>
 		<p id="req">Requirements Not Met</p>
 	</form>
 
