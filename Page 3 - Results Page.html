@@ -8,29 +8,27 @@ initial-scale=1.0">
 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
 crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="css_files/results_page.css">
-<script src="js_files/save_file.js"></script>
+<script src="js_files/save_results.js"></script>
+<script src="js_files/polyfills.js"></script>
+<script src="js_files/jquery-3.3.1.js"></script>
 </head>
 <body>
-	<a href="Page 1 - Home Page.html" target="_self">
+	<a href="Page 1 - Home Page (old).html" target="_self">
 		<i class="fas fa-home"><br>Home</i>
 	</a>
 	<h1>AAC Device Diagnostic Tool</h1>
-	<h2>AAC Assessment Results</h2>
-	<p>Based on the answers of the AAC assessment,<br>
-	here are your results:</p>
-	<p>Tobii Dynavox i12: </p>
-	<p>Tobii Dynavox i15: </p>
-	<p>PRC Accent 1000: </p>
-	<p>PRC Accent 1400: </p>
+	<h2>Save AAC Assessment Results</h2>
 
-	<div class="center">
-		<button class="save_button" onclick="saveText()">Save Results</button>
+	<div >	
+	<button class="save-button" onclick="saveText()">
+			<i class="fas fa-save"><br>Save Results</i>
+	</button>
 	</div>
 	
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 		alt="Logo">
 		
-		<a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
+	<a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
 
 </body>
 </html>

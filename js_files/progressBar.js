@@ -8,7 +8,7 @@ var answeredQs = 0;		//used to determine if the assessment is complete
 var answers = [];		//unused
 var questionAnswered = [];	//keeps track of whether each question is answered.
 var numberAnswered = [];	//the number of questions in a section that have been answered. used in deternining progbar len
-var maxAns = 5;			//the maximum number of answers for any question. may automate getting this later
+var maxAns = 15;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
 var deviceScore = [0, 0, 0, 0];	//unused, will keep track of the score for each device
@@ -215,6 +215,10 @@ function answerSelected(id){
 			if (len > 100) len = 100;	//caps the length at 100
 			changeBar(sidx, len);
 		}
+		if (numQs[sidx] == numberAnswered[sidx]){
+			document.getElementsByClassName("fa-check")[sidx].style.visibility="visible";
+		}
+		
 	}
 	else if (questionAnswered[sidx][qidx] && elem.type == "checkbox"){
 		var othersChecked = false;
@@ -241,6 +245,11 @@ function answerSelected(id){
 			var len = numberAnswered[sidx] / numQs[sidx] * 100;
 			console.log("len: " + len);
 			changeBar(sidx, len);
+			 
+			var checkmark = document.getElementsByClassName("fa-check")[sidx];
+			if (checkmark.style.visibility == "visible"){
+				checkmark.style.visibility = "hidden";
+			}
 		}
 	}
 	//console.log("Number of questions answered: " + answeredQs);
@@ -362,9 +371,18 @@ function getAnswersFromStorage(){
 	upload = false;
 }
 
-//When the user completes a section, the hidden green checkmark becomes revealed beside the section tab title.
-function sectionComplete() {
-	if (done == true){
-		document.getElementsByClassName('fas fa-check').style.visibility='none' ;
-	}		
-}
+window.addEventListener('beforeunload', function (e) {
+  // Chrome requires returnValue to be set
+  //if (saved == true) { 
+	e.returnValue = '';
+  //}
+ // else {
+	// Cancel the event
+	e.preventDefault();
+ // }
+  //from https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
+  //does not work on safari on iOS
+});
+
+
+

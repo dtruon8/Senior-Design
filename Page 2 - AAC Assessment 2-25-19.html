@@ -20,22 +20,22 @@
 </noscript>
 </head>
 <body onload="initialize()">
-	<div style="text-align:center;">
-		<div id="timer"></div><br>
-		<button class="stop_timer" onclick="stopTimer()">
+	<div >
+		<div id="timer"></div><br><br>
+		<button class="stop_timer timer-buttons" onclick="stopTimer()">
 			<i class="fas fa-pause"><br>Pause</i>
 		</button>
-		<button class="resume_timer" onclick="resumeTimer()">
+		<button class="resume_timer timer-buttons" onclick="resumeTimer()">
 			<i class="fas fa-play"><br>Resume</i>
 		</button>		
-		<button class="save_button" onclick="saveText()">
+		<button class="save_button timer-buttons" onclick="saveText()">
 			<i class="fas fa-save"><br>Save</i>
 		</button>
-	</div><br>
+	</div><br><br>
 
 <h1>AAC Device Diagnostic Tool</h1>
 <h2>AAC Assessment</h2>
-
+<div style="margin-left:100px;">
 <div class="tab questions" style="display: block;">
 	<button class="tablinks" id="defaultOpen" onclick="openSection(event, 's1')" >
 		<i class="fas fa-check"></i>
@@ -184,7 +184,6 @@
 	<input type="checkbox" id="s3q2a10" name="s3q2a" value="oth-comp-soft" class="A" />Other computer software<br>
 </div>
 
-	
 <div id="s4" class="tabcontent">
 	<div class="sticky">
 	<h2>Seating & Positioning Assessment</h2>
@@ -239,7 +238,7 @@
 	<h5>Visual Abilities</h5>
 	<p>Check all that apply.</p>
 	
-	<p class="Qn">Q1: .............</p>
+	<p class="Qn"></p>
 	<input type="radio" id="s5q1a1" name="q1a" value="yes" class="A" />Yes
 	<input type="radio" id="s5q1a2" name="q1a" value="no" class="A" />No
 
@@ -292,7 +291,7 @@
 	<p class="Qn" class="s6">5. Any other comments?</p>
 	<textarea id="s6q5" class="comment" placeholder="Enter comments here"></textarea>
 </div>
-
+</div>
 <div class="submit_button">
 	<a href="Page 3 - Results Page.html" target="_self">Submit</a> 
 </div>

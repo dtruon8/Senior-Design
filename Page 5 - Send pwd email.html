@@ -4,41 +4,14 @@
 <!-- Controls the width and scaling of the browser's viewport -->
 <meta name="viewport" content="width=device-width, 
 initial-scale=1">
-<style> 
-/* Changes the font of the page */
-* {
-	font-family: Arial; 
-	text-align: center;
-	}
-	
-	/* Changes text size of title page */
-	h1 {
-		font-size: 40px;
-	}
-	
-	/* Changes size and position of paragraph text */
-	p {
-		margin-top: 100px;
-		font-size: 20px;
-	}	
-
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 120px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="css_files/send_pw_email.css">
 <body>
 	<h1>AAC Device Diagnostic Tool</h1>
 	<p>Enter your email address and we will send you a link to reset
 	you password.</p>
 	<form action="Page 6 - pwd reset msg.html" method="post">
-		<input type="email" id="email" name="email" placeholder="Email address" required><br><br>
-		<input type="submit" value="Send password verification email">
+		<input class="email" type="email" id="email" name="email" placeholder="Email address" required><br><br>
+		<input class="email-submit" type="submit" value="Send password verification email">
 	</form>
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 	alt="Logo">
