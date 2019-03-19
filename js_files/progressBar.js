@@ -214,28 +214,34 @@ function answerSelected(id){
 			var len = numberAnswered[sidx] / numQs[sidx] * 100;
 			if (len > 100) len = 100;	//caps the length at 100
 			changeBar(sidx, len);
+			if (numQs[sidx] == numberAnswered[sidx]){
+				document.getElementsByClassName("fa-check")[sidx].style.visibility = "visible";
+			}
+
 		}
-		if (numQs[sidx] == numberAnswered[sidx]){
+		/*if (numQs[sidx] == numberAnswered[sidx]){
 			document.getElementsByClassName("fa-check")[sidx].style.visibility="visible";
-		}
+		}*/
 		
 	}
 	else if (questionAnswered[sidx][qidx] && elem.type == "checkbox"){
-		var othersChecked = false;
-		//iterate through all answers to the question.
-		//if any are checked, the progress bar will not be changed.
-		//if no other answer is checked, then decrease the progbar
-		for (var i = 1; i <= maxAns; i++){
-			var otherAnswer = "s" + (sidx+1) + "q" + (qidx+1) + "a" + i;
-			//console.log("Answer id in for loop: " + otherAnswer);
-			var elem = document.getElementById(otherAnswer);
-			if (elem && elem.checked){
-				othersChecked = true;
-				break;
-			}
-		}
-		//console.log("Others checked: " + othersChecked);
-		if (othersChecked == false){
+		var othersChecked = [];
+		var othersNames = [];
+		var namepos = id.indexOf("a");
+		console.log(namepos);
+		var name = id.substring(0, namepos + 1);
+		console.log(elem.name);
+		//iterate through the other elements with the same name. put their boolean value into othersChecked
+		//afterwards, set the value of othersChecked to either true or false
+		$("input[name=" + name + "]").not("#" + id).each( function(){
+			console.log(this.id);	
+			othersChecked.push((this.checked) ? true : false);
+		});
+		console.log(othersChecked);
+		othersChecked = othersChecked.includes(true) ? true : false;
+		console.log(othersChecked);
+		
+		if (!othersChecked){
 			answeredQs--;
 			numberAnswered[sidx]--;
 			if (done)
@@ -245,7 +251,7 @@ function answerSelected(id){
 			var len = numberAnswered[sidx] / numQs[sidx] * 100;
 			console.log("len: " + len);
 			changeBar(sidx, len);
-			 
+
 			var checkmark = document.getElementsByClassName("fa-check")[sidx];
 			if (checkmark.style.visibility == "visible"){
 				checkmark.style.visibility = "hidden";
@@ -290,7 +296,7 @@ function displayWarning(){
 		popUp.style.visibility = "visible";
 	}
 }
-var enableAns = ["s3q6a1", "s1q4a2"];
+var enableAns = ["s5q6a1"]; //put ids of answers that enable other questions here
 $(function(){
     $("#bottomButton").click(press);
 	//window.onbeforeunload = closing;
@@ -299,6 +305,7 @@ $(function(){
 		var id = event.target.id;
 		console.log("ID: " + id);
 		answerSelected(id);
+		var sidx = id[1]-1
 	});
 	//When a question that has an answer that enables another answer is selected:
 	//if the enable answer is selected: get the section and question number of the next question
@@ -322,7 +329,12 @@ $(function(){
 			$('input[name=' + enabledQ +']').prop('disabled', false);
 			sessionStorage.setItem(item, numQs[s]); 
 			console.log("in here");
-			numQs[s] += 1; 
+			numQs[s] += 1;
+			if (numQs[s] == numberAnswered[s]){
+				document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+			} else {
+				document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+			}
 		} else {
 			$('input[name=' + enabledQ +']').prop('disabled', true);
 			console.log("does it make it here");
@@ -336,6 +348,11 @@ $(function(){
 				numQs[s] -= 1;
 				sessionStorage.removeItem(item);
 			}
+			if (numQs[s] == numberAnswered[s]){
+				document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+			} else {
+				document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+			}
 		}
 		if (!upload){
 			var len = numberAnswered[s] / numQs[s] * 100;
@@ -348,7 +365,8 @@ function getAnswersFromStorage(){
 	//upload = true;
 	upload = sessionStorage.getItem("uploadSuccessful");
 	console.log("Value of upload: " + upload);
-	var x = sessionStorage.getItem('selectedAnswers');
+	totalSeconds = sessionStorage.getItem("timer");
+	var x = sessionStorage.getItem("selectedAnswers");
 	x = x.split(',');
 	console.log(x);
 	for (var i = 0; i < x.length; i++){
@@ -362,7 +380,7 @@ function getAnswersFromStorage(){
 		if (len > 100) len = 100;	//caps the length at 100
 		changeBar(i, len);
 	}
-	var comments = ["s3q8", "s6q1", "s6q2"];
+	var comments = ["s3q8", "s6q1", "s6q2"]; //put the ids of the comment questions in this
 	comments.forEach(function(id){
 		//console.log(id);
 		var x = sessionStorage.getItem(id)
@@ -382,6 +400,7 @@ window.addEventListener('beforeunload', function (e) {
  // }
   //from https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
   //does not work on safari on iOS
+  	sessionStorage.clear();
 });
 
 

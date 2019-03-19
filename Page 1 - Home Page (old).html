@@ -6,17 +6,19 @@
 <meta name="viewport" content="width=device-width, 
 initial-scale=1">
   <link rel="stylesheet" type="text/css" href="css_files/home_page.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css_files/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
   <script src="js_files/upload_file.js"></script>
   <script src="js_files/jquery-3.3.1.js"></script>
 </head>
 <body>
 	<h1>AAC Device Diagnostic Tool</h1>
-	<p>If you would like to access a previous AAC assessment,<br> please upload the appropriate file below.<br><br>Otherwise,
+	<p>If you would like to access a previous AAC assessment,<br> please upload a text file saved from this app.<br><br>Otherwise,
 	click the button below to start a new AAC assessment.</p>
 
 	<div class="center">
-		<input id="file" type="file" name="text" accept="txt/*" onclick="uploadFile()"><br><br>
+		<input id="file" type="file" name="text" accept="text/*" onclick="checkFile()"><br><br>
+		<div id="fileError">File not supported.<br><br></div>
 		<a href="Page 2 - AAC Assessment 2-25-19.html" id="button" target="_self"
 		onclick="uploadFile()" >Start AAC assessment</a>	
 	</div>
