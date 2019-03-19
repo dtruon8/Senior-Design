@@ -1,6 +1,6 @@
 	 /* Changes the font of the page */
 	body {
-		font: Arial, "arial";  
+		font-family: 'Noto Sans', Arial, sans-serif;  
 		text-align: center;
 	}
 	
@@ -9,7 +9,8 @@
 	}
 	
 	div input[type="file"] {
-		margin-right: 500px;
+		/*margin-right: 500px;*/ /*Why*/
+		width: 180px;
 	}
 	
 	/* Aligns elements to the center of the page */
@@ -43,26 +44,9 @@
 		height: 170px;
 	}
 	
-	.upload-btn-wrapper {
-	  position: relative;
-	  overflow: hidden;
-	  display: inline-block;
-	}
-
-	.upload-btn {
-	  border: 2px solid gray;
-	  color: gray;
-	  background-color: white;
-	  padding: 8px 20px;
-	  border-radius: 8px;
-	  font-size: 20px;
-	  font-weight: bold;
-	}
-
-	 input[name="myfile"] {
-	  font-size: 100px;
-	  position: absolute;
-	  left: 0;
-	  top: 0;
-	  opacity: 0;
+	
+	#fileError {
+		color: red;
+		font-size: 20px;
+		display: none;
 	}

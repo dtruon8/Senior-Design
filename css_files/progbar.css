@@ -2,7 +2,7 @@
 .bar {
 	width: 350px;
 	height: 20px;
-	line-height: 20px;
+	line-height: 17px;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -10,6 +10,7 @@
 	border: 2px solid black;
 	display: inline-block;
 	position: relative;
+	overflow: hidden;
 }
 
 .pbar {
