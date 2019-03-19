@@ -5,33 +5,50 @@
 <meta name="viewport" content="width=device-width, 
 initial-scale=1">
 <head>
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="css_files/pw_reset.css">
-<link rel="stylesheet" type="text/css" href="css_files/progbar.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://www.solodev.com/assets/password/strength.js"></script>
-<script src="js_files/jquery-3.3.1.js"></script>
-<script src="js_files/pw_strength.js"></script>
-<script src="js_files/zxcvbn.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>	
+	<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css_files/all.css">
+	<link rel="stylesheet" type="text/css" href="css_files/login.css">
+	<link rel="stylesheet" type="text/css" href="css_files/progbar.css">
+	<script src="js_files/jquery-3.3.1.js"></script>
+	<script src="js_files/pw_strength.js"></script>
+	<script src="js_files/zxcvbn.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>	
 </head>
 <body>
 	<h1>AAC Device Diagnostic Tool</h1>
-	<h2>Reset Your Password</h2>	
-			
+	<h2>Reset Your Password</h2>
+	<!--<form action="Home_page_test.html" method="post" onsubmit="return checkInfo()">
+		<input class="login" placeholder="Password" type="password" id="pwtxt" oninput=
+		"pwCheck(this.value)" required /><br />
+		<input type="checkbox" value="pwtxt" onclick="togglePW(this.value)" />Show Password<br />
+		
+		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required /><br />
+		<input type="checkbox" value="confirmPw" onclick="togglePW(this.value)" />Show Password<br /><br />
+		
+		<input class="login" value="Submit" type="submit" />
+		<p id="req">Requirements Not Met</p>
+	</form> -->
+	
+	
 <div id="login-wrapper">
 	<form>
 		<i class="fas fa-eye-slash"><input class="login" placeholder="Password" type="password" id="pwtxt" 
-				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required /></i>
+				pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{10,}$/" required /></i>
 		<input type="checkbox" value="pwtxt" onclick="togglePW(this.value)" />Show<br />
 		<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
 			<div class="bar">
 				<div class="pbar" id="pwmeter"></div>
 			</div>
-		</div>	
-		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required oninput="confirmPass()" />
+		</div>
+		<br /><br />	
+		<input class="login" placeholder="Confirm Password" type="password" id="confirmPw" required />
 		<input type="checkbox" value="confirmPw" onclick="togglePW(this.value)" />Show<br />
-		<input action="Page 9 - registration msg.html" id="pw-submit" class="login" value="Submit" type="submit" onclick="checkPasswordMatch()"/>
+		<!--<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
+			<div class="bar">
+				<div class="pbar" id="pwmeter"></div>
+			</div>
+		</div>-->
+		<input action="Page 9 - registration msg.html" class="login" value="Submit" type="submit" onclick="checkInfo()"/>
 		<p id="req">Requirements Not Met</p>
 	</form>
 

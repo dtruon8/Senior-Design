@@ -7,10 +7,10 @@
 "sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin=
 "anonymous">
 <link rel="stylesheet" type="text/css" href="css_files/progbar.css">
+<link rel="stylesheet" type="text/css" href="css_files/all.css">
 <link rel="stylesheet" type="text/css" href="css_files/AAC_asmt_page.css">
 <script src="js_files/jquery-3.3.1.js"></script>
 <script src="js_files/progressBar.js"></script>
-<script src="js_files/polyfills.js"></script>
 <script src="js_files/timer.js"></script>
 <script src="js_files/open_tab_content.js"></script>
 <script src="js_files/save_file.js"></script>
@@ -20,22 +20,22 @@
 </noscript>
 </head>
 <body onload="initialize()">
-	<div >
-		<div id="timer"></div><br><br>
-		<button class="stop_timer timer-buttons" onclick="stopTimer()">
+	<div style="text-align:center;">
+		<div id="timer"></div><br>
+		<button class="stop_timer" onclick="stopTimer()">
 			<i class="fas fa-pause"><br>Pause</i>
 		</button>
-		<button class="resume_timer timer-buttons" onclick="resumeTimer()">
+		<button class="resume_timer" onclick="resumeTimer()">
 			<i class="fas fa-play"><br>Resume</i>
 		</button>		
-		<button class="save_button timer-buttons" onclick="saveText()">
+		<button class="save_button" onclick="saveText()">
 			<i class="fas fa-save"><br>Save</i>
 		</button>
-	</div><br><br>
+	</div><br>
 
 <h1>AAC Device Diagnostic Tool</h1>
 <h2>AAC Assessment</h2>
-<div style="margin-left:100px;">
+
 <div class="tab questions" style="display: block;">
 	<button class="tablinks" id="defaultOpen" onclick="openSection(event, 's1')" >
 		<i class="fas fa-check"></i>
@@ -76,31 +76,77 @@
 	</div>
 	</div>
 	<h4>Fine Motor Related to Computer (or Device) Access</h4>
-	<p>Observe the student using paper and pencil, typewriter, computer, switch, etc. 
-	Look at the movements as well as activities and situations. Does the student
-	have voluntary, isolated, controlled movements, using the following? (Check 
+	<p class="Qn">1. Observe the student using paper and pencil, typewriter, computer, switch, etc.<br /> 
+	Look at the movements as well as activities and situations. <br />Does the student
+	have voluntary, isolated, controlled movements, using the following? <br />(Check 
 	all that apply.)</p>
+	<input type="checkbox" id="s1q1a1" name="s1q1a" value="lhand" class="A" />Left hand
+	<input type="checkbox" id="s1q1a2" name="s1q1a" value="larm" class="A" />Left arm
+	<input type="checkbox" id="s1q1a3" name="s1q1a" value="lleg" class="A" />Left leg
+	<input type="checkbox" id="s1q1a4" name="s1q1a" value="lfoot" class="A" />Left foot<br />
+	<input type="checkbox" id="s1q1a5" name="s1q1a" value="fingers" class="A" />Finger(s)
+	<input type="checkbox" id="s1q1a6" name="s1q1a" value="rhand" class="A" />Right hand
+	<input type="checkbox" id="s1q1a7" name="s1q1a" value="rarm" class="A" />Right arm
+	<input type="checkbox" id="s1q1a8" name="s1q1a" value="rleg" class="A" />Right leg
+	<input type="checkbox" id="s1q1a9" name="s1q1a" value="lfoot" class="A" />Right foot<br />
+	<input type="checkbox" id="s1q1a10" name="s1q1a" value="eyebrows" class="A" />Eyebrows
+	<input type="checkbox" id="s1q1a11" name="s1q1a" value="eyes" class="A" />Eye(s)
+	<input type="checkbox" id="s1q1a12" name="s1q1a" value="head" class="A" />Head
+	<input type="checkbox" id="s1q1a13" name="s1q1a" value="mouth" class="A" />Mouth
+	<input type="checkbox" id="s1q1a14" name="s1q1a" value="tongue" class="A" />Tongue
+	<input type="checkbox" id="s1q1a15" name="s1q1a" value="other" class="A" />Other
+	
+	<p class="Qn">2a. Does the patient have limitations to range of motion?</p>
+	<input type="radio" id="s1q2a1" name="s1q2a" value="limitations" class="A" />Yes
+	<input type="radio" id="s1q2a2" name="s1q2a" value="no_limitations" class="A" />No
+	
+	<p class="Qn">2b. Describe the specific range in which the patient has the most motor control.</p>
+	<textarea id="s1q2c" class="comment" placeholder="Enter comments here"></textarea>
 
-	<p class="Qn">Q1: .............</p>
-	<input type="radio" id="s1q1a1" name="s1q1a" value="yes" class="A" />Yes
-	<input type="radio" id="s1q1a2" name="s1q1a" value="no" class="A" />No
-
-	<p class="Qn">Q2: .............</p>
-	<input type="radio" id="s1q2a1" name="s1q2a" value="true" class="A" />Yes
-	<input type="radio" id="s1q2a2" name="s1q2a" value="false" class="A" />No
-
-	<p class="Qn">Q3: .............</p>
-	<input type="radio" id="s1q3a1" name="s1q3a" value="true" class="A" />Yes
-	<input type="radio" id="s1q3a2" name="s1q3a" value="false" class="A" />No
-
-	<p class="Qn">Q4: .............</p>
-	<input type="radio" id="s1q4a1" name="s1q4a" value="true" class="A enables" />Yes
-	<input type="radio" id="s1q4a2" name="s1q4a" value="false" class="A enables" />No
-
-	<p class="Qn optional">Q5: .............</p>
-	<input type="radio" id="s1q5a1" name="s1q5a" value="true" class="A" disabled/>Option 1
-	<input type="radio" id="s1q5a2" name="s1q5a" value="true" class="A" disabled/>Option 2
-	<input type="radio" id="s1q5a3" name="s1q5a" value="false" class="A" disabled/>Option 3
+	<p class="Qn">3a. Does the patient have abnormal reflexes or abnormal muscle tone?</p>
+	<input type="radio" id="s1q3a1" name="s1q3a" value="" class="A" />Yes
+	<input type="radio" id="s1q3a2" name="s1q3a" value="" class="A" />No
+	
+	<p class="Qn">3b. Describe briefly any abnormal reflex patterns or patterns of low or high muscle tone that may interfere with the patient's voluntary motor control.</p>
+	<textarea id="s1q3c" class="comment" placeholder="Enter comments here"></textarea>
+	
+	<p class="Qn">4a. Does the patient have difficulty with accuracy?</p>
+	<input type="radio" id="s1q4a1" name="s1q4a" value="" class="A" />Yes
+	<input type="radio" id="s1q4a2" name="s1q4a" value="" class="A" />No
+	
+	<p class="Qn">4b. Describe how accurate, reliable and consistent the patient is performing a particular fine motor task.</p>
+	<textarea id="s1q4c" class="comment" placeholder="Enter comments here"></textarea>	
+	
+	<p class="Qn">5a. Does the patient fatigue easily?</p>
+	<input type="radio" id="s1q5a1" name="s1q5a" value="" class="A" />Yes
+	<input type="radio" id="s1q5a2" name="s1q5a" value="" class="A" />No
+	
+	<p class="Qn">5b. Describe how easily the student becomes fatigued.</p>
+	<textarea id="s1q5c" class="comment" placeholder="Enter comments here"></textarea>
+	
+	<h4>Direct Access</h4>
+	
+	<p class="Qn">6. Which direct selection methods have been successful? <br /> (Check all that apply)</p>
+	<input type="checkbox" id="s1q6a1" name="s1q6a" value="" class="A" />Keyguard
+	<input type="checkbox" id="s1q6a2" name="s1q6a" value="" class="A" />Pointers, hand grips, splints, etc.
+	<input type="checkbox" id="s1q6a3" name="s1q6a" value="" class="A" />Head pointer/head stick <br />
+	<input type="checkbox" id="s1q6a4" name="s1q6a" value="" class="A" />Light beam/laser
+	<input type="checkbox" id="s1q6a5" name="s1q6a" value="" class="A" />Eye gaze<br />
+	<input type="checkbox" id="s1q6a6" name="s1q6a" value="" class="A" />Direct selection/finger
+	<input type="checkbox" id="s1q6a7" name="s1q6a" value="" class="A" />None of the above
+	
+	<p class="Qn">7a. What is the size of smallest square the patient can accurately access?</p>
+	<input type="radio" id="s1q7a1" name="s1q7a" value="" class="A" />1"
+	<input type="radio" id="s1q7a2" name="s1q7a" value="" class="A" />2"
+	<input type="radio" id="s1q7a3" name="s1q7a" value="" class="A" />3"
+	<input type="radio" id="s1q7a4" name="s1q7a" value="" class="A" />4"
+	
+	<p class="Qn">7b. What is the optimal size grid?</p>
+	Size of square: <input type="text" id="s1q7b1" class="comment text-q" /><br />
+	Number of squares across: <input type="text" id="s1q7b2" class="comment text-q" /><br />
+	Number of squares down: <input type="text" id="s1q7b3" class="comment text-q" />
+	
+	
 </div>
 	
 <div class="tabcontent questions" id="s2">
@@ -184,6 +230,7 @@
 	<input type="checkbox" id="s3q2a10" name="s3q2a" value="oth-comp-soft" class="A" />Other computer software<br>
 </div>
 
+	
 <div id="s4" class="tabcontent">
 	<div class="sticky">
 	<h2>Seating & Positioning Assessment</h2>
@@ -238,7 +285,7 @@
 	<h5>Visual Abilities</h5>
 	<p>Check all that apply.</p>
 	
-	<p class="Qn"></p>
+	<p class="Qn">Q1: .............</p>
 	<input type="radio" id="s5q1a1" name="q1a" value="yes" class="A" />Yes
 	<input type="radio" id="s5q1a2" name="q1a" value="no" class="A" />No
 
@@ -291,7 +338,7 @@
 	<p class="Qn" class="s6">5. Any other comments?</p>
 	<textarea id="s6q5" class="comment" placeholder="Enter comments here"></textarea>
 </div>
-</div>
+
 <div class="submit_button">
 	<a href="Page 3 - Results Page.html" target="_self">Submit</a> 
 </div>
