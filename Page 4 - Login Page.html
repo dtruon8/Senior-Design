@@ -1,57 +1,26 @@
 <!DOCTYPE html>
 <html>
+<head>
 <meta charset="utf-8">
 <!-- Controls the width and scaling of the browser's viewport -->
 <meta name="viewport" content="width=device-width, 
 initial-scale=1">
-<style> 
-/* Changes the font of the page */
-* {
-	font-family: Arial; 
-	text-align: center;
-	}
-	/* Changes text size of title page */
-	h1 {
-		font-size: 40px;
-	}
-	/* Changes size and position of paragraph text */
-	p {
-		margin-top: 100px;
-		font-size: 20px;
-	}	
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 120px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-	}
-</style>
+<link rel="stylesheet" type="text/css" href="css_files/login_page.css">
+  <link rel="stylesheet" type="text/css" href="css_files/all.css">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+<script src="js_files/login.js"></script>
+</head>
 <body>	
 	<h1>AAC Device Diagnostic Tool</h1>
-	<form action="Home_page_test.html" method="post">
-		<input type="email" id="email" name="email" placeholder="Email address" required><br>
-		<input type="password" id="myInput" name="password" placeholder="Password" required><br>
+	<form id="form1" action="Page 1 - Home Page (old).html" method="post">
+		<input class="login" type="email" id="email" name="email" placeholder="Email address" required><br>
+		<input class="login" type="password" id="myInput" name="password" placeholder="Password" required><br>
 		<input type="checkbox" onclick="myFunction()">Show Password<br>
-		<input type="submit" value="Sign In">
+		<input class="login" type="submit" value="Sign In">
 	</form>
-	<div class=" ">
-	<a href="Page 5 - Send pwd email.html" target="_blank">Forgot password?</a><br>
-	<a href="Page 8 - registration.html" target="_blank">Create an account</a>
-	</div>
+	<a href="Page 5 - Send pwd email.html" target="_blank">Forgot password?</a>
+	<a href="Page 8 - registration.html" target="_blank">Register</a>
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 	alt="Logo">
-<script>
-function myFunction() {
-  var x = document.getElementById("myInput");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
-</script>
 </body>
 </html>

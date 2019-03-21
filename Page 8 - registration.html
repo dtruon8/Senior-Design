@@ -1,108 +1,62 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
-<meta charset="utf-8">
-<!-- Controls the width and scaling of the browser's viewport -->
-<meta name="viewport" content="width=device-width, 
-initial-scale=1">
-<script>
-function showNewPW() {
-  var x = document.getElementById("myInputNew");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
-
-function showConfirmPW() {
-  var y = document.getElementById("myInputConfirm");
-  if (y.type === "password") {
-    y.type = "text";
-  } else {
-    y.type = "password";
-  }
-}
-</script>
-<style> 
-/* Changes the font of the page */
-* {
-	font-family: Arial; 
-	text-align: center;
-	}
-	
-	/* Changes text size of title page */
-	h1 {
-		font-size: 40px;
-	}
-	
-	/* Changes size and position of paragraph text */
-	p {
-		margin-top: 100px;
-		font-size: 20px;
-	}	
-
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 120px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-	}
-	
-	.pwReq {
-		color: red;
-	}
-	.login {
-		border-radius: 10px;
-		-moz-border-radius: 10px; 
-		-webkit-border-radius: 10px;
-		border: 2px solid black;
-		padding: 10px;
-		height: 15px;
-		width: 125px;
-		margin: 5px;
-	}
-	.login:focus, .login:hover {
-		outline: none;
-		border: 2px solid blue;
-	}
-	input[type=submit] {
-		margin: 0 auto;
-		height: 30px;
-		line-height: 5px;	/* height - padding */
-		font-weight: bold;
-		width: 100px;
-		background-color: white;
-	}
-</style>
+<head>
+	<meta charset="utf-8">
+	<!-- Controls the width and scaling of the browser's viewport -->
+	<meta name="viewport" content="width=device-width, 
+	initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
+	crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css_files/all.css">
+	<link rel="stylesheet" type="text/css" href="css_files/registration.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://www.solodev.com/assets/password/strength.js"></script>
+	<script src="js_files/jquery-3.3.1.js"></script>
+	<script src="js_files/pw_strength.js"></script>
+	<script src="js_files/zxcvbn.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>	
+</head>
 <body>
 	<h1>AAC Device Diagnostic Tool</h1>
-	
 	<h2>Create Your New Account</h2>
-	
+<div id="login-wrapper">
 	<form action="Page 9 - registration msg.html" method="post">
-		<input type="fname" name="first name" placeholder="First Name" required><br>
-		<input type="lname" name="last name" placeholder="Last Name" required><br>
-		<input type="email" id="email" name="email" placeholder="Email address" required><br>
-		<input class="login myInputNew" placeholder="Password" type="password" id="pwtxt" oninput="pwCheck(this.value)"/><br />
-		<input type="checkbox" onclick="showNewPW()">Show Password<br>
-		<input class="login myInputConfirm" placeholder="Confirm Password" type="password" id="confirmPw" /><br />
-		<input type="checkbox" onclick="showConfirmPW()">Show Password<br>
-		<input class="login" value="Submit" type="submit" onclick="checkInfo()" />
-		<p id="req">Requirements Not Met</p>
-	</form> <!-- Fix password reveal feature -->
-	
-<div class="pwMsg">
-	Password must contain:<br>
-	<span class="pwReq" id="pwLen">at least 10 characters</span><br>
-	<span class="pwReq" id="pwLow">a lowercase letter</span><br>
-	<span class="pwReq" id="pwUp">a uppercase letter</span><br> 
-	<span class="pwReq" id="pwNum">a number</span><br>
-	<span class="pwReq" id="pwSpe">a special character</span>
+		<input class="login" type="fname" name="first name" placeholder="First Name" required><br>
+		<input class="login" type="lname" name="last name" placeholder="Last Name" required><br>
+		<input class="login" type="email" id="email" name="email" placeholder="Email address" required><br>
+		
+		<input class="login" placeholder="Password" type="password" id="pwtxt" 
+				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
+			<button class="pwToggle" type="button" value="pwtxt">
+				<i class="far fa-eye-slash changeme"></i>
+			</button>
+		</input><br><br>
+		<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
+			<div class="bar">
+				<div class="pbar" id="pwmeter"></div>
+			</div>
+		</div><br>
+		<div><input class="login" placeholder="Confirm Password" type="password"id="confirmPw" required oninput="confirmPass()">
+			<button class="pwToggle" type="button" value="confirmPw">
+				<i class="far fa-eye-slash changeme"></i>
+			</button>
+		</input><br></div>
+		<div class="pwMsg">
+			<p id="req">Requirements Not Met</p>
+			Password must contain:<br>
+			<span class="pwReq" id="pwLen">at least 10 characters</span><br>
+			<span class="pwReq" id="pwLow">a lowercase letter</span><br>
+			<span class="pwReq" id="pwUp">a uppercase letter</span><br> 
+			<span class="pwReq" id="pwNum">a number</span><br>
+			<span class="pwReq" id="pwSpe">a special character</span>
+		</div>
+		<p>By clicking Sign Up, you agree to our <a href="https://termsfeed.com/terms-service/de3237458ae4fe898c180eb386f69e83" 
+		target="_blank">Terms of Service</a>.</p>
+		<input class="login" value="Sign Up" type="submit" onclick="checkPasswordMatch()"></input>
+	</form>
 </div>
-	
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 	alt="Logo">
 </body>

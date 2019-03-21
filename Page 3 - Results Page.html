@@ -7,80 +7,30 @@ initial-scale=1.0">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
 integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
 crossorigin="anonymous">
-<style> 
-/* Changes the font */
-* {font-family: Arial}
-
-	h1 {
-		font-size: 40px;
-	}
-	h2 {
-		font-size: 30px;
-	}
-	h1, h2 {
-		text-align: center;
-	}
-	p {
-		margin-left: 20px;
-	}
-	
-	/* Aligns elements to the center of the page */
-	.center {     
-		margin: auto;
-		font-size: 19px;
-		text-align: center;
-	}
-
-	/* Creates a link button for the AAC assessment */
-	a:link, a:visited {
-		background-color: lightblue;
-		color: black;
-		padding: 14px 15px;
-		text-decoration: none;
-		display: inline-block;
-	}
-
-	a:hover, a:active {
-		background-color: #6a5acd;
-		color: black;
-	}
-	
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		position: fixed;
-		right: 0px;
-		bottom: 0px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-	}
-	
-	i {
-		position: relative;
-		font-size: 20px;
-		text-align: center;
-	}
-</style>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css_files/results_page.css">
+<script src="js_files/save_results.js"></script>
+<script src="js_files/jquery-3.3.1.js"></script>
 </head>
 <body>
-	<a href="Home_page_test.html" target="_self">
-		<i class="fas fa-home"><br>Home</i>
+	<a href="Page 1 - Home Page (old).html" target="_self">
+		<i class="fas fa-home"><br>
+		<div style="font-family:Noto Sans;">Home</div></i>
 	</a>
+	<div>
 	<h1>AAC Device Diagnostic Tool</h1>
-	<h2>AAC Assessment Results</h2>
-	<p>Based on the answers of the AAC assessment,<br>
-	here are your results:</p>
-	<p>Tobii Dynavox i12: </p>
-	<p>Tobii Dynavox i15: </p>
-	<p>PRC Accent 1000: </p>
-	<p>PRC Accent 1400: </p>
+	<h2>Save AAC Assessment Results</h2>
 
-	<div class="center">
-		<a href="Page 2 2-25-19.html" target="_blank">Save results</a> 
+	<button class="save-button" onclick="saveText()">
+			<i class="fas fa-save"><br>
+			<div style="font-family:Noto Sans;">
+			Save Results</div></i>
+	</button>
 	</div>
-	
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 		alt="Logo">
+		
+	<a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
+
 </body>
 </html>

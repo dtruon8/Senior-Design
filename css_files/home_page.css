@@ -1,0 +1,21 @@
+
+	/* Changes size and position of paragraph text */
+	p {
+		margin-top: 70px;
+		font-size: 20px;
+	}	
+	div input[type="file"] {
+		width: 180px;
+	}
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin: auto;
+		width: 100%;
+		font-size: 19px;
+	}
+	
+	#fileError {
+		color: red;
+		font-size: 20px;
+		display: none;
+	}
