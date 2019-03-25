@@ -11,9 +11,11 @@
 	.center {     
 		margin: auto;
 		width: 100%;
-		font-size: 19px;
 	}
-	
+	div.home {
+		top:0;
+		left:0;
+	}
 	#fileError {
 		color: red;
 		font-size: 20px;

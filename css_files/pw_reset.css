@@ -3,28 +3,27 @@
 		text-align: center;
 		margin: 0 auto;
 		width: 600px;
+		box-sizing: border-box;
 	}
-	/* Changes text size of title page */
-	h1 {
-		font-size: 40px;
-	}
-	
+
 	/* Changes size and position of paragraph text */
 	p {
 		font-size: 20px;
 	}	
 
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 40px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-		position: relative;
+	.input-icon {
+		position: absolute;
+		left: 200px;
+		top: 18px;
+		/*https://stackoverflow.com/questions/19285640/font-awesome-icon-inside-text-input-element?noredirect=1&lq=1 */
 	}
-	
+	button {
+		position: absolute;
+		background-color: white;
+		border: none; 
+		cursor: pointer;
+	}
+
 .pwReq {
 	color: red;
 }
@@ -33,9 +32,9 @@
 	-moz-border-radius: 15px; 
     -webkit-border-radius: 15px;
 	border: 2px solid black;
-	padding: 10px;
+	padding: 10px 30px;
 	height: 15px;
-	width: 200px;
+	width: 160px;
 	margin: 5px;
 }
 .login:focus, .login:hover {

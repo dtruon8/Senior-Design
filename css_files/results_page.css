@@ -1,22 +1,23 @@
-div {
-	  font-family: "Noto Sans", Arial, sans-serif;
-	  text-align: center;
-	}
-	
-	h1 {
-		font-size: 40px;
-	}
-	h2 {
-		font-size: 30px;
-	}
-	
-	a:link, a:visited {
-	background-color: lightblue;
+* {
+  font-family: "Noto Sans";
+  text-align: center;
+}
+/* Changes text size of title page */
+h1 {
+	font-size: 40px;
+	padding: 10px;
+}
+a:link, a:visited {
 	color: black;
 	padding: 14px 15px;
 	text-decoration: none;
 	display: inline-block;
-	text-align: center;
+	border: none;
+	background-color: #c0c0ff;
+	cursor: pointer;
+	float: left;
+	margin: -20px 0 0 0;
+	border-radius: 5px;
 }
 
 a:hover, a:active {
@@ -24,27 +25,26 @@ a:hover, a:active {
 	color: black;
 }
 	.save-button {
-		margin: 0 0 40px 0 ;
-		font-size: 20px;
+		margin: 50px 0  ;
+		font-size: 18px;
 		max-width:100%;
 		border: none;
 		background-color: #c0c0ff;
 		cursor: pointer;
-		padding: 5px;
+		padding: 14px 15px;
 		border-radius: 5px;
 	}
 	
 	.save-button:hover {
 		background-color: yellow;
 	}	
-	
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 70px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
-	}
+/* Positions the image to the bottom right of the page */
+img {
+	display: block;
+	margin: auto;
+	padding: 60px;
+	max-width: 100%;
+	width: 200px;
+	height: 170px;
+}
 	

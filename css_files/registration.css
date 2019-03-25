@@ -7,16 +7,18 @@ body {
 	box-sizing: border-box;
 	}
 
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 100px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
+	.input-icon {
+		position: absolute;
+		left: 190px;
+		top: 18px;
+		/*https://stackoverflow.com/questions/19285640/font-awesome-icon-inside-text-input-element?noredirect=1&lq=1 */
 	}
-	
+	button {
+		position: absolute;
+		background-color: white;
+		border: none; 
+		cursor: pointer;
+	}
 	.pwReq {
 		color: red;
 	}
@@ -25,14 +27,17 @@ body {
 		-moz-border-radius: 10px; 
 		-webkit-border-radius: 10px;
 		border: 2px solid black;
-		padding: 10px;
+		padding: 10px 30px;
 		height: 15px;
-		width: 125px;
+		width: 150px;
 		margin: 5px;
 	}
 	.login:focus, .login:hover {
 		outline: none;
 		border: 2px solid blue;
+	}
+	.login:invalid {
+		border: 2px solid red;
 	}
 
 	input[type=submit] {

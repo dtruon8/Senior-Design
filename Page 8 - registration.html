@@ -25,24 +25,26 @@
 	<form action="Page 9 - registration msg.html" method="post">
 		<input class="login" type="fname" name="first name" placeholder="First Name" required><br>
 		<input class="login" type="lname" name="last name" placeholder="Last Name" required><br>
-		<input class="login" type="email" id="email" name="email" placeholder="Email address" required><br>
+		<input class="login" type="email" id="email" name="email" placeholder="Email address" required></input><br>
 		
-		<input class="login" placeholder="Password" type="password" id="pwtxt" 
-				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
+		<div class="icon-pocket">			
 			<button class="pwToggle" type="button" value="pwtxt">
-				<i class="far fa-eye-slash changeme"></i>
+				<i class="input-icon far fa-eye-slash changeme"></i>
 			</button>
-		</input><br><br>
+			<input class="login" placeholder="Password" type="password" id="pwtxt" 
+				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required />
 		<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
 			<div class="bar">
 				<div class="pbar" id="pwmeter"></div>
 			</div>
-		</div><br>
-		<div><input class="login" placeholder="Confirm Password" type="password"id="confirmPw" required oninput="confirmPass()">
+		</div><br><br>
 			<button class="pwToggle" type="button" value="confirmPw">
-				<i class="far fa-eye-slash changeme"></i>
+				<i class="input-icon far fa-eye-slash changeme"></i>
 			</button>
-		</input><br></div>
+			<input class="login" placeholder="Confirm Password" type="password"id="confirmPw" required oninput="confirmPass()"></input>
+		<br>
+		</div>	
+		
 		<div class="pwMsg">
 			<p id="req">Requirements Not Met</p>
 			Password must contain:<br>

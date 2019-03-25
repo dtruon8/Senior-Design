@@ -1,25 +1,35 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
 <head>
-<meta charset="utf-8">
-<!-- Controls the width and scaling of the browser's viewport -->
-<meta name="viewport" content="width=device-width, 
-initial-scale=1">
-<link rel="stylesheet" type="text/css" href="css_files/login_page.css">
-  <link rel="stylesheet" type="text/css" href="css_files/all.css">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-<script src="js_files/login.js"></script>
+	<meta charset="utf-8">
+	<!-- Controls the width and scaling of the browser's viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity=
+	"sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin=
+	"anonymous">
+	<link rel="stylesheet" type="text/css" href="css_files/login_page.css">
+	<link rel="stylesheet" type="text/css" href="css_files/all.css">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="js_files/login.js"></script>
+	<script src="js_files/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/color/jquery.color-2.1.2.js"></script>	
 </head>
 <body>	
 	<h1>AAC Device Diagnostic Tool</h1>
 	<form id="form1" action="Page 1 - Home Page (old).html" method="post">
 		<input class="login" type="email" id="email" name="email" placeholder="Email address" required><br>
-		<input class="login" type="password" id="myInput" name="password" placeholder="Password" required><br>
-		<input type="checkbox" onclick="myFunction()">Show Password<br>
+		<div class="input-wrapper">
+		<input class="login" type="password" id="pwtxt" name="password" placeholder="Password" required>
+			<button class="pwToggle" type="button" value="pwtxt">
+				<i class="input-icon far fa-eye-slash changeme"></i>
+			</button><br>
+		</div>
 		<input class="login" type="submit" value="Sign In">
+		
 	</form>
-	<a href="Page 5 - Send pwd email.html" target="_blank">Forgot password?</a>
-	<a href="Page 8 - registration.html" target="_blank">Register</a>
+	<a href="Page 5 - Send pwd email.html">Forgot password?</a>
+	<a href="Page 8 - registration.html">Register</a>
 	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
 	alt="Logo">
 </body>

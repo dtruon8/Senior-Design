@@ -7,7 +7,19 @@
 	p {
 		margin-top: 100px;
 		font-size: 20px;
-	}	
+	}
+	.input-icon {
+		position: absolute;
+		right: 31px;
+		top: 18px;
+		/*https://stackoverflow.com/questions/19285640/font-awesome-icon-inside-text-input-element?noredirect=1&lq=1 */
+	}
+	button {
+		position: absolute;
+		background-color: white;
+		border: none; 
+		cursor: pointer;
+	}
 	/* Creates a link button for the AAC assessment */
 	a:link, a:visited {
 		background-color: lightblue;
@@ -27,7 +39,7 @@
 		-moz-border-radius: 10px; 
 		-webkit-border-radius: 10px;
 		border: 2px solid black;
-		padding: 10px;
+		padding: 10px 30px;
 		height: 15px;
 		width: 125px;
 		margin: 5px;
@@ -35,6 +47,10 @@
 	.login:focus, .login:hover {
 		outline: none;
 		border: 2px solid blue;
+	}
+	
+	.login:invalid {
+		border: 2px solid red;
 	}
 	input[type=submit] {
 		margin: 5px 0 5px auto;

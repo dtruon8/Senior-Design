@@ -1,16 +1,18 @@
 	* {box-sizing: border-box}
-body, .button-font {
+body {
 	  font-family: "Noto Sans";
 	  text-align: center;
 	}
-	
+	.button-font {
+		font-family: "Noto Sans";
+	}
 	/* Style the tab */
 	.tab {
 	  float: left;
 	  border: 1px solid #ccc;
 	  background-color: #f1f1f1;
 	  width: 28%;
-	  height: 439px;
+	  height: 509px;
 	  overflow: auto;
 	}
 
@@ -43,9 +45,9 @@ body, .button-font {
 	.tabcontent {
 	  float: left;
 	  border: 1px solid #ccc;
-	  width: 55%;
+	  width: 60%;
 	  border-left: none;
-	  height: 439px;
+	  height: 509px;
 	  overflow: auto;
 	  display: none;
 	  padding-bottom: 30px;
@@ -54,7 +56,7 @@ body, .button-font {
 	/* Aligns elements to the center of the page */
 	.submit_button {     
 		position: static;
-		margin-top: 480px;
+		margin-top: 530px;
 		width: 100%;
 		box-sizing: border-box;
 	}
@@ -99,7 +101,7 @@ body, .button-font {
 		position: sticky;
 		top: 0;
 		bottom: 5;
-		padding: 1px 0 5px 0;
+		padding: 1px 0 6px 0;
 		background-color: lavender;
 }
 	
