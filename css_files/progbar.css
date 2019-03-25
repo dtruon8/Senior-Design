@@ -1,6 +1,9 @@
 
 .bar {
-	width: 350px;
+	/*float: right;
+	margin-right: 5%;
+	margin-top: 10px;*/
+	width: 250px;
 	height: 20px;
 	line-height: 17px;
 	border-radius: 5px;
