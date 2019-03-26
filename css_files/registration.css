@@ -1,30 +1,36 @@
 /* Changes the font of the page */
 * {
+  font-family: "Noto Sans";
+  text-align: center;
+}
+body {
 	font-family: Arial; 
-	text-align: center;
+	max-width: 600px;
+	margin: 0 auto;
+	box-sizing: border-box;
 	}
-	
-	/* Changes text size of title page */
-	h1 {
-		font-size: 40px;
-	}
-	
+
+/* Changes text size of title page */
+h1 {
+	font-size: 40px;
+	padding: 10px;
+}
 	/* Changes size and position of paragraph text */
-	p {
-		margin-top: 100px;
+	div > p {
 		font-size: 20px;
 	}	
-
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		margin: auto;
-		padding: 120px;
-		max-width: 100%;
-		width: 200px;
-		height: 170px;
+	.input-icon {
+		position: absolute;
+		left: 190px;
+		top: 18px;
+		/*https://stackoverflow.com/questions/19285640/font-awesome-icon-inside-text-input-element?noredirect=1&lq=1 */
 	}
-	
+	button {
+		position: absolute;
+		background-color: white;
+		border: none; 
+		cursor: pointer;
+	}
 	.pwReq {
 		color: red;
 	}
@@ -33,20 +39,114 @@
 		-moz-border-radius: 10px; 
 		-webkit-border-radius: 10px;
 		border: 2px solid black;
-		padding: 10px;
+		padding: 10px 30px;
 		height: 15px;
-		width: 125px;
+		width: 150px;
 		margin: 5px;
 	}
 	.login:focus, .login:hover {
 		outline: none;
 		border: 2px solid blue;
 	}
+	/*.login:invalid {
+		border: 2px solid red;
+	}*/
+
 	input[type=submit] {
-		margin: 0 auto;
-		height: 30px;
-		line-height: 5px;	/* height - padding */
+		margin: 5px 0 5px auto;
+		height: 35px;
+		line-height: 7px;	/* height - padding */
 		font-weight: bold;
 		width: 100px;
 		background-color: white;
+		cursor: pointer;
 	}
+
+	.bar {
+		width: 125px;
+		overflow-y: hidden;
+		float: left;
+	}
+	#pwmeter {
+		background-color: red;
+		width: 0%;
+	}
+	#strengthContainer {
+		vertical-align: middle;
+		line-height: 25px;
+		height: 25px;
+		margin: 5px 0px 5px 0px;
+		display: inline-block;
+	}
+	#pwstrength {
+		float: left;
+		margin: 1px 10px 0px 0px;
+		height: 22px;
+		line-height: 22px;
+	}
+	#login-wrapper {
+		border: 3px solid black;
+		box-shadow: 1px 5px 4px 1px gray;
+		padding: 20px 0 20px 0;
+		border-radius: 20px;
+		-moz-border-radius: 20px; 
+			-webkit-border-radius: 20px;
+	}
+
+	.bar {
+	width: absolute;
+	height: 20px;
+	line-height: 17px;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	background: white;
+	border: 2px solid black;
+	display: inline-block;
+	position: relative;
+	overflow: hiddden;
+}
+
+.pbar {
+	height: inherit;
+	line-height: inherit;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	background-color: #00CD00;
+	width: 0;
+
+}
+
+.barTxt {
+	color: black;
+	font-weight: bold;
+	width: inherit;
+	vertical-align: middle;
+	text-align: center;
+	position: absolute;
+}
+
+.questions {
+	background-color: white;
+}
+
+a:link, a:visited {
+	color: blue;
+	display: inline-block;
+	cursor: pointer;
+}	
+
+a:hover, a:active {
+	color: solid red;
+}
+
+/* Positions the image to the bottom right of the page */
+img {
+	display: block;
+	margin: auto;
+	padding: 70px;
+	max-width: 100%;
+	width: 200px;
+	height: 170px;
+}

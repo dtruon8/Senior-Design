@@ -1,34 +1,61 @@
-
-/* Changes text size of title page */
-h1 {
-	font-size: 40px;
-}
-/* Changes size and position of paragraph text */
-p {
-	margin-top: 100px;
-	font-size: 20px;
-}	
-
-.login {
-	position: relative;
-	border-radius: 10px;
-	-moz-border-radius: 10px; 
-	-webkit-border-radius: 10px;
-	border: 2px solid black;
-	padding: 10px;
-	height: 15px;
-	width: 125px;
-	margin: 5px;
-}
-.login:focus, .login:hover {
-	outline: none;
-	border: 2px solid blue;
-}
-input[type=submit] {
+/* Changes the font of the page */
+body {
+	font-family: Arial; 
+	text-align: center;
+	max-width: 600px;
 	margin: 0 auto;
+	box-sizing: border-box;
+	}
+
+	/* Changes size and position of paragraph text */
+	p {
+		margin-top: 100px;
+		font-size: 20px;
+	}
+	.input-icon {
+		position: absolute;
+		right: 31px;
+		top: 18px;
+		/*https://stackoverflow.com/questions/19285640/font-awesome-icon-inside-text-input-element?noredirect=1&lq=1 */
+	}
+	button {
+		position: absolute;
+		background-color: white;
+		border: none; 
+		cursor: pointer;
+	}
+	.login {
+		position: relative;
+		border-radius: 10px;
+		-moz-border-radius: 10px; 
+		-webkit-border-radius: 10px;
+		border: 2px solid black;
+		padding: 10px 30px;
+		height: 15px;
+		width: 125px;
+		margin: 5px;
+	}
+	.login:focus, .login:hover {
+		outline: none;
+		border: 2px solid blue;
+	}
+	/*.login:invalid {
+		border: 2px solid red;
+	}*/
+	input[type=submit] {
+	margin: 20px auto;
 	height: 30px;
 	line-height: 5px;	/* height - padding */
 	font-weight: bold;
 	width: 100px;
 	background-color: white;
+	cursor: pointer;
+}
+#login-wrapper {
+	border: 3px solid black;
+	box-shadow: 1px 5px 4px 1px gray;
+	padding: 20px 0 30px 0;
+	border-radius: 20px;
+	-moz-border-radius: 20px; 
+    	-webkit-border-radius: 20px;
 }

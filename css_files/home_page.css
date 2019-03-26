@@ -1,50 +1,21 @@
-	 /* Changes the font of the page */
-	body {
-		font-family: 'Noto Sans', Arial, sans-serif;  
-		text-align: center;
-	}
-	
-	.row {
-		margin: 100px;
-	}
-	
+
+	/* Changes size and position of paragraph text */
+	p {
+		margin-top: 70px;
+		font-size: 20px;
+	}	
 	div input[type="file"] {
-		/*margin-right: 500px;*/ /*Why*/
 		width: 180px;
 	}
-	
 	/* Aligns elements to the center of the page */
 	.center {     
 		margin: auto;
 		width: 100%;
-		font-size: 19px;
 	}
-	
-	/* Creates a link button for the AAC assessment */
-	a:link, a:visited {
-		background-color: lightblue;
-		color: black;
-		padding: 14px 15px;
-		text-decoration: none;
-		display: inline-block;
+	div.home {
+		top:0;
+		left:0;
 	}
-	a:hover, a:active {
-		background-color: #6a5acd;
-		color: black;
-		}
-		
-	/* Positions the image to the bottom right of the page */
-	img {
-		display: block;
-		position: fixed;
-		right: 0px;
-		bottom: 0px;
-		max-width:100%;
-		width: 200px;
-		height: 170px;
-	}
-	
-	
 	#fileError {
 		color: red;
 		font-size: 20px;

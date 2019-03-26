@@ -1,8 +1,4 @@
-
 .bar {
-	/*float: right;
-	margin-right: 5%;
-	margin-top: 10px;*/
 	width: 250px;
 	height: 20px;
 	line-height: 17px;
@@ -13,9 +9,8 @@
 	border: 2px solid black;
 	display: inline-block;
 	position: relative;
-	overflow: hidden;
+	overflow: hiddden;
 }
-
 .pbar {
 	height: inherit;
 	line-height: inherit;
@@ -26,7 +21,6 @@
 	width: 0;
 
 }
-
 .barTxt {
 	color: black;
 	font-weight: bold;
@@ -35,7 +29,6 @@
 	text-align: center;
 	position: absolute;
 }
-
 .questions {
 	background-color: white;
 }
