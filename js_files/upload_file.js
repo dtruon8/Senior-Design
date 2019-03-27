@@ -1,3 +1,4 @@
+var upload = false;
 $(function() {
 	$("#file").change(function (){
 		var ext = this.value.split(".").pop().toLowerCase();	//get the file extension
@@ -9,6 +10,8 @@ $(function() {
 		} else {
 			$("#fileError").css("display", "none");
 			upload = true;
+			uploadFile();
+			
 		}
 	});
 });
@@ -30,6 +33,9 @@ function uploadFile(){
 			for (var i = 0; i < lines.length; i++){
 				if (i == 0){
 					sessionStorage.setItem('timer', lines[i]);
+				} else if (lines[i].startsWith("selection")){
+					var c = lines[i].split('\t');
+					sessionStorage.setItem(c[1], c[2]);
 				} else if (lines[i].includes('\t')){
 					var c = lines[i].split('\t');
 					sessionStorage.setItem(c[0], c[1]);

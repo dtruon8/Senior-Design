@@ -12,6 +12,11 @@ function saveText(){
 		//console.log(this.id);
 		s += this.id + "\r\n";
 	});
+	
+	$(".selection").each(function() {
+		var id = $(this).children(":selected").prop("id");
+		s += "selection" + "\t" + $(this).prop("id") + "\t" + id + "\r\n";
+	});
 	//console.log(checkedArray);
 	//s += ".\r\n";
 	var texts = $('input[type="text"], textarea').filter(function() { return $(this).val()}); 

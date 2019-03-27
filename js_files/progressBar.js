@@ -12,15 +12,14 @@ var numberAnswered = [];	//the number of questions in a section that have been a
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-var deviceScore = [0, 0, 0, 0];	//unused, will keep track of the score for each device
+var enableAns = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q7a1":"s6q7c" };
 
 
 $(function (){
 	$("td").click(function (){
-		console.log('In here');
-		var x = $(this > "input");
-		console.log(x.prop("id"));
-		x.click();
+		var x = $(this).find("input").first();
+		console.log("In this jquery function the id is " + x.prop("id"));
+		document.getElementById(x.prop("id")).click();
 	});
 });
 
@@ -39,6 +38,7 @@ function initialize(){
 	for (var i = 0; i < addClick.length; i++){
 		addClick[i].setAttribute("onclick", "answerSelected(this.id)");
 	}*/ //replacing this with jquery
+	$("input[type=radio], input[type=checkbox]").prop("checked",false);
 	numSec =  document.getElementsByClassName("pbar").length;
 	console.log("Number of Sections: " + numSec);
 	numQs.length = numSec;
@@ -86,6 +86,8 @@ function initialize(){
 	//getAnswers();
 	//console.timeEnd('initialize');
 	document.getElementById("defaultOpen").click();
+	var y = sessionStorage.getItem("uploadSuccessful");
+	console.log("This is the value of upload: " + y);
 	if (sessionStorage.getItem("uploadSuccessful")){
 		getAnswersFromStorage();
 		console.log("uploadSuccessful");
@@ -145,7 +147,10 @@ Animates the decreasing of a progress bar when a checkbox is unchecked
 Checks whether the bar width should be increased or decreased. 
 Calls the appropriate function and then changes currentLen
 */
-function changeBar(section, len){
+function changeBar(section){
+	var len = numberAnswered[section] / numQs[section] * 100;
+	if (len > 100) len = 100;
+	console.log("Section " + section + "\n Len: " + len);
 	var curLen = currentLen[section];
 	section += 1;
 	var bar = document.getElementById("progbar" + section);	//progbar# 
@@ -188,14 +193,6 @@ function changeMeter(bar, start, stop, barTxt){
 
 
 /*
-Will be used to compute each device's score.
-*/
-function computeScores(){
-	//console.log("In computeScores");
-}
-
-
-/*
 Called when a question (radio or checkbox) is answered
 Takes the id of an element as a parameter
 Strips out the section, question, and answer numbers
@@ -224,10 +221,10 @@ function answerSelected(id){
 		console.log(questionAnswered);
 		console.log(numberAnswered);
 		//var len = currentLen[sidx] + 100 / numQs[sidx];
-		if(!enableAns.includes(id) && !upload){
-			var len = numberAnswered[sidx] / numQs[sidx] * 100;
-			if (len > 100) len = 100;	//caps the length at 100
-			changeBar(sidx, len);
+		if(!upload){
+			//var len = numberAnswered[sidx] / numQs[sidx] * 100;
+			//if (len > 100) len = 100;	//caps the length at 100
+			changeBar(sidx);
 			if (numQs[sidx] == numberAnswered[sidx]){
 				document.getElementsByClassName("fa-check")[sidx].style.visibility = "visible";
 			}
@@ -258,9 +255,9 @@ function answerSelected(id){
 				done = false;
 			questionAnswered[sidx][qidx] = false;
 			//var len = currentLen[sidx] - 100 / numQs[sidx];
-			var len = numberAnswered[sidx] / numQs[sidx] * 100;
-			console.log("len: " + len);
-			changeBar(sidx, len);
+			//var len = numberAnswered[sidx] / numQs[sidx] * 100;
+			//console.log("len: " + len);
+			changeBar(sidx);
 
 			var checkmark = document.getElementsByClassName("fa-check")[sidx];
 			if (checkmark.style.visibility == "visible"){
@@ -295,43 +292,52 @@ function checkCompletion(){
 		submit.addClass("submit-disabled");
 		submit.prop("href", "javascript:;");
 		resumeTimer();
-		sessionStorage.removeItem("timer");
+		//sessionStorage.removeItem("timer");
 	}
 }
 function press(){
 	$("#s4q2").val($("#s4q1").val());
 	checkCompletion();
 }
-
+var displaymessage = false;
 function closing(){
-	sessionStorage.clear();
 	if (!started && (done || saved))
 		return null;
-	else return "";
+	else return "aaaaaaaaaaa";
 }
 
 function clearStorage(){
 	localStorage.clear();
 	sessionStorage.clear();
 }
-function displayWarning(){
-	if (!done){
-		document.getElementById("popUp");
-		popUp.style.visibility = "visible";
-	}
-}
-var enableAns = ["."]; //put ids of answers that enable other questions here
+
+//Jquery
 $(function(){
-    $("#bottomButton").click(press);
-	window.onbeforeunload = closing;
+    window.onbeforeunload = closing;
+	
+	$(".selection").change(function() {
+		var id = $(this).children(":selected").prop("id");
+		console.log("option id: " + id);
+		var  sidx = id[1]-1;	//section number
+		var a_pos = id.indexOf("a");	//find "a" in the id
+		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
+		//var len = numberAnswered[s] / numQs[s] * 100;
+		//console.log("len: " + len);
+		//changeBar(s, len);
+		answerSelected(id);
+	});
 	
 	$(".A").click( function(event) {
-		var id = event.target.id;
-		console.log("ID: " + id);
-		answerSelected(id);
 		if (!started) {
 			started = true;
 		}
+		var id = event.target.id;
+		console.log("ID: " + id);
+		var  sidx = id[1]-1;	//section number
+		var a_pos = id.indexOf("a");	//find "a" in the id
+		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
+		console.log(a_pos);
+		console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 		
 		if ($(this).hasClass("limit-input")){
 			var limit = 3;
@@ -339,6 +345,7 @@ $(function(){
 				this.checked = false;
 			}
 		}
+		
 		
 		if ($(this).hasClass("sameAns")){
 			var v = event.target.value;
@@ -356,8 +363,8 @@ $(function(){
 				}
 			});
 			
-			var len = numberAnswered[id[1]-1] / numQs[id[1]-1] * 100;
-			if (len > 100) len = 100;	//caps the length at 100
+			//var len = numberAnswered[id[1]-1] / numQs[id[1]-1] * 100;
+			//if (len > 100) len = 100;	//caps the length at 100
 			changeBar(id[1]-1,len);
 			
 			//check if all sections are complete. if so, enable the submit button.
@@ -367,6 +374,64 @@ $(function(){
 			}*/
 		}
 		
+		if ($(this).hasClass("enableQ")) {
+			console.log(id);
+			var a_pos = id.indexOf("a");	//find "a" in the id
+			console.log(a_pos);
+			//var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
+			var enabledQ = enableAns[id];
+			console.log(enabledQ);
+			console.log(this.id);
+			if (enabledQ){
+				$("#" + enabledQ).prop("disabled", false);
+			} else {
+				$("#" + enabledQ).prop("disabled", true);
+			}
+			/*
+			var s = id[1]-1;
+			//var q = Number(id[3])+1;
+			var item = "numQs" + s;
+			var enabledQ = id.substring(0,3); //s#q
+			enabledQ += q + "a";
+			console.log(id);
+			console.log(enabledQ);
+			console.log("JQuery");
+			if (enableAns.includes(id)) {
+				$('input[name=' + enabledQ +']').prop('disabled', false);
+				sessionStorage.setItem(item, numQs[s]); 
+				console.log("in here");
+				numQs[s] += 1;
+				if (numQs[s] == numberAnswered[s]){
+					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+				} else {
+					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+				}
+			} else {
+				$('input[name=' + enabledQ +']').prop('disabled', true);
+				console.log("does it make it here");
+				if ($('input[name=' + enabledQ +']').is(':checked')){
+					numberAnswered[s] -= 1;
+					questionAnswered[s].length -= 1;
+					$('input[name=' + enabledQ +']').prop('checked', false);
+				}
+				var qs = sessionStorage.getItem(item);
+				if (qs != null){
+					numQs[s] -= 1;
+					sessionStorage.removeItem(item);
+				}
+				if (numQs[s] == numberAnswered[s]){
+					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+				} else {
+					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+				}
+			}
+			if (!upload){
+				var len = numberAnswered[s] / numQs[s] * 100;
+				console.log("len: " + len);
+				changeBar(s, len);
+			}*/
+		}
+		answerSelected(id);
 		checkCompletion();
 	});
 	//When a question that has an answer that enables another answer is selected:
@@ -434,6 +499,7 @@ $(function(){
 		}*/
 	});
 });
+
 function getAnswersFromStorage(){
 	//upload = true;
 	upload = sessionStorage.getItem("uploadSuccessful");
@@ -446,28 +512,51 @@ function getAnswersFromStorage(){
 		//$('#' + x[i]).prop("checked", true);
 		//$('#' + x[i]).prop("disabled", false);
 		$('#' + x[i]).click();
+		console.log("Id of this answer is: " + x[i]);	
 		console.log(questionAnswered);
 	}
+	console.log(numberAnswered);
+	console.log(numQs);
+	
+	var selects = ["s2q1", "s2q2"];
+	selects.forEach(function(id){
+		var x = sessionStorage.getItem(id);
+		if (x){
+			console.log(x);
+			console.log(typeof(x));
+			var sel = "#" + id + " option[id=" + x + "]";
+			$(sel).prop("selected", "selected");
+			$("#" + id).change();
+		}
+	});
+	
 	for (var i = 0; i < numSec; i++){
-		var len = numberAnswered[i] / numQs[i] * 100;
-		if (len > 100) len = 100;	//caps the length at 100
-		changeBar(i, len);
+		changeBar(i);
 	}
-	var comments = ["s3q8", "s6q1", "s6q2"]; //put the ids of the comment questions in this
+	
+	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s2q1c", "s6q24c", "s6q29c", "s7q1c", 
+					"s7q2c", "s7q3c", "s7q4c", "s7q5c", "s1q7b1", "s1q7b2", "s1q7b3"]; 
 	comments.forEach(function(id){
 		//console.log(id);
 		var x = sessionStorage.getItem(id)
 		if (x) document.getElementById(id).value = x;
 	});
 	upload = false;
+	//sessionStorage.clear();
 }
 
 function putAnswersInStorage(){
+	$(".selection").each(function() {
+		var id = $(this).children(":selected").prop("id");
+		sessionStorage.setItem(this.id, id);
+	});
+	
 	var checks = [];
 	$('.A:checked').each(function() {
 		//console.log(this.id);
 		checks.push(this.id);
 	});
+	
 	sessionStorage.setItem("selectedAnswers", checks);
 	console.log(checks);
 	var texts = $('input[type="text"], textarea').filter(function() { return $(this).val()}); 

@@ -6,7 +6,7 @@ function openSection(evt, sectionName) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  for ( i = 1; i <= 6; i++){
+  for ( i = 1; i <= 7; i++){
 	var s = "s" + i;
 	if (s != sectionName){
 		document.getElementById(s).style.display = "none";
