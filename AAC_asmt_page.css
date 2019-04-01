@@ -222,27 +222,15 @@ body {
 .answer-aln input, .answer-aln label {
 	float: left;
 }
-.moto-aln {
-	display: inline-block;
-	padding: 10px;
-}
-.moto-aln input, .moto-aln label {
-	float: left;
-}
-
 .moto-8 {
-	margin-left: 36px;
+	margin-left: 7.9%;
 	text-align: left;
 }
 .moto-8 input, .moto-8 label {
 	float: left;
 }
-.comm-1 {
-	float: left;
-	margin-left: 52px;
-}
 .comm-3 {
-	margin-left: 46px;
+	margin-left: 8.2%;
 }
 .comm-3 input, .comm-3 label {
 	float: left;
