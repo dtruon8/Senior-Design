@@ -23,7 +23,7 @@
 
 <div id="head-wrapper">
 	<div id="page-heading">
-		<h1>AAC Device Diagnostic Tool</h1>
+		<h1>AAC Diagnostic Tool</h1>
 		<h2>AAC Assessment</h2>
 	</div>
 
@@ -117,7 +117,7 @@
 		</div>
 	</div>
 	<p class="Qn">2a. Does the patient have limitations to range of motion?</p>
-	<div class="yes-no">
+	<div style="float: left;margin-left: 48px;">
 	<input type="radio" id="s1q2a1" name="s1q2a" value="" class="A enableQ" /><label for="s1q2a1">Yes</label>
 	<input type="radio" id="s1q2a2" name="s1q2a" value="" class="A enableQ" /><label for="s1q2a2">No</label>
 	</div><br>
@@ -126,7 +126,7 @@
 	<textarea id="s1q2c" class="comment" placeholder="Enter comments here" disabled></textarea>
 	
 	<p class="Qn">3a. Does the patient have abnormal reflexes or abnormal muscle tone?</p>
-	<div class="yes-no">
+	<div style="float: left;margin-left: 48px;">
 	<input type="radio" id="s1q3a1" name="s1q3a" value="" class="A enableQ" /><label for="s1q3a1">Yes</label>
 	<input type="radio" id="s1q3a2" name="s1q3a" value="" class="A enableQ" /><label for="s1q3a2">No</label>
 	</div><br>
@@ -136,7 +136,7 @@
 	
 	
 	<p class="Qn">4a. Does the patient have difficulty with accuracy?</p>
-	<div class="yes-no">
+	<div style="float: left;margin-left: 48px;">
 	<input type="radio" id="s1q4a1" name="s1q4a" value="" class="A enableQ" /><label for="s1q4a1">Yes</label>
 	<input type="radio" id="s1q4a2" name="s1q4a" value="" class="A enableQ" /><label for="s1q4a2">No</label>
 	</div><br>
@@ -145,7 +145,7 @@
 	<textarea id="s1q4c" class="comment" placeholder="Enter comments here" disabled></textarea>	
 	
 	<p class="Qn">5a. Does the patient fatigue easily?</p>
-	<div class="yes-no">
+	<div style="float: left;margin-left: 48px;">
 	<input type="radio" id="s1q5a1" name="s1q5a" value="" class="A enableQ" /><label for="s1q5a1">Yes</label>
 	<input type="radio" id="s1q5a2" name="s1q5a" value="" class="A enableQ" /><label for="s1q5a2">No</label>
 	</div><br>
@@ -156,7 +156,6 @@
 	<h4>Direct Access</h4>
 	
 	<p class="Qn">6. Which direct selection methods have been successful? (Check all that apply)</p>
-	<div class="ans-cent">
 	<div class="moto-aln">
 		<input type="checkbox" id="s1q6a1" name="s1q6a" value="" class="A" /><label for="s1q6a1">Keyguard</label>
 		<input type="checkbox" id="s1q6a2" name="s1q6a" value="" class="A" /><label for="s1q6a2">Pointers, hand grips, splints, etc.</label>
@@ -170,9 +169,8 @@
 		<input type="checkbox" id="s1q6a6" name="s1q6a" value="" class="A" /><label for="s1q6a6">Direct selection/finger</label><br>
 		<input type="checkbox" id="s1q6a7" name="s1q6a" value="" class="A" /><label for="s1q6a7">None of the above</label>
 	</div>
-	</div>
 	<p class="Qn">7a. What is the size of smallest square the patient can accurately access?</p>
-	<div class="yes-no">	
+	<div style="float: left;margin-left: 48px;">	
 		<input type="radio" id="s1q7a1" name="s1q7a" value="" class="A" /><label for="s1q7a1">1"</label>
 		<input type="radio" id="s1q7a2" name="s1q7a" value="" class="A" /><label for="s1q7a2">2"</label>
 		<input type="radio" id="s1q7a3" name="s1q7a" value="" class="A" /><label for="s1q7a3">3"</label>
@@ -180,7 +178,7 @@
 	</div><br>
 	
 	<p class="Qn comment">7b. What is the optimal size grid?</p>
-	<div class="moto-7b">
+	<div style="text-align: left;margin-left: 55px;">
 		Size of square: <input type="text" id="s1q7b1" class="text-q" /><br />
 		Number of squares across: <input type="text" id="s1q7b2" class="text-q" /><br />
 		Number of squares down: <input type="text" id="s1q7b3" class="text-q" />
@@ -190,28 +188,34 @@
 	
 	<p class="Qn">8. If the student cannot direct select, does the student use switch scanning?</p>
 	<div class="moto-8">
-		<input type="radio" id="s1q8a1" name="s1q8a" value="" class="A" /><label for="s1q8a1">One-switch scanning</label><br>
-		<input type="radio" id="s1q8a2" name="s1q8a" value="" class="A" /><label for="s1q8a2">Two-switch scanning</label>
-	
-	<input type="radio" id="s1q8a3" name="s1q8a" value="" class="A" /><label for="s1q8a3">The student does not use switch scanning</label><br>
-</div>
+		<input type="radio" id="s1q8a1" name="s1q8a" value="" class="A" /><label for="s1q8a1">A. One-switch scanning</label><br>
+		<input type="radio" id="s1q8a2" name="s1q8a" value="" class="A" /><label for="s1q8a2">B. Two-switch scanning</label><br>
+		<input type="radio" id="s1q8a3" name="s1q8a" value="" class="A" /><label for="s1q8a3">C. The student does not use switch scanning</label><br>
+	</div>
 	
 	<p class="Qn">9. The following switches have been tried:</p>
+	<div class="ans-cent">
+	<div class="moto-aln">	
 	<input type="checkbox" id="s1q9a1" name="s1q9a" value="" class="A" /><label for="s1q9a1">Touch (jellybean)</label>
 	<input type="checkbox" id="s1q9a2" name="s1q9a" value="" class="A" /><label for="s1q9a2">Joystick</label>
 	<input type="checkbox" id="s1q9a3" name="s1q9a" value="" class="A" /><label for="s1q9a3">Arm slot</label>
 	<input type="checkbox" id="s1q9a4" name="s1q9a" value="" class="A" /><label for="s1q9a4">Tread</label>
 	<input type="checkbox" id="s1q9a5" name="s1q9a" value="" class="A" /><label for="s1q9a5">Light touch</label><br />
+	</div>
+	<div class="moto-aln">
 	<input type="checkbox" id="s1q9a6" name="s1q9a" value="" class="A" /><label for="s1q9a6">Lever</label>
 	<input type="checkbox" id="s1q9a7" name="s1q9a" value="" class="A" /><label for="s1q9a7">Eyebrow</label>
 	<input type="checkbox" id="s1q9a8" name="s1q9a" value="" class="A" /><label for="s1q9a8">Wobble</label>
 	<input type="checkbox" id="s1q9a9" name="s1q9a" value="" class="A" /><label for="s1q9a9">Head switch</label>
 	<input type="checkbox" id="s1q9a10" name="s1q9a" value="" class="A" /><label for="s1q9a10">Tongue</label><br />
+	</div>
+	<div class="moto-aln">
 	<input type="checkbox" id="s1q9a11" name="s1q9a" value="" class="A" /><label for="s1q9a11">Rocker</label>
 	<input type="checkbox" id="s1q9a12" name="s1q9a" value="" class="A" /><label for="s1q9a12">Mercury (tilt)</label>
 	<input type="checkbox" id="s1q9a13" name="s1q9a" value="" class="A" /><label for="s1q9a13">Sip/puff</label>
 	<input type="checkbox" id="s1q9a14" name="s1q9a" value="" class="A" /><label for="s1q9a14">None of the above</label>
-	
+	</div>
+	</div>
 </div>
 		
 	<div class="tabcontent questions" id="s2">
@@ -224,34 +228,36 @@
 		</div>
 		<h4>Student's Present Means of Communication</h4>
 		<p class="Qn">1a. Choose all means of communication used by the patient.</p>
-			<select class="selection" id="s2q1">
-				<option selected disabled hidden>Select primary method</option>
-		<option id="s2q1a1">Changes in breathing patterns</option>
-		<option id="s2q1a2">Body position changes</option>
-		<option id="s2q1a3">Eye-gaze/eye movement</option>
-		<option id="s2q1a4">Facial expressions</option>
-		<option id="s2q1a5">Gestures</option>
-		<option id="s2q1a6">Pointing</option>
-		<option id="s2q1a7">Sign language approximations</option>
-		<option id="s2q1a8">Sign language</option>
-		<option id="s2q1a9">Vocalizations</option>
-		<option id="s2q1a10">Vowels or vowel combinations</option>
-		<option id="s2q1a11">Signle words</option>
-		<option id="s2q1a12">2-word utterances</option>
-		<option id="s2q1a13">3-word utterances</option>
-		<option id="s2q1a14">Semi-intelligible speech</option>
-		<option id="s2q1a15">Communication board</option>
-		<option id="s2q1a16">Tangibles</option>
-		<option id="s2q1a17">Pictures</option>
-		<option id="s2q1a18">Combination pictures/words</option>
-		<option id="s2q1a19">Writing</option>
-		<option id="s2q1a20">Voice output AAC device</option>
-		<option id="s2q1a21">Intelligible speech</option>
-		<option id="s2q1a22">Writing</option>
-		<option id="s2q1a23">Other</option>
-	</select>
-
+		<div class="comm-1">
+		<select class="selection" id="s2q1">
+			<option selected disabled hidden>Select primary method</option>
+			<option id="s2q1a1">Changes in breathing patterns</option>
+			<option id="s2q1a2">Body position changes</option>
+			<option id="s2q1a3">Eye-gaze/eye movement</option>
+			<option id="s2q1a4">Facial expressions</option>
+			<option id="s2q1a5">Gestures</option>
+			<option id="s2q1a6">Pointing</option>
+			<option id="s2q1a7">Sign language approximations</option>
+			<option id="s2q1a8">Sign language</option>
+			<option id="s2q1a9">Vocalizations</option>
+			<option id="s2q1a10">Vowels or vowel combinations</option>
+			<option id="s2q1a11">Signle words</option>
+			<option id="s2q1a12">2-word utterances</option>
+			<option id="s2q1a13">3-word utterances</option>
+			<option id="s2q1a14">Semi-intelligible speech</option>
+			<option id="s2q1a15">Communication board</option>
+			<option id="s2q1a16">Tangibles</option>
+			<option id="s2q1a17">Pictures</option>
+			<option id="s2q1a18">Combination pictures/words</option>
+			<option id="s2q1a19">Writing</option>
+			<option id="s2q1a20">Voice output AAC device</option>
+			<option id="s2q1a21">Intelligible speech</option>
+			<option id="s2q1a22">Writing</option>
+			<option id="s2q1a23">Other</option>
+		</select>
+	</div><br>
 	<p class="Qn">1b. Choose the patient's secondary means of communication.</p>
+	<div class="comm-1">	
 	<select class="selection" id="s2q2">
 		<option selected disabled hidden>Select secondary method</option>
 		<option id="s2q2a1">Changes in breathing patterns</option>
@@ -278,7 +284,7 @@
 		<option id="s2q2a22">Writing</option>
 		<option id="s2q2a23">Other</option>
 	</select>
-		
+	</div><br>
 	<p class="Qn">1c. Enter any additional information about the patient's means of communication here.</p>
 	<textarea id="s2q1c" class="comment" placeholder="Enter comments here"></textarea>
 	
@@ -331,23 +337,30 @@
 	
 	<h4>Communication Interaction Skills</h4>
 	<p class="Qn">3a. Does the patient desire to communicate?</p>
+	<div class="comm-3">
 		<input type="radio" id="s2q8a1" name="s2q8a" value="" class="A" /><label for="s2q8a1">Yes</label>
 		<input type="radio" id="s2q8a2" name="s2q8a" value="" class="A" /><label for="s2q8a2">No</label>
-
+	</div><br>
+	
 	<p class="Qn">3b. To indicate yes or no, the student:</p>
+	<div class="moto-aln">	
 		<input type="checkbox" id="s2q9a1" name="s2q9a" value="" class="A" /><label for="s2q9a1">Shakes head</label>
 		<input type="checkbox" id="s2q9a2" name="s2q9a" value="" class="A" /><label for="s2q9a2">Signs</label>
 		<input type="checkbox" id="s2q9a3" name="s2q9a" value="" class="A" /><label for="s2q9a3">Vocalizes</label>
 		<input type="checkbox" id="s2q9a4" name="s2q9a" value="" class="A" /><label for="s2q9a4">Gestures</label><br />
+	</div>
+	<div class="moto-aln">
 		<input type="checkbox" id="s2q9a5" name="s2q9a" value="" class="A" /><label for="s2q9a5">Eye gazes</label>
 		<input type="checkbox" id="s2q9a6" name="s2q9a" value="" class="A" /><label for="s2q9a6">Points to board</label>
 		<input type="checkbox" id="s2q9a7" name="s2q9a" value="" class="A" /><label for="s2q9a7">Uses word approximations</label><br />
-		<input type="checkbox" id="s2q9a8" name="s2q9a" value="" class="A" /><label for="s2q9a8">Does not respond consistently</label>
+	</div>
+	<input type="checkbox" id="s2q9a8" name="s2q9a" value="" class="A" /><label for="s2q9a8">Does not respond consistently</label>
 
 	<p class="Qn">3c. Can a person unfamiliar with the student understand the response?</p>
+	<div class="comm-3">	
 		<input type="radio" id="s2q10a1" name="s2q10a" value="" class="A" /><label for="s2q10a1">Yes</label>
 		<input type="radio" id="s2q10a2" name="s2q10a" value="" class="A" /><label for="s2q10a2">No</label>
-	
+	</div><br>
 	<p class="Qn">3d. The student:</p>
 	<table>
 		<tr>
@@ -517,6 +530,7 @@
 	
 	
 	<p class="Qn">6. Visual Abilities Related to Communication (Check all that apply)</p>
+	<div style="text-align:left;margin-left:40px;">
 	<input type="checkbox" id="s2q32a1" name="s2q32a" value="" class="A" /><label for="s2q32a1">Maintains fixation on stationary object</label><br />
 	<input type="checkbox" id="s2q32a2" name="s2q32a" value="" class="A" /><label for="s2q32a2">Looks to right and left without moving head</label><br />
 	<input type="checkbox" id="s2q32a3" name="s2q32a" value="" class="A" /><label for="s2q32a3">Scans line of symbols left to right</label><br />
@@ -530,7 +544,7 @@
 	<input type="checkbox" id="s2q32a11" name="s2q32a" value="" class="A" /><label for="s2q32a11">Visually shifts vertically</label><br />
 	<input type="checkbox" id="s2q32a12" name="s2q32a" value="" class="A" /><label for="s2q32a12">Recognies line drawings</label><br />
 	<input type="checkbox" id="s2q32a13" name="s2q32a" value="" class="A" /><label for="s2q32a13">None of the above</label><br />
-		
+	</div>	
 </div> <!--end of communication assessment-->
 
 <div class="tabcontent questions" id="s3">
@@ -541,9 +555,8 @@
 		<div id="progbar3" name="progbar" class="pbar"></div>
 	</div>
 	</div>
-	<h4>1. Difficulties Student Experiences Participating in Recreation and Leisure</h4>
-	<p>(Check all that apply.)</p>
-	<p class="Qn"></p>
+	<p class="Qn">1. Difficulties Student Experiences Participating in Recreation and Leisure<br>(Check all that apply.)</p>
+	<div style="text-align:left;margin-left:30px;">
 	<input type="checkbox" id="s3q1a1" name="s3q1a" value="" class="A" style="text-align:left;" />
 		<label for="s3q1a1">Understanding cause and effect</label><br>
 	<input type="checkbox" id="s3q1a2" name="s3q1a" value="" class="A" /><label for="s3q1a2">
@@ -572,9 +585,10 @@
 		Operating computer</label><br>
 	<input type="checkbox" id="s3q1a14" name="s3q1a" value="" class="A" /><label for="s3q1a14">
 		Operating social media</label><br>
-
-	<h4>2. Assistive Technology Tried</h4> <p>(Check all that apply)</p>
-	<p class="Qn"></p>
+	</div>
+	
+	<div style="text-align:left; margin-left:30px;">
+	<p class="Qn">2. Assistive Technology Tried (Check all that apply)</p>
 	<input type="checkbox" id="s3q7a1" name="s3q2a" value="" class="A" /><label for="s3q2a1">
 		Toys adapted with Velcro, magnets, handles, etc.</label><br>
 	<input type="checkbox" id="s3q7a2" name="s3q2a" value="" class="A" /><label for="s3q2a2" >
@@ -595,6 +609,7 @@
 		Games on the computer</label><br>
 	<input type="checkbox" id="s3q7a10" name="s3q2a" value="" class="A" /><label for="s3q2a10">
 		Other computer software</label><br>
+	</div>
 </div>
 
 <div id="s4" class="tabcontent">
@@ -605,9 +620,8 @@
 		<div id="progbar4" name="progbar" class="pbar"></div>
 	</div>
 	</div>
-	<h4>1. Current Seating and Positioning of Student</h4>
-	<p>(Check all that apply.)</p>
-	<p class="Qn"></p>
+	<p class="Qn">1. Current Seating and Positioning of Student (Check all that apply.)</p>
+	<div style="text-align:left;margin-left:30px;">
 	<input type="checkbox" id="s4q1a1" name="s4q1a" value="" class="A" /><label for="s4q1a1">
 		Sits in regular chair with feet on floor</label><br>
 	<input type="checkbox" id="s4q1a2" name="s4q1a" value="" class="A" /><label for="s4q1a2">
@@ -638,10 +652,10 @@
 		Uses tray on wheelchair for desktop</label><br>
 	<input type="checkbox" id="s4q1a15" name="s4q1a" value="" class="A"/><label for="s4q1a15">
 		Uses adapted table</label><br>
+	</div>
 	
-	<h4>2. Description of Seating</h4>
-	<p>(Check all that apply.)</p>
-	<p class="Qn"></p>
+	<div style="text-align:left;margin-left:30px;">	
+	<p class="Qn">2. Description of Seating (Check all that apply.)</p>
 	<input type="checkbox" id="s4q2a1" name="s4q2a" value="" class="A" /><label for="s4q2a1">
 		Seating provides trunk stability</label><br>
 	<input type="checkbox" id="s4q2a2" name="s4q2a" value="" class="A" /><label for="s4q2a2">
@@ -658,9 +672,11 @@
 		There are concerns or questions about current wheelchair</label><br>
 	<input type="checkbox" id="s4q2a8" name="s4q2a" value="" class="A"/><label for="s4q2a8">
 		Student has difficulty achieving and maintaining head control</label><br>
-		
+	</div>
+	
 	<h3>Mobility</h3>	
 	<p class="Qn"><b>3. Mobility<br>(Check all that apply.)</b></p>
+	<div style="text-align:left;margin-left:30px;">
 		<input type="checkbox" id="s4q3a1" name="s4q3a" value="" class="A" /><label for="s4q3a1">
 			Crawls, rolls, or creeps independently</label><br>
 		<input type="checkbox" id="s4q3a2" name="s4q3a" value="" class="A" /><label for="s4q3a2">
@@ -693,8 +709,10 @@
 			Walks with appliance</label><br>		
 		<input type="checkbox" id="s4q3a16" name="s4q3a" value="" class="A"/><label for="s4q3a16">
 			Uses elevator key independently</label><br>	
+	</div>
 
 	<p class="Qn"><b>4. Concerns About Mobility<br>(Check all that apply.)</b></p>
+	<div style="text-align:left;margin-left:30px;">
 		<input type="checkbox" id="s4q4a1" name="s4q4a" value="" class="A" /><label for="s4q4a1">
 			Student seems extremely tired after walking, requires a long time to recover</label><br>
 		<input type="checkbox" id="s4q4a2" name="s4q4a" value="" class="A" /><label for="s4q4a2">
@@ -707,6 +725,7 @@
 			Changes in class location or building are making it more challenging to get around</label><br>
 		<input type="checkbox" id="s4q4a6" name="s4q4a" value="" class="A" /><label for="s4q4a6">
 			Transition to new school will require consideration of mobility needs</label><br>
+	</div>
 </div><!--seating and positioning-->	
 		
 	<div id="s5" class="tabcontent">
@@ -721,6 +740,7 @@
 		<h4 style="color:red;">A vision specialist should be consulted to complete this section.</h4>
 	
 	<p class="Qn">1. Visual Abilities (Check all that apply)</p>
+	<div style="text-align:left;margin-left:30px;">
 	<input type="checkbox" id="s5q1a1" name="s5q1a" value="" class="A" /><label for="s5q1a1">Read standard textbook print</label><br />
 	<input type="checkbox" id="s5q1a2" name="s5q1a" value="" class="A" /><label for="s5q1a2">Requires specialized lighting </label><br />
 	<input type="checkbox" id="s5q1a3" name="s5q1a" value="" class="A" /><label for="s5q1a3">Requires materials tilted at a certain angle</label><br />
@@ -736,7 +756,8 @@
 	<input type="checkbox" id="s5q1a14" name="s5q1a" value="" class="A" /><label for="s5q1a14">Uses screen reader</label><br />
 	<input type="checkbox" id="s5q1a15" name="s5q1a" value="" class="A" /><label for="s5q1a15">Requires recorded material, text to speech, or Braille materials</label><br />
 	<input type="checkbox" id="s5q1a16" name="s5q1a" value="" class="A" /><label for="s5q1a16">None of the above</label><br />
-	
+	</div>
+
 	<p class="Qn">2. Alternative Output<br /> (Check all that apply)</p>
 	<input type="checkbox" id="s5q2a1" name="s5q2a" value="" class="A" /><label for="s5q2a1">Slate and stylus</label>
 	<input type="checkbox" id="s5q2a2" name="s5q2a" value="" class="A" /><label for="s5q2a2">Talking calculator</label>
@@ -757,6 +778,7 @@
 	<input type="radio" id="s5q3a5" name="s5q3a" value="" class="A" /><label for="s5q3a5">Troubleshoots problems related to device</label>
 	
 	<p class="Qn">4. Writing/Handwritten Materials <br />(Check all that apply)</p>
+	<div style="text-align:left;margin-left:30px;">
 	<input type="checkbox" id="s5q4a1" name="s5q4a" value="" class="A" /><label for="s5q4a1">Writes using space correctly</label><br />
 	<input type="checkbox" id="s5q4a2" name="s5q4a" value="" class="A" /><label for="s5q4a2">Writes on line</label><br />
 	<input type="checkbox" id="s5q4a3" name="s5q4a" value="" class="A" /><label for="s5q4a3">Writes appropriate size</label><br />
@@ -772,6 +794,7 @@
 	<input type="checkbox" id="s5q4a14" name="s5q4a" value="" class="A" /><label for="s5q4a14">Requires thick-point felt tip pen</label><br />
 	<input type="checkbox" id="s5q4a15" name="s5q4a" value="" class="A" /><label for="s5q4a15">None of the above</label>
 	</div>
+</div>
 	
 	<div id="s6" class="tabcontent">
 		<div class="sticky">

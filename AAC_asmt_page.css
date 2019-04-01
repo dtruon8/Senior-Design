@@ -222,10 +222,6 @@ body {
 .answer-aln input, .answer-aln label {
 	float: left;
 }
-.yes-no {
-	float: left;
-	margin-left: 48px;
-}
 .moto-aln {
 	display: inline-block;
 	padding: 10px;
@@ -233,11 +229,22 @@ body {
 .moto-aln input, .moto-aln label {
 	float: left;
 }
-.moto-7b {
-	text-align: left;
-	margin-left: 55px;
-}
+
 .moto-8 {
+	margin-left: 36px;
+	text-align: left;
+}
+.moto-8 input, .moto-8 label {
+	float: left;
+}
+.comm-1 {
+	float: left;
+	margin-left: 52px;
+}
+.comm-3 {
+	margin-left: 46px;
+}
+.comm-3 input, .comm-3 label {
 	float: left;
 }
 
