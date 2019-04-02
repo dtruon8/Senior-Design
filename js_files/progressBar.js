@@ -12,9 +12,7 @@ var numberAnswered = [];	//the number of questions in a section that have been a
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-//var enableAns = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q24a1":"s6q24c" };
-var enableAnsObject = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q24a1":"s6q24c" };
-var enableAnsArray = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s6q24a1"];
+var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s6q24a1"];	//used for enabling comment questions depending on the answer selected
 
 
 $(function (){
@@ -384,15 +382,6 @@ $(function(){
 			//var enabledQ = enableAns[id];
 			console.log(enabledQ);
 			console.log(this.id);
-			
-			console.time("Array");
-			var x = enableAnsArray.includes(this.id);
-			console.timeEnd("Array");
-
-			console.time("Object");
-			var x = (this.id in enableAnsObject);
-			console.timeEnd("Object");
-			
 			
 			if (enableAns.includes(this.id)){
 				$("#" + enabledQ).prop("disabled", false);
