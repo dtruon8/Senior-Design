@@ -12,7 +12,9 @@ var numberAnswered = [];	//the number of questions in a section that have been a
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-var enableAns = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q7a1":"s6q7c" };
+//var enableAns = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q24a1":"s6q24c" };
+var enableAnsObject = {"s1q2a1": "s1q2c", "s1q3a1": "s1q3c", "s1q4a1": "s1q4c", "s1q5a1":"s1q5c", "s6q24a1":"s6q24c" };
+var enableAnsArray = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s6q24a1"];
 
 
 $(function (){
@@ -22,6 +24,9 @@ $(function (){
 		document.getElementById(x.prop("id")).click();
 	});
 });
+
+var timerVar;
+
 
 /*
 Function initialze() is run  on page load. 
@@ -38,6 +43,8 @@ function initialize(){
 	for (var i = 0; i < addClick.length; i++){
 		addClick[i].setAttribute("onclick", "answerSelected(this.id)");
 	}*/ //replacing this with jquery
+	timerVar = setInterval(countTimer, 1000);
+	console.log("Timer started");
 	$("input[type=radio], input[type=checkbox]").prop("checked",false);
 	numSec =  document.getElementsByClassName("pbar").length;
 	console.log("Number of Sections: " + numSec);
@@ -275,13 +282,11 @@ var arraySum = function(arr) {
 }
 //checks whether the number of questions that have been answered is equal to the number of 
 function checkCompletion(){
-	/*console.log("In checkCompletion");
 	var totalAns = arraySum(numberAnswered);
-	console.log(totalAns);
+	//console.log(totalAns);
 	var totalQ = arraySum(numQs);
-	console.log(totalQ);
+	//console.log(totalQ);
 	done = totalQ === totalAns;
-	console.log("Done yet? " + done);*/
 	var submit = $(".submit_button");
 	if (done){
 		submit.removeClass("submit-disabled");
@@ -321,9 +326,6 @@ $(function(){
 		var  sidx = id[1]-1;	//section number
 		var a_pos = id.indexOf("a");	//find "a" in the id
 		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
-		//var len = numberAnswered[s] / numQs[s] * 100;
-		//console.log("len: " + len);
-		//changeBar(s, len);
 		answerSelected(id);
 	});
 	
@@ -340,13 +342,13 @@ $(function(){
 		console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 		
 		if ($(this).hasClass("limit-input")){
-			var limit = 3;
+			var limit = 3;	//can change to whatever limit is needed or make it vary per question
 			if ($(this).siblings(':checked').length >= limit){
 				this.checked = false;
 			}
 		}
 		
-		
+
 		if ($(this).hasClass("sameAns")){
 			var v = event.target.value;
 			console.log(v);
@@ -378,11 +380,21 @@ $(function(){
 			console.log(id);
 			var a_pos = id.indexOf("a");	//find "a" in the id
 			console.log(a_pos);
-			//var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
-			var enabledQ = enableAns[id];
+			var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
+			//var enabledQ = enableAns[id];
 			console.log(enabledQ);
 			console.log(this.id);
-			if (enabledQ){
+			
+			console.time("Array");
+			var x = enableAnsArray.includes(this.id);
+			console.timeEnd("Array");
+
+			console.time("Object");
+			var x = (this.id in enableAnsObject);
+			console.timeEnd("Object");
+			
+			
+			if (enableAns.includes(this.id)){
 				$("#" + enabledQ).prop("disabled", false);
 			} else {
 				$("#" + enabledQ).prop("disabled", true);
