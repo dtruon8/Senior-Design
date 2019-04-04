@@ -1,6 +1,15 @@
 	* {box-sizing: border-box;}
 	/**:not(.bar) {box-sizing: border-box;}*/
 	
+	h1 {
+		font-size: 2em;
+		padding: initial;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+	
 	/* Style the tab */
 	.tab {
 	  float: left;
@@ -278,15 +287,18 @@
 		display: block;
 	}
 	
-	.ans-left, select, option {
+	.ans-left {
 		float: left;
 		text-align: left;
 		margin-left: 8%;
 	}
 	
-	select {
+	.selection {
+		float: left;
+		text-align: left;
+		margin-left: 9%;
 		padding: 5px;
-		overflow: auto;
+		overflow: scroll;
 		max-height: 200px;
 	}
 	

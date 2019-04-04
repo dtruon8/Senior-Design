@@ -1,36 +1,37 @@
-* {
-  font-family: "Noto Sans";
-  text-align: center;
-}
-/* Changes text size of title page */
+body {
+	  font-family: "Noto Sans", Arial, sans-serif;
+	  text-align: center;
+	}
+	
 h1 {
 	font-size: 40px;
 	padding: 10px;
 }
+
+h2 {
+	font-size: 30px;
+}
+
 a:link, a:visited {
+	background-color: lightblue;
 	color: black;
 	padding: 14px 15px;
 	text-decoration: none;
 	display: inline-block;
-	border: none;
-	background-color: #c0c0ff;
-	cursor: pointer;
-	margin: 3px;
-	border-radius: 5px;
-	font-weight: bold;
-}	
+}
 
 a:hover, a:active {
 	background-color: #6a5acd;
 	color: black;
 }
 
-/* Positions the image to the bottom right of the page */
 img {
 	display: block;
-	margin: auto;
-	padding: 70px;
-	max-width: 100%;
+	position: fixed;
+	right: 0px;
+	bottom: 0px;
+	max-width:100%;
 	width: 200px;
 	height: 170px;
 }
+

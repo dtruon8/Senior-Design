@@ -1,0 +1,50 @@
+	body {
+		overflow: hidden;
+		height: 800px;
+	}
+
+	p {
+		clear: both;
+	}
+	p:not(.answers){
+		font-weight: bold;
+		page-break-before: avoid;
+		float:left;
+		text-align: left;
+	}
+	#ans {
+		font-family: "Times New Roman", serif;
+		visibility: hidden;
+		float: left;
+		text-align: left;
+		margin-left: 8%;
+	}
+	#ans h4, #ans h3 {
+		float: left;
+		text-align: left;
+		page-break-before: avoid;
+	}
+	.answers:not(p), .comments {
+		float: left;
+		text-align: left;
+		margin-left: 12%;
+		page-break-before: avoid;
+		page-break-inside: avoid;
+	}
+	.answers span {
+		page-break-before: avoid;	
+	}
+	.save-button {
+		margin: 50px 0;
+		font-size: 18px;
+		max-width:100%;
+		border: none;
+		background-color: #c0c0ff;
+		cursor: pointer;
+		padding: 14px 15px;
+		border-radius: 5px;
+	}
+	
+	.save-button:hover {
+		background-color: yellow;
+	}	
