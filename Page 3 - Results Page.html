@@ -9,66 +9,22 @@ initial-scale=1.0">
 	crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="css_files/results_page.css">
+	<link rel="stylesheet" type="text/css" href="css_files/results.css">
 	<link rel="stylesheet" type="text/css" href="css_files/all.css">
-	<link rel="stylesheet" type="text/css" href="css_files/AAC_asmt_page.css">
-	<script src="js_files/save_results.js"></script>
-	<script src="js_files/results.js"></script>
 	<script src="js_files/jquery-3.3.1.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+	<script src="js_files/results.js"></script>
 	<script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.54/pdfmake.js"></script>
-<style>
-	/*set ans visibility to hidden and disable the scroll bar*/
-	body {
-		/*overflow: hidden;
-		height: 800px;*/
-	}
-	center {
-		text-align: center;
-		margin: 0 auto;
-	}
-	p {
-		clear: both;
-	}
-	p:not(.answers){
-		font-weight: bold;
-		page-break-before: avoid;
-		float:left;
-		text-align: left;
-	}
-	#ans {
-		font-family: "Merriweather", serif;
-		/*display: none;
-		visibility: hidden;*/
-	}
-	#ans h4, #ans h3 {
-		float: left;
-		text-align: left;
-		page-break-before: avoid;
-	}
-	.answers:not(p), .comments {
-		float: left;
-		text-align: left;
-		margin-left: 12%;
-		page-break-before: avoid;
-		page-break-inside: avoid;
-	}
-	.answers span {
-		page-break-before: avoid;	
-	}	
-</style>
 </head>
 <body>
 	<a href="Page 1 - Home Page (old).html" target="_self">
-		<i class="fas fa-home"><br>Home</i>
+		<i class="fas fa-home"><br><span class="buttonTxt">Home</span></i>
 	</a>
 	<h1>AAC Device Diagnostic Tool</h1>
 	<h2>Save AAC Assessment Results</h2>
 
 	<div >	
 	<button class="save-button" onclick="resultsToPDF()">
-			<i class="fas fa-save"><br><span>Save Results</i>
+			<i class="fas fa-save"><br><span class="buttonTxt">Save Results</i>
 	</button>
 	<button class="save-button" onclick="getAnswerVals()">
 			<i class="fas fa-save"><br><span>Fill in answers</i>
