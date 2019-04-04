@@ -19,7 +19,7 @@ function resultsToPDF(){
 		'width': margins.width }, 
 		function(dispose) {footer(doc, doc.internal.getNumberOfPages());},
 		margins);
-	doc.save("sample.pdf");
+	doc.save("summary.pdf");
 }
 
 function footer(doc, pages){
