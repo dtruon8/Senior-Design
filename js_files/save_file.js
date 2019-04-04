@@ -14,7 +14,9 @@ function saveText(){
 	});
 	
 	$(".selection").each(function() {
+		console.log("Selection id:")
 		var id = $(this).children(":selected").prop("id");
+		if (id)
 		s += "selection" + "\t" + $(this).prop("id") + "\t" + id + "\r\n";
 	});
 	//console.log(checkedArray);
@@ -33,4 +35,5 @@ function saveText(){
 	dl.click();
 	dl.href ="javascript:;";
 	dl.download = ".";
+
 }

@@ -1,9 +1,9 @@
 //Timer function with resume and pause button
-var timerVar = setInterval(countTimer, 1000);
+//var timerVar = setInterval(countTimer, 1000);
 var totalSeconds = 0;
 var checkTimer = true;
 function countTimer() {
-   ++totalSeconds;
+   totalSeconds++;
    var hour = Math.floor(totalSeconds /3600);
    var minute = Math.floor((totalSeconds - hour*3600)/60);
    var seconds = totalSeconds - (hour*3600 + minute*60);

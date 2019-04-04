@@ -10,14 +10,20 @@ var answers = [];		//unused
 var questionAnswered = [];	//keeps track of whether each question is answered.
 var numberAnswered = [];	//the number of questions in a section that have been answered. used in deternining progbar len
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
-var numSec;				//the number of sections in the assessment. 
+var numSec;				//the number of (non-comment) sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
 var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s6q24a1"];	//used for enabling comment questions depending on the answer selected
 
 
 $(function (){
+	
+	$("td label").click(function(e){
+		e.stopPropagation()	//prevent label from triggering click event
+	});
+
 	$("td").click(function (){
 		var x = $(this).find("input").first();
+		console.log("AAA");
 		console.log("In this jquery function the id is " + x.prop("id"));
 		document.getElementById(x.prop("id")).click();
 	});
@@ -35,12 +41,6 @@ Counts the number of questions in each section
 Initializes questionAnswered to false for every question
 */
 function initialize(){
-	//console.time('initialize');
-	/*
-	var addClick = document.getElementsByClassName("A");
-	for (var i = 0; i < addClick.length; i++){
-		addClick[i].setAttribute("onclick", "answerSelected(this.id)");
-	}*/ //replacing this with jquery
 	timerVar = setInterval(countTimer, 1000);
 	console.log("Timer started");
 	$("input[type=radio], input[type=checkbox]").prop("checked",false);
@@ -212,7 +212,7 @@ function answerSelected(id){
 	console.log("Position of a: " + a_pos);
 	var qidx = Number(id.substring(3, a_pos)) - 1; //question index
 	//var qidx = id[3]-1; //question index
-	var aidx = id[5]-1; //answer number
+	var aidx = Number(id.substring(a_pos+1)) - 1; //answer number
 	console.log("Section " + (sidx+1) + ", Question " + (qidx+1) + ", Answer " + (aidx+1));
 	console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 	
@@ -230,11 +230,10 @@ function answerSelected(id){
 			//var len = numberAnswered[sidx] / numQs[sidx] * 100;
 			//if (len > 100) len = 100;	//caps the length at 100
 			changeBar(sidx);
-			if (numQs[sidx] == numberAnswered[sidx]){
-				document.getElementsByClassName("fa-check")[sidx].style.visibility = "visible";
-			}
-
 		}		
+		if (numQs[sidx] == numberAnswered[sidx]){
+				document.getElementsByClassName("fa-check")[sidx].style.visibility = "visible";
+		}
 	}
 	else if (questionAnswered[sidx][qidx] && elem.type == "checkbox"){
 		var othersChecked = [];
@@ -289,13 +288,17 @@ function checkCompletion(){
 	if (done){
 		submit.removeClass("submit-disabled");
 		submit.find("a").prop("href", "Page 3 - Results Page.html");
-		stopTimer();
-		sessionStorage.setItem("timer", totalSeconds);
+		if (!upload){
+			sessionStorage.setItem("timer", totalSeconds);
+			stopTimer();
+		}
 	} else {
 		submit.addClass("submit-disabled");
 		submit.prop("href", "javascript:;");
 		resumeTimer();
-		//sessionStorage.removeItem("timer");
+		if(!upload){
+			sessionStorage.removeItem("timer");
+		}
 	}
 }
 function press(){
@@ -542,20 +545,23 @@ function getAnswersFromStorage(){
 		var x = sessionStorage.getItem(id)
 		if (x) document.getElementById(id).value = x;
 	});
+	
+	checkCompletion();
 	upload = false;
 	//sessionStorage.clear();
 }
 
 function putAnswersInStorage(){
-	$(".selection").each(function() {
-		var id = $(this).children(":selected").prop("id");
-		sessionStorage.setItem(this.id, id);
-	});
-	
 	var checks = [];
 	$('.A:checked').each(function() {
 		//console.log(this.id);
 		checks.push(this.id);
+	});
+	
+	$(".selection").each(function() {
+		var id = $(this).children(":selected").prop("id");
+		//sessionStorage.setItem(this.id, id);
+		checks.push(id);
 	});
 	
 	sessionStorage.setItem("selectedAnswers", checks);
