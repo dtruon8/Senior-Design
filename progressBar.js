@@ -10,18 +10,27 @@ var answers = [];		//unused
 var questionAnswered = [];	//keeps track of whether each question is answered.
 var numberAnswered = [];	//the number of questions in a section that have been answered. used in deternining progbar len
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
-var numSec;				//the number of sections in the assessment. 
+var numSec;				//the number of (non-comment) sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-var deviceScore = [0, 0, 0, 0];	//unused, will keep track of the score for each device
+var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s2q49a1"];	//used for enabling comment questions depending on the answer selected
+
 
 $(function (){
+	
+	$("td label").click(function(e){
+		e.stopPropagation()	//prevent label from triggering click event
+	});
+
 	$("td").click(function (){
-		console.log('In here');
-		var x = $(this > "input");
-		console.log(x.prop("id"));
-		x.click();
+		var x = $(this).find("input").first();
+		console.log("AAA");
+		console.log("In this jquery function the id is " + x.prop("id"));
+		document.getElementById(x.prop("id")).click();
 	});
 });
+
+var timerVar;
+
 
 /*
 Function initialze() is run  on page load. 
@@ -32,12 +41,9 @@ Counts the number of questions in each section
 Initializes questionAnswered to false for every question
 */
 function initialize(){
-	//console.time('initialize');
-	/*
-	var addClick = document.getElementsByClassName("A");
-	for (var i = 0; i < addClick.length; i++){
-		addClick[i].setAttribute("onclick", "answerSelected(this.id)");
-	}*/ //replacing this with jquery
+	timerVar = setInterval(countTimer, 1000);
+	console.log("Timer started");
+	$("input[type=radio], input[type=checkbox]").prop("checked",false);
 	numSec =  document.getElementsByClassName("pbar").length;
 	console.log("Number of Sections: " + numSec);
 	numQs.length = numSec;
@@ -54,15 +60,18 @@ function initialize(){
 		var secNum = "s" + (i+1);	//s1 when i=0, s2 when i=1, etc.
 		console.log(secNum);
 		var section = document.getElementById(secNum);
-		console.log(section);
+		//console.log(section);
 		var secNumQ = section.getElementsByClassName("Qn").length; //number of questions in section secNum
-		//console.log(secNumQ)
+		console.log(secNumQ)
 		var optionalNum = section.getElementsByClassName("optional").length;
 		var commentNum = section.getElementsByClassName("comment").length;
-		//console.log("Number of optional questions: " + optionalNum);
-		//console.log("Number of commentq: " + commentNum);
+		var tableNum = section.getElementsByTagName("table").length;
+		console.log("Tables: " + tableNum);
+		console.log("Number of optional questions: " + optionalNum);
+		console.log("Number of commentq: " + commentNum);
 		secNumQ -= optionalNum;
 		secNumQ -= commentNum;	//don't count comments or optional questions in the number of questions
+		secNumQ -= tableNum;	//don't double count questions in tables
 		//console.log(secNumQ);
 		totalQs += secNumQ;
 		numQs[i] = secNumQ;
@@ -82,65 +91,22 @@ function initialize(){
 	//getAnswers();
 	//console.timeEnd('initialize');
 	document.getElementById("defaultOpen").click();
+	var y = sessionStorage.getItem("uploadSuccessful");
+	console.log("This is the value of upload: " + y);
 	if (sessionStorage.getItem("uploadSuccessful")){
 		getAnswersFromStorage();
 		console.log("uploadSuccessful");
 	}
 }
-
-/*
-This function animates the increasing of a progress bar of a particular section.
-The parameters start and stop are the start and end values of the animation, repectively.
-*/
-/*function increaseBar(section, start, stop){
-	section += 1;
-	//console.log("progbar" + section);
-	var bar = document.getElementById("progbar" + section);	//progbar# 
-	var barTxt = document.getElementById("barText" + section);
-	//console.log(start);
-	var width = ~~start;	//equivalent to flooring the start value 
-	//console.log("Starting width: " + width);
-	var id = setInterval(frame, 12);	//12 ms animation
-	function frame() {
-		if (width >= stop) {	// to ensure that if stop is #.### it stops at #.000
-			clearInterval(id);
-		} else {
-			width++;
-			bar.style.width = width + '%'; 
-			barTxt.innerHTML = width + '%'; 
-		}
-	}
-}*/
-
-/*
-Animates the decreasing of a progress bar when a checkbox is unchecked
-*/
-/*function decreaseBar(section, start, stop){
-	section += 1;
-	//console.log("progbar" + section);
-	//currentLen[section-1] = stop;
-	var bar = document.getElementById("progbar" + section);	//progbar# 
-	var barTxt = document.getElementById("barText" + section);
-	var width = start;
-	//console.log("Starting width: " + width);
-	var id = setInterval(frame, 12);
-	function frame() {
-		if (width <= stop) {
-			clearInterval(id);
-		} else {
-			width--;
-			if (width < stop) width = stop; //to ensure the percentage doesn't go lower than the starting percentage
-			bar.style.width = width + '%'; 
-			barTxt.innerHTML = Math.ceil(width) + '%'; //to match the percentage increaseBar produces
-		}
-	}
-}*/
 	
 /*
 Checks whether the bar width should be increased or decreased. 
 Calls the appropriate function and then changes currentLen
 */
-function changeBar(section, len){
+function changeBar(section){
+	var len = numberAnswered[section] / numQs[section] * 100;
+	if (len > 100) len = 100;
+	console.log("Section " + section + "\n Len: " + len);
 	var curLen = currentLen[section];
 	section += 1;
 	var bar = document.getElementById("progbar" + section);	//progbar# 
@@ -161,7 +127,6 @@ function changeBar(section, len){
 	}
 	currentLen[section] = len;*/
 }
-
 function changeMeter(bar, start, stop, barTxt){
 	var x = start < stop ? 1 : -1;
 	console.log("In change meter");
@@ -182,12 +147,6 @@ function changeMeter(bar, start, stop, barTxt){
 	}
 }
 
-/*
-Will be used to compute each device's score.
-*/
-function computeScores(){
-	//console.log("In computeScores");
-}
 
 /*
 Called when a question (radio or checkbox) is answered
@@ -204,7 +163,7 @@ function answerSelected(id){
 	console.log("Position of a: " + a_pos);
 	var qidx = Number(id.substring(3, a_pos)) - 1; //question index
 	//var qidx = id[3]-1; //question index
-	var aidx = id[5]-1; //answer number
+	var aidx = Number(id.substring(a_pos+1)) - 1; //answer number
 	console.log("Section " + (sidx+1) + ", Question " + (qidx+1) + ", Answer " + (aidx+1));
 	console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 	
@@ -218,13 +177,13 @@ function answerSelected(id){
 		console.log(questionAnswered);
 		console.log(numberAnswered);
 		//var len = currentLen[sidx] + 100 / numQs[sidx];
-		if(!enableAns.includes(id) && !upload){
-			var len = numberAnswered[sidx] / numQs[sidx] * 100;
-			if (len > 100) len = 100;	//caps the length at 100
-			changeBar(sidx, len);
-			if (numQs[sidx] == numberAnswered[sidx]){
+		if(!upload){
+			//var len = numberAnswered[sidx] / numQs[sidx] * 100;
+			//if (len > 100) len = 100;	//caps the length at 100
+			changeBar(sidx);
+		}		
+		if (numQs[sidx] == numberAnswered[sidx]){
 				document.getElementsByClassName("fa-check")[sidx].style.visibility = "visible";
-			}
 		}
 	}
 	else if (questionAnswered[sidx][qidx] && elem.type == "checkbox"){
@@ -251,9 +210,9 @@ function answerSelected(id){
 				done = false;
 			questionAnswered[sidx][qidx] = false;
 			//var len = currentLen[sidx] - 100 / numQs[sidx];
-			var len = numberAnswered[sidx] / numQs[sidx] * 100;
-			console.log("len: " + len);
-			changeBar(sidx, len);
+			//var len = numberAnswered[sidx] / numQs[sidx] * 100;
+			//console.log("len: " + len);
+			changeBar(sidx);
 
 			var checkmark = document.getElementsByClassName("fa-check")[sidx];
 			if (checkmark.style.visibility == "visible"){
@@ -261,8 +220,6 @@ function answerSelected(id){
 			}
 		}
 	}
-	//console.log("Number of questions answered: " + answeredQs);
-	//console.log("Done yet? " + done);
 }
 
 //window.onunbeforeunload = clearStorage();
@@ -273,37 +230,37 @@ var arraySum = function(arr) {
 }
 //checks whether the number of questions that have been answered is equal to the number of 
 function checkCompletion(){
-	/*console.log("In checkCompletion");
 	var totalAns = arraySum(numberAnswered);
 	console.log(totalAns);
 	var totalQ = arraySum(numQs);
 	console.log(totalQ);
 	done = totalQ === totalAns;
-	console.log("Done yet? " + done);*/
 	var submit = $(".submit_button");
 	if (done){
 		submit.removeClass("submit-disabled");
-		submit.find("a").prop("href", "Page 3 - Results Page.html");
-		stopTimer();
-		sessionStorage.setItem("timer", totalSeconds);
+		submit.find("a").prop("href", "Results3.html");
+		if (!upload){
+			sessionStorage.setItem("timer", totalSeconds);
+			stopTimer();
+		}
 	} else {
 		submit.addClass("submit-disabled");
 		submit.prop("href", "javascript:;");
 		resumeTimer();
-		sessionStorage.removeItem("timer");
+		if(!upload){
+			sessionStorage.removeItem("timer");
+		}
 	}
 }
-
 function press(){
 	$("#s4q2").val($("#s4q1").val());
 	checkCompletion();
 }
-
+var displaymessage = false;
 function closing(){
-	sessionStorage.clear();
 	if (!started && (done || saved))
 		return null;
-	else return "";
+	else return "aaaaaaaaaaa";
 }
 
 function clearStorage(){
@@ -311,33 +268,40 @@ function clearStorage(){
 	sessionStorage.clear();
 }
 
-function displayWarning(){
-	if (!done){
-		document.getElementById("popUp");
-		popUp.style.visibility = "visible";
-	}
-}
-
-var enableAns = ["."]; //put ids of answers that enable other questions here
+//Jquery
 $(function(){
-    $("#bottomButton").click(press);
-	window.onbeforeunload = closing;
+    window.onbeforeunload = closing;
+	
+	$(".selection").change(function() {
+		var id = $(this).children(":selected").prop("id");
+		console.log("option id: " + id);
+		var  sidx = id[1]-1;	//section number
+		var a_pos = id.indexOf("a");	//find "a" in the id
+		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
+		answerSelected(id);
+		checkCompletion();
+	});
 	
 	$(".A").click( function(event) {
-		var id = event.target.id;
-		console.log("ID: " + id);
-		answerSelected(id);
 		if (!started) {
 			started = true;
 		}
+		var id = event.target.id;
+		console.log("ID: " + id);
+		var  sidx = id[1]-1;	//section number
+		var a_pos = id.indexOf("a");	//find "a" in the id
+		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
+		console.log(a_pos);
+		console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 		
 		if ($(this).hasClass("limit-input")){
-			var limit = 3;
+			var limit = 3;	//can change to whatever limit is needed or make it vary per question
 			if ($(this).siblings(':checked').length >= limit){
 				this.checked = false;
 			}
 		}
 		
+
 		if ($(this).hasClass("sameAns")){
 			var v = event.target.value;
 			console.log(v);
@@ -354,8 +318,8 @@ $(function(){
 				}
 			});
 			
-			var len = numberAnswered[id[1]-1] / numQs[id[1]-1] * 100;
-			if (len > 100) len = 100;	//caps the length at 100
+			//var len = numberAnswered[id[1]-1] / numQs[id[1]-1] * 100;
+			//if (len > 100) len = 100;	//caps the length at 100
 			changeBar(id[1]-1,len);
 			
 			//check if all sections are complete. if so, enable the submit button.
@@ -365,6 +329,65 @@ $(function(){
 			}*/
 		}
 		
+		if ($(this).hasClass("enableQ")) {
+			console.log(id);
+			var a_pos = id.indexOf("a");	//find "a" in the id
+			console.log(a_pos);
+			var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
+			//var enabledQ = enableAns[id];
+			console.log(enabledQ);
+			console.log(this.id);
+			
+			if (enableAns.includes(this.id)){
+				$("#" + enabledQ).prop("disabled", false);
+			} else {
+				$("#" + enabledQ).prop("disabled", true);
+			}
+			/*
+			var s = id[1]-1;
+			//var q = Number(id[3])+1;
+			var item = "numQs" + s;
+			var enabledQ = id.substring(0,3); //s#q
+			enabledQ += q + "a";
+			console.log(id);
+			console.log(enabledQ);
+			console.log("JQuery");
+			if (enableAns.includes(id)) {
+				$('input[name=' + enabledQ +']').prop('disabled', false);
+				sessionStorage.setItem(item, numQs[s]); 
+				console.log("in here");
+				numQs[s] += 1;
+				if (numQs[s] == numberAnswered[s]){
+					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+				} else {
+					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+				}
+			} else {
+				$('input[name=' + enabledQ +']').prop('disabled', true);
+				console.log("does it make it here");
+				if ($('input[name=' + enabledQ +']').is(':checked')){
+					numberAnswered[s] -= 1;
+					questionAnswered[s].length -= 1;
+					$('input[name=' + enabledQ +']').prop('checked', false);
+				}
+				var qs = sessionStorage.getItem(item);
+				if (qs != null){
+					numQs[s] -= 1;
+					sessionStorage.removeItem(item);
+				}
+				if (numQs[s] == numberAnswered[s]){
+					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
+				} else {
+					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+				}
+			}
+			if (!upload){
+				var len = numberAnswered[s] / numQs[s] * 100;
+				console.log("len: " + len);
+				changeBar(s, len);
+			}*/
+		}
+		answerSelected(id);
 		checkCompletion();
 	});
 	//When a question that has an answer that enables another answer is selected:
@@ -377,11 +400,11 @@ $(function(){
 	//Additionally, the numberAnswered, numQs, and questionAnswered have their values reverted.
 	$(".enables").change( function (event) {
 		var id = event.target.id;
-		console.log(id);
+			console.log(id);
 		var a_pos = id.indexOf("a");	//find "a" in the id
-		console.log(a_pos);
+			console.log(a_pos);
 		var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
-		console.log(enabledQ);
+			console.log(enabledQ);
 		if ($(this).is(':checked')){
 			$("#" + enabledQ).prop("disabled", false);
 		} else {
@@ -432,6 +455,7 @@ $(function(){
 		}*/
 	});
 });
+
 function getAnswersFromStorage(){
 	//upload = true;
 	upload = sessionStorage.getItem("uploadSuccessful");
@@ -444,27 +468,54 @@ function getAnswersFromStorage(){
 		//$('#' + x[i]).prop("checked", true);
 		//$('#' + x[i]).prop("disabled", false);
 		$('#' + x[i]).click();
+		console.log("Id of this answer is: " + x[i]);	
 		console.log(questionAnswered);
 	}
+	console.log(numberAnswered);
+	console.log(numQs);
+	
+	var selects = ["s2q1", "s2q52c"]; /* for "drop-down" answers */
+	selects.forEach(function(id){
+		var x = sessionStorage.getItem(id);
+		if (x){
+			console.log(x);
+			console.log(typeof(x));
+			var sel = "#" + id + " option[id=" + x + "]";
+			$(sel).prop("selected", "selected");
+			$("#" + id).change();
+		}
+	});
+	
 	for (var i = 0; i < numSec; i++){
-		var len = numberAnswered[i] / numQs[i] * 100;
-		if (len > 100) len = 100;	//caps the length at 100
-		changeBar(i, len);
+		changeBar(i);
 	}
-	var comments = ["s3q8", "s6q1", "s6q2"]; //put the ids of the comment questions in this
+	
+	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s2q1c", "s2q29c", "s2q49c", "s7q1c", 
+					"s7q2c", "s7q3c", "s7q4c", "s7q5c", "s1q7b1", "s1q7b2", "s1q7b3"]; 
 	comments.forEach(function(id){
 		//console.log(id);
 		var x = sessionStorage.getItem(id)
 		if (x) document.getElementById(id).value = x;
 	});
+	
+	checkCompletion();
 	upload = false;
+	//sessionStorage.clear();
 }
+
 function putAnswersInStorage(){
 	var checks = [];
 	$('.A:checked').each(function() {
 		//console.log(this.id);
 		checks.push(this.id);
 	});
+	
+	$(".selection").each(function() {
+		var id = $(this).children(":selected").prop("id");
+		//sessionStorage.setItem(this.id, id);
+		checks.push(id);
+	});
+	
 	sessionStorage.setItem("selectedAnswers", checks);
 	console.log(checks);
 	var texts = $('input[type="text"], textarea').filter(function() { return $(this).val()}); 
@@ -479,18 +530,27 @@ function results(){
 	x = x.split(',');
 	
 }
-/*
-window.addEventListener('beforeunload', function (e) {
-  // Chrome requires returnValue to be set
-  //if (saved == true) { 
-	e.returnValue = '';
-  //}
- // else {
-	// Cancel the event
-	e.preventDefault();
- // }
-  //from https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
-  //does not work on safari on iOS
-  	sessionStorage.clear();
-});
-*/
+
+//Function: sticks the table header of comm-3d until user scrolls out of table's view
+/*var windw = this;
+
+$.fn.followTo = function ( pos ) {
+    var $this = this,
+        $window = $(windw);
+    
+    $window.scroll(function(e){
+        if ($window.scrollTop() > pos) {
+            $this.css({
+                position: 'absolute',
+                top: pos
+            });
+        } else {
+            $this.css({
+                position: 'fixed',
+                top: 0
+            });
+        }
+    });
+};
+
+$('#3d').followTo(250);*/
