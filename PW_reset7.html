@@ -1,0 +1,64 @@
+<!DOCTYPE html> 
+<html>
+<meta charset="utf-8">
+<!-- Controls the width and scaling of the browser's viewport -->
+<meta name="viewport" content="width=device-width, 
+initial-scale=1">
+<head>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+	integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
+	crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css_files/all.css">
+	<link rel="stylesheet" type="text/css" href="css_files/pw_reset.css">
+	<script src="js_files/jquery-3.3.1.js"></script>
+	<script src="js_files/pw_strength.js"></script>
+	<script src="js_files/zxcvbn.js"></script>
+	<script src="js_files/jquery.color-2.1.2.js"></script>	
+</head>
+<body>
+<h1>AAC Diagnostic Tool</h1>
+<h2>Reset Your Password</h2>
+
+<div id="login-wrapper">
+	<form action="PW_reset_msg6.html" method="post">
+		<div class="icon-pocket" >
+			<button class="pwToggle" type="button" value="pwtxt">
+				<i class="input-icon far fa-eye-slash changeme"></i>
+			</button>
+			<input class="login" placeholder="Password" type="password" id="pwtxt" 
+				pattern="(?=^.{10,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required><br>
+			<div id="strengthContainer"><span id="pwstrength">Password Strength:</span>
+				<div class="bar">
+					<div class="pbar" id="pwmeter"></div>
+				</div>
+			</div>
+		</div><br>
+		
+	<div class="icon-pocket">			
+		<button class="pwToggle" type="button" value="confirmPw">
+			<i class="input-icon far fa-eye-slash changeme"></i>
+		</button>
+		<input class="login" placeholder="Confirm Password" type="password"id="confirmPw" 
+		required oninput="confirmPass()">
+	</div>
+		
+	<div class="pwMsg">
+		<p id="req">Requirements Not Met</p>
+		Your password must have:<br> <span class="pwReq" id="pwLen">at least 10 characters</span>,
+		<br> and also contain at least 
+		<strong>THREE</strong> of the following:<br> 
+		<span class="pwReq" id="pwLow">a lowercase letter,</span> 
+		<span class="pwReq" id="pwUp">a uppercase letter,</span> 
+		<span class="pwReq" id="pwNum">a digit,</span> and 
+		<span class="pwReq" id="pwSpe">a special character</span>.
+	</div><br>
+	<input id="pw-submit" class="login" value="Submit" type="submit" onclick="checkPasswordMatch()"/>
+	</form>
+</div>
+	<img src="https://farm8.staticflickr.com/7903/46221228945_b4a29628f9_m.jpg" 
+	alt="Logo">
+</body>
+</html> 
+
+
