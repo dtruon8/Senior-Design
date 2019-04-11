@@ -12,7 +12,7 @@ var numberAnswered = [];	//the number of questions in a section that have been a
 var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of (non-comment) sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s2q49a1"];	//used for enabling comment questions depending on the answer selected
+var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s2q48a1"];	//used for enabling comment questions depending on the answer selected
 
 
 $(function (){
@@ -474,7 +474,7 @@ function getAnswersFromStorage(){
 	console.log(numberAnswered);
 	console.log(numQs);
 	
-	var selects = ["s2q1", "s2q52c"]; /* for "drop-down" answers */
+	var selects = ["s2q1", "s2q51c"]; /* for "drop-down" answers */
 	selects.forEach(function(id){
 		var x = sessionStorage.getItem(id);
 		if (x){
@@ -490,7 +490,7 @@ function getAnswersFromStorage(){
 		changeBar(i);
 	}
 	
-	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s2q1c", "s2q29c", "s2q49c", "s7q1c", 
+	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s2q1c", "s2q29c", "s2q48c", "s7q1c", 
 					"s7q2c", "s7q3c", "s7q4c", "s7q5c", "s1q7b1", "s1q7b2", "s1q7b3"]; 
 	comments.forEach(function(id){
 		//console.log(id);
