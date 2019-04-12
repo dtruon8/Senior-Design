@@ -1,41 +1,48 @@
 	body {
-		overflow: hidden;
-		height: 800px;
+		/*overflow: hidden;
+		height: 800px;*/
 	}
 
 	p {
 		clear: both;
-	}
-	p:not(.answers){
 		font-weight: bold;
-		page-break-before: avoid;
+		page-break-after: avoid;
 		float:left;
 		text-align: left;
 	}
 	#ans {
 		font-family: "Times New Roman", serif;
-		visibility: hidden;
+		/*visibility: hidden;*/
 		float: left;
 		text-align: left;
-		margin-left: 8%;
+		margin-left: 20mm;
+		/* margin-left: 8%; */
 	}
 	#ans h4, #ans h3 {
 		float: left;
 		text-align: left;
 		page-break-before: avoid;
+		padding-top: 10px;
+		page-break-inside: avoid;
 	}
-	.answers:not(p), .comments {
+	.answers, .comments {
+		display: block;
+		clear: both;
 		float: left;
 		text-align: left;
-		margin-left: 12%;
+		/*margin-left: 12%;*/
+		margin-left: 37mm;
 		page-break-before: avoid;
 		page-break-inside: avoid;
 	}
-	.answers span {
+	.answers span, .answers div {
 		page-break-before: avoid;	
 	}
+	.answers div {
+		margin-left: 37mm;
+	}
+	
 	.save-button {
-		margin: 50px 0;
 		font-size: 18px;
 		max-width:100%;
 		border: none;

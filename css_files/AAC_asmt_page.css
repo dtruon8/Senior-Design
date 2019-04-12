@@ -132,6 +132,7 @@
 		bottom: 5;
 		background-color: lavender;
 		padding: 1px 0 7px 0;
+		z-index: 5
 	}
 	.sticky h2 {
 		margin-top: 5px;
@@ -171,6 +172,7 @@
 		text-align: left;
 		border-collapse: collapse;
 		border: 1.5px solid black;
+		border-top: none !important;
 	}
 	tr {
 		height: 1px;
@@ -333,3 +335,27 @@
 		float: left;
 	}
 	
+	thead th:last-child {
+		border-left: 1px solid black !important;
+		border-right: 1px solid black !important;
+	}
+	thead th:not(:last-child) {
+		border-left: 1px solid black !important;
+		border-right: 1px solid black !important;
+	}
+		
+	table.sticky-head {
+		position: sticky;
+		top: 85.3px;
+		box-shadow: inset 0 1px 0 black, inset 0 -1px black, inset 0.5px 0 black, inset -0.5px 0 black;
+		/*border-bottom: none !important;
+		border-top: none !important;*/
+		border: none !important;
+		background-color: white;
+		overflow: visible;
+		z-index: 1
+	}
+	
+	table tbody:nth-of-type(1) tr:nth-of-type(1) td, table tbody:nth-of-type(1) tr:nth-of-type(1) th {
+		border-top: none !important;
+	}
