@@ -1,35 +1,19 @@
 //Global variables
 var currentLen = [];	//tracks the current width of each progress bar
 var numQs = [];			//the number of questions in each section
-var totalQs = 0;
 var done = false;		//true when every (required) answer has been answered. false otherwise
 var saved = false;		//keeps track of whether assessment progress has been saved. unimplemented currently
 var started = false;	//tracks whether the user has answered a question. used to display warning
-var answeredQs = 0;		//used to determine if the assessment is complete
-var answers = [];		//unused
 var questionAnswered = [];	//keeps track of whether each question is answered.
 var numberAnswered = [];	//the number of questions in a section that have been answered. used in deternining progbar len
-var maxAns = 50;			//the maximum number of answers for any question. may automate getting this later
 var numSec;				//the number of (non-comment) sections in the assessment. 
 						//used for determining the length of numQs and questionAnswered
-var enableAns = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s6q24a1"];	//used for enabling comment questions depending on the answer selected
-
-
-$(function (){
-	
-	$("td label").click(function(e){
-		e.stopPropagation()	//prevent label from triggering click event
-	});
-
-	$("td").click(function (){
-		var x = $(this).find("input").first();
-		console.log("AAA");
-		console.log("In this jquery function the id is " + x.prop("id"));
-		document.getElementById(x.prop("id")).click();
-	});
-});
-
-var timerVar;
+var enableCom = ["s1q2a1", "s1q3a1", "s1q4a1", "s1q5a1", "s2q48a1"];	//used for enabling comment questions depending on the answer selected
+var enableQs = {
+		s6q6a1: ["s6q7a"],
+		s6q8a1: ["s6q9a", "s6q10a"]
+};	//for enabling multple choice answers. key is the id of the enable answer and value(s) are the names of answers to enable
+var timerVar;	
 
 
 /*
@@ -47,8 +31,6 @@ function initialize(){
 	numSec =  document.getElementsByClassName("pbar").length;
 	console.log("Number of Sections: " + numSec);
 	numQs.length = numSec;
-	//var width = 400;
-	////console.log(width);
 	var bars = document.getElementsByClassName("bar");
 	for (var i = 0; i < numSec; i++){
 		//set the width of the progress bars,
@@ -62,27 +44,25 @@ function initialize(){
 		var section = document.getElementById(secNum);
 		//console.log(section);
 		var secNumQ = section.getElementsByClassName("Qn").length; //number of questions in section secNum
-		console.log(secNumQ)
-		var optionalNum = section.getElementsByClassName("optional").length;
+		console.log(secNumQ);
 		var commentNum = section.getElementsByClassName("comment").length;
 		var tableNum = section.getElementsByTagName("table").length;
 		console.log("Tables: " + tableNum);
 		console.log("Number of optional questions: " + optionalNum);
 		console.log("Number of commentq: " + commentNum);
-		secNumQ -= optionalNum;
-		secNumQ -= commentNum;	//don't count comments or optional questions in the number of questions
-		secNumQ -= tableNum;	//don't double count questions in tables
-		//console.log(secNumQ);
-		totalQs += secNumQ;
-		numQs[i] = secNumQ;
+		secNumQ -= commentNum;	//don't count comment questions in the number of questions
+		secNumQ -= tableNum;
 		var tempArray = [];
 		tempArray.length = secNumQ;	//sets the length of the tempArray to the number of questions in this section
 		tempArray.fill(false, 0, secNumQ); 
+		var optionalNum = section.getElementsByClassName("optional").length;
+		//console.log(secNumQ);
+		secNumQ -= optionalNum; //don't count optional questions to the total until they are enabled
+		numQs[i] = secNumQ;
 		numberAnswered[i] = 0;
 		questionAnswered.push(tempArray);	//equivalent to questionAnswered[i] = tempArray;
 	}
 	console.log("numQs: " + numQs);
-	//console.log(totalQs);
 	console.log("Questions Answered");
 	console.log(questionAnswered);
 	console.log(numberAnswered);
@@ -95,64 +75,15 @@ function initialize(){
 	console.log("This is the value of upload: " + y);
 	if (sessionStorage.getItem("uploadSuccessful")){
 		getAnswersFromStorage();
-		console.log("uploadSuccessful");
 	}
 }
-
-/*
-This function animates the increasing of a progress bar of a particular section.
-The parameters start and stop are the start and end values of the animation, repectively.
-*/
-/*function increaseBar(section, start, stop){
-	section += 1;
-	//console.log("progbar" + section);
-	var bar = document.getElementById("progbar" + section);	//progbar# 
-	var barTxt = document.getElementById("barText" + section);
-	//console.log(start);
-	var width = ~~start;	//equivalent to flooring the start value 
-	//console.log("Starting width: " + width);
-	var id = setInterval(frame, 12);	//12 ms animation
-	function frame() {
-		if (width >= stop) {	// to ensure that if stop is #.### it stops at #.000
-			clearInterval(id);
-		} else {
-			width++;
-			bar.style.width = width + '%'; 
-			barTxt.innerHTML = width + '%'; 
-		}
-	}
-	
-}*/
-
-/*
-Animates the decreasing of a progress bar when a checkbox is unchecked
-*/
-/*function decreaseBar(section, start, stop){
-	section += 1;
-	//console.log("progbar" + section);
-	//currentLen[section-1] = stop;
-	var bar = document.getElementById("progbar" + section);	//progbar# 
-	var barTxt = document.getElementById("barText" + section);
-	var width = start;
-	//console.log("Starting width: " + width);
-	var id = setInterval(frame, 12);
-	function frame() {
-		if (width <= stop) {
-			clearInterval(id);
-		} else {
-			width--;
-			if (width < stop) width = stop; //to ensure the percentage doesn't go lower than the starting percentage
-			bar.style.width = width + '%'; 
-			barTxt.innerHTML = Math.ceil(width) + '%'; //to match the percentage increaseBar produces
-		}
-	}
-}*/
 	
 /*
 Checks whether the bar width should be increased or decreased. 
 Calls the appropriate function and then changes currentLen
 */
 function changeBar(section){
+	saved = false;
 	var len = numberAnswered[section] / numQs[section] * 100;
 	if (len > 100) len = 100;
 	console.log("Section " + section + "\n Len: " + len);
@@ -220,7 +151,6 @@ function answerSelected(id){
 	//console.log("Answer selected");
 	if (!questionAnswered[sidx][qidx]){
 		questionAnswered[sidx][qidx] = true;
-		answeredQs++;
 		numberAnswered[sidx]++;
 		console.log("Question Answered and number answered");
 		console.log(questionAnswered);
@@ -253,7 +183,6 @@ function answerSelected(id){
 		console.log(othersChecked);
 		
 		if (!othersChecked){
-			answeredQs--;
 			numberAnswered[sidx]--;
 			if (done)
 				done = false;
@@ -273,21 +202,20 @@ function answerSelected(id){
 
 //window.onunbeforeunload = clearStorage();
 var upload = false;
-var saveStr = ""
 var arraySum = function(arr) {
 	return arr.reduce(function(acc, cur) {return acc + cur;}, 0);
 }
 //checks whether the number of questions that have been answered is equal to the number of 
 function checkCompletion(){
 	var totalAns = arraySum(numberAnswered);
-	//console.log(totalAns);
+	console.log(totalAns);
 	var totalQ = arraySum(numQs);
-	//console.log(totalQ);
+	console.log(totalQ);
 	done = totalQ === totalAns;
 	var submit = $(".submit_button");
 	if (done){
 		submit.removeClass("submit-disabled");
-		submit.find("a").prop("href", "Page 3 - Results Page.html");
+		submit.find("a").prop("href", "Results3.html");
 		if (!upload){
 			sessionStorage.setItem("timer", totalSeconds);
 			stopTimer();
@@ -305,29 +233,79 @@ function press(){
 	$("#s4q2").val($("#s4q1").val());
 	checkCompletion();
 }
-var displaymessage = false;
+
+//display a warning message if the user has unsaved work and is not done
 function closing(){
-	if (!started && (done || saved))
-		return null;
-	else return "aaaaaaaaaaa";
+	if (started && !saved && !done)
+		return 'warning';
+	else return null;
 }
 
-function clearStorage(){
-	localStorage.clear();
-	sessionStorage.clear();
+function validateNum(event){
+	var keycode = event.keyCode;
+	console.log(keycode);
+	switch (true){
+		case keycode == 45:	//"-"
+		case keycode == 46:	//"."
+			return true;
+		case keycode < 48:	//"0"
+		case keycode > 57:	//"9"
+			return false;
+		default:
+			return true;
+	}
 }
 
 //Jquery
 $(function(){
     window.onbeforeunload = closing;
 	
-	$(".selection").change(function() {
+	$("td label").click(function(e){
+		e.stopPropagation()	//prevent label from triggering click event
+	});
+
+	$("td").click(function (){
+		var x = $(this).find("input").first();
+		console.log("AAA");
+		console.log("In this jquery function the id is " + x.prop("id"));
+		if (x){
+			document.getElementById(x.prop("id")).click();
+		}
+	});
+	
+	$(".selection, .selectionAlt").change(function() {
 		var id = $(this).children(":selected").prop("id");
 		console.log("option id: " + id);
 		var  sidx = id[1]-1;	//section number
 		var a_pos = id.indexOf("a");	//find "a" in the id
 		var qidx = Number(id.substring(3, a_pos)) - 1;	//question index
 		answerSelected(id);
+		checkCompletion();
+	});
+	
+	//for textarea and text inputs, check if it is answered when the user leaves the text box
+	//the question is considered answered if the text box is not empty
+	$(".required-text").blur(function(){
+		console.log(this.id);
+		var id = this.id;
+		var sidx = id[1]-1;
+		var c_pos = id.indexOf("c");
+		var qidx = Number(id.substring(3, c_pos)) - 1;
+		console.log(sidx, qidx);
+		if($.trim(this.value).length){
+			console.log("Not empty");
+			if (!questionAnswered[sidx][qidx]){
+				numberAnswered[sidx] += 1;
+				questionAnswered[sidx][qidx] = true;
+			}
+		} else {
+			console.log("empty");
+			if (questionAnswered[sidx][qidx]){
+				questionAnswered[sidx][qidx] = false;
+				numberAnswered[sidx] -= 1;
+			}
+		}
+		changeBar(sidx);
 	});
 	
 	$(".A").click( function(event) {
@@ -342,15 +320,21 @@ $(function(){
 		console.log(a_pos);
 		console.log("Was this question already answered? " + questionAnswered[sidx][qidx]);
 		
-		if ($(this).hasClass("limit-input")){
+		//currently unused
+		//limits the number of answers that can be selected by checkbox questions 
+		//add the limit-input class to all answers to the question
+		/*if ($(this).hasClass("limit-input")){
+			var name = $(this).prop("name");
 			var limit = 3;	//can change to whatever limit is needed or make it vary per question
-			if ($(this).siblings(':checked').length >= limit){
+			if ($("input[name=" + name + "]:checked").length > limit){
 				this.checked = false;
 			}
-		}
+		}*/
 		
-
-		if ($(this).hasClass("sameAns")){
+		//currently unused
+		//if two questions have the same answers choices,
+		//prevent the user from selecting the same answer to both questions
+		/*if ($(this).hasClass("sameAns")){
 			var v = event.target.value;
 			console.log(v);
 			$(".sameAns:checked").not(this).each(function(){
@@ -365,145 +349,69 @@ $(function(){
 					numberAnswered[s] -= 1;
 				}
 			});
-			
-			//var len = numberAnswered[id[1]-1] / numQs[id[1]-1] * 100;
-			//if (len > 100) len = 100;	//caps the length at 100
 			changeBar(id[1]-1,len);
-			
-			//check if all sections are complete. if so, enable the submit button.
-			/*for (var i = 0; i < numSec; i++){
-				if (numberAnswered[i] === numQs[i])
-					
-			}*/
-		}
+		}*/
 		
-		if ($(this).hasClass("enableQ")) {
+		//enable or disable comment questions depending on answer selected
+		if ($(this).hasClass("commentEnable")) {
 			console.log(id);
 			var a_pos = id.indexOf("a");	//find "a" in the id
 			console.log(a_pos);
-			var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
-			//var enabledQ = enableAns[id];
+			var enabledQ = id.substring(0, a_pos) + "c";	//id is s#q#c for optional comments
 			console.log(enabledQ);
 			console.log(this.id);
 			
-			if (enableAns.includes(this.id)){
+			if (enableCom.includes(this.id)){
 				$("#" + enabledQ).prop("disabled", false);
 			} else {
 				$("#" + enabledQ).prop("disabled", true);
 			}
-			/*
-			var s = id[1]-1;
-			//var q = Number(id[3])+1;
-			var item = "numQs" + s;
-			var enabledQ = id.substring(0,3); //s#q
-			enabledQ += q + "a";
+			
+		}	
+		
+		//enable or disable other input types
+		if($(this).hasClass("questionEnable")){
 			console.log(id);
-			console.log(enabledQ);
-			console.log("JQuery");
-			if (enableAns.includes(id)) {
-				$('input[name=' + enabledQ +']').prop('disabled', false);
-				sessionStorage.setItem(item, numQs[s]); 
-				console.log("in here");
-				numQs[s] += 1;
-				if (numQs[s] == numberAnswered[s]){
-					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
-				} else {
-					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
-				}
+			var s = id[1] - 1;	//section number
+			//if the answer is an enable answer, enable all of its associated questions
+			//and add the number of questions enabled to numQs[s]
+			if(enableQs.hasOwnProperty(id)){
+				console.log(enableQs[id]);
+				console.log(enableQs[id].length);
+				numQs[s] += enableQs[id].length;
+				enableQs[id].forEach(function(q){
+					$('input[name=' + q + ']').prop('disabled', false);
+				});
 			} else {
-				$('input[name=' + enabledQ +']').prop('disabled', true);
-				console.log("does it make it here");
-				if ($('input[name=' + enabledQ +']').is(':checked')){
-					numberAnswered[s] -= 1;
-					questionAnswered[s].length -= 1;
-					$('input[name=' + enabledQ +']').prop('checked', false);
-				}
-				var qs = sessionStorage.getItem(item);
-				if (qs != null){
-					numQs[s] -= 1;
-					sessionStorage.removeItem(item);
-				}
-				if (numQs[s] == numberAnswered[s]){
-					document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
-				} else {
-					document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
+				//if the selected answer wasn't the enable ans, get the id of the enable ans.
+				//then adjust numQs[s], disable the questions, and if they were selected, deselect them,
+				//and adjust numberAnswered and questionAnswered
+				var otherAns = id.substr(0, id.length - 1) + "1";
+				console.log(otherAns);
+				if (enableQs.hasOwnProperty(otherAns)){
+					numQs[s] -= enableQs[otherAns].length;
+					enableQs[otherAns].forEach(function(q){
+						console.log(q);
+						$('input[name=' + q + ']').prop('disabled', true);
+						$('input[name=' + q + ']').prop('checked', false);
+						var a_pos = q.indexOf("a");
+						var qNum = Number(q.substring(3, a_pos)) - 1; 
+						console.log("Question: " + qNum);
+						if (questionAnswered[s][qNum]){
+							questionAnswered[s][qNum] = false;
+							numberAnswered[s] -= 1;
+						}
+					});
 				}
 			}
-			if (!upload){
-				var len = numberAnswered[s] / numQs[s] * 100;
-				console.log("len: " + len);
-				changeBar(s, len);
-			}*/
+			changeBar(s);
 		}
 		answerSelected(id);
 		checkCompletion();
 	});
-	//When a question that has an answer that enables another answer is selected:
-	//if the enable answer is selected: get the section and question number of the next question
-	//This means that an optional question must follow the enabling question.
-	//This function gets the name of the optional question
-	//If the enable answer was selected, remove the disabled property from the optional question
-	//and add the old numQs array to storage. The new numQs has one more question in this section than the old.
-	//If the enable answer was not selected: the optional question is disabled and its answers are unselected.
-	//Additionally, the numberAnswered, numQs, and questionAnswered have their values reverted.
-	$(".enables").change( function (event) {
-		var id = event.target.id;
-		console.log(id);
-		var a_pos = id.indexOf("a");	//find "a" in the id
-		console.log(a_pos);
-		var enabledQ = id.substring(0, a_pos) + "c";	//s#q#c for comments
-		console.log(enabledQ);
-		if ($(this).is(':checked')){
-			$("#" + enabledQ).prop("disabled", false);
-		} else {
-			$("#" + enabledQ).prop("disabled", true);
-		}
-		/*
-		var s = id[1]-1;
-		//var q = Number(id[3])+1;
-		var item = "numQs" + s;
-		var enabledQ = id.substring(0,3); //s#q
-		enabledQ += q + "a";
-		console.log(id);
-		console.log(enabledQ);
-		console.log("JQuery");
-		if (enableAns.includes(id)) {
-			$('input[name=' + enabledQ +']').prop('disabled', false);
-			sessionStorage.setItem(item, numQs[s]); 
-			console.log("in here");
-			numQs[s] += 1;
-			if (numQs[s] == numberAnswered[s]){
-				document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
-			} else {
-				document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
-			}
-		} else {
-			$('input[name=' + enabledQ +']').prop('disabled', true);
-			console.log("does it make it here");
-			if ($('input[name=' + enabledQ +']').is(':checked')){
-				numberAnswered[s] -= 1;
-				questionAnswered[s].length -= 1;
-				$('input[name=' + enabledQ +']').prop('checked', false);
-			}
-			var qs = sessionStorage.getItem(item);
-			if (qs != null){
-				numQs[s] -= 1;
-				sessionStorage.removeItem(item);
-			}
-			if (numQs[s] == numberAnswered[s]){
-				document.getElementsByClassName("fa-check")[s].style.visibility = "visible";
-			} else {
-				document.getElementsByClassName("fa-check")[s].style.visibility = "hidden";
-			}
-		}
-		if (!upload){
-			var len = numberAnswered[s] / numQs[s] * 100;
-			console.log("len: " + len);
-			changeBar(s, len);
-		}*/
-	});
 });
 
+//on page load, get the uploaded answers
 function getAnswersFromStorage(){
 	//upload = true;
 	upload = sessionStorage.getItem("uploadSuccessful");
@@ -511,23 +419,23 @@ function getAnswersFromStorage(){
 	totalSeconds = sessionStorage.getItem("timer");
 	var x = sessionStorage.getItem("selectedAnswers");
 	x = x.split(',');
-	console.log(x);
+	//console.log(x);
 	for (var i = 0; i < x.length; i++){
 		//$('#' + x[i]).prop("checked", true);
 		//$('#' + x[i]).prop("disabled", false);
 		$('#' + x[i]).click();
-		console.log("Id of this answer is: " + x[i]);	
-		console.log(questionAnswered);
+		//console.log("Id of this answer is: " + x[i]);	
+		//console.log(questionAnswered);
 	}
-	console.log(numberAnswered);
-	console.log(numQs);
+	//console.log(numberAnswered);
+	//console.log(numQs);
 	
-	var selects = ["s2q1", "s2q2"];
+	var selects = ["s2q1", "s2q51c", "s6q11c", "s6q12c", "s6q13c", "s6q14c", "s6q15c", "s6q16c", "s6q20c", "s6q21c"]; //drop-down questions
 	selects.forEach(function(id){
 		var x = sessionStorage.getItem(id);
 		if (x){
-			console.log(x);
-			console.log(typeof(x));
+			//console.log(x);
+			//console.log(typeof(x));
 			var sel = "#" + id + " option[id=" + x + "]";
 			$(sel).prop("selected", "selected");
 			$("#" + id).change();
@@ -538,8 +446,9 @@ function getAnswersFromStorage(){
 		changeBar(i);
 	}
 	
-	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s2q1c", "s6q24c", "s6q29c", "s7q1c", 
-					"s7q2c", "s7q3c", "s7q4c", "s7q5c", "s1q7b1", "s1q7b2", "s1q7b3"]; 
+	var comments = ["s1q2c", "s1q3c", "s1q4c", "s1q5c", "s1q7b1", "s1q7b2", "s1q7b3",
+					"s2q1c", "s2q48c", "s6q23c", "s6q24c", "s6q25c", "s6q26c", "s6q27c", 
+					"s6q28c", "s6q29c", "s6q30c", "s7q1c", "s7q2c", "s7q3c", "s7q4c", "s7q5c"]; 
 	comments.forEach(function(id){
 		//console.log(id);
 		var x = sessionStorage.getItem(id)
@@ -548,9 +457,10 @@ function getAnswersFromStorage(){
 	
 	checkCompletion();
 	upload = false;
-	//sessionStorage.clear();
+	sessionStorage.clear();
 }
 
+//put the selected ids and comment text in sessionStorage for use on the results page
 function putAnswersInStorage(){
 	var checks = [];
 	$('.A:checked').each(function() {
@@ -558,9 +468,8 @@ function putAnswersInStorage(){
 		checks.push(this.id);
 	});
 	
-	$(".selection").each(function() {
+	$(".selection, .selectionAlt").each(function() {
 		var id = $(this).children(":selected").prop("id");
-		//sessionStorage.setItem(this.id, id);
 		checks.push(id);
 	});
 	
@@ -573,26 +482,88 @@ function putAnswersInStorage(){
 	});
 }
 
-function results(){
-	var x = sessionStorage.getItem("selectedAnswers");
-	x = x.split(',');
-	
-}
-/*
-window.addEventListener('beforeunload', function (e) {
-  // Chrome requires returnValue to be set
-  //if (saved == true) { 
-	e.returnValue = '';
-  //}
- // else {
-	// Cancel the event
-	e.preventDefault();
- // }
-  //from https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
-  //does not work on safari on iOS
-  	sessionStorage.clear();
-});
-
-
-
+/*	
+  Creates an string with the ids of every answer that is selected
+  Each id is put on its own line
+  Also puts the current value of the timer into the string
+  And puts the ids and contents of every non-empty text input
+  Then saves the string to a local file
 */
+function saveFile(){
+	var time = totalSeconds;
+	var s = "from AAC diagnostic tool" + "\r\n";
+	s += "timer\t" + time + "\r\n";
+	$('.A:checked').each(function() {
+		//console.log(this.id);
+		s += this.id + "\r\n";
+	});
+	
+	$(".selection").each(function() {
+		console.log("Selection id:")
+		var id = $(this).children(":selected").prop("id");
+		if (id)
+		s += "selection" + "\t" + $(this).prop("id") + "\t" + id + "\r\n";
+	});
+	//console.log(checkedArray);
+	//s += ".\r\n";
+	var texts = $('input[type="text"], textarea').filter(function() { return $(this).val()}); 
+	console.log(texts);
+	texts.each(function(){
+		s += this.id + "\t" + this.value + "\r\n"
+	});
+	
+	var blob = new Blob([s], { type: "text/plain;charset=utf-8" });
+	var url = URL.createObjectURL(blob);
+	var dl = document.getElementById("saveBtn");
+	dl.href = url;
+	dl.download = "savefile.txt";
+	dl.click();
+	dl.href ="javascript:;";
+	dl.download = ".";
+	saved = true;
+}
+
+//Creation of tabs with content inside them
+function openSection(evt, sectionName) {
+	var i, tabcontent, tablinks;
+	tabcontent = document.getElementsByClassName("tabcontent");
+	tablinks = document.getElementsByClassName("tablinks");
+	for (i = 0; i < tablinks.length; i++) {
+		tablinks[i].className = tablinks[i].className.replace(" active", "");
+	}
+	for ( i = 1; i <= tabcontent.length; i++){
+		console.log("Value of i " + i);
+		var s = "s" + i;
+		if (s != sectionName){
+			document.getElementById(s).style.display = "none";
+		}
+	}
+	document.getElementById(sectionName).style.display = "block";
+	evt.currentTarget.className += " active";
+}
+
+//Timer function with resume and pause button
+//var timerVar = setInterval(countTimer, 1000);
+var totalSeconds = 0;
+var checkTimer = true;
+function countTimer() {
+	totalSeconds++;
+	var hour = Math.floor(totalSeconds /3600);
+	var minute = Math.floor((totalSeconds - hour*3600)/60);
+	var seconds = totalSeconds - (hour*3600 + minute*60);
+
+	hour = hour.toString().padStart(2, "0");
+	minute = minute.toString().padStart(2, "0");
+	seconds = seconds.toString().padStart(2, "0");
+	document.getElementById("timer").innerHTML = hour + ":" + minute + ":" + seconds;
+}
+function stopTimer() {
+	checkTimer = false;
+	clearInterval(timerVar);
+}
+function resumeTimer() {
+	if (checkTimer == false) {
+		checkTimer = true;
+		timerVar = setInterval(countTimer, 1000);
+	}
+}
