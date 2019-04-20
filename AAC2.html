@@ -285,7 +285,7 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 	<p class="Qn">1c. Enter any additional information about the patient's means of communication here. (Optional)</p>
 	<textarea id="s2q1c" class="comment" placeholder="Enter comments here"></textarea>
 	
-	<h4>Those Who Understand patient's Communication Attempts</h4>
+	<h4>Those Who Understand Patient's Communication Attempts</h4>
 	<p class="Qn">2. Choose the best descriptor for each.</p>
 	<table>
 		<thead>
@@ -490,7 +490,6 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 	<p class="Qn"></p>
 	<table>
 		<thead>
-		<tr>
 			<th></th>
 			<th>Yes</th>
 			<th>No</th>
@@ -798,7 +797,7 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 		<div id="progbar4" name="progbar" class="pbar"></div>
 	</div>
 	</div>
-	<p class="Qn">1. Current Seating and Positioning of patient (Check all that apply.)</p>
+	<p class="Qn">1. Current Seating and Positioning of Patient (Check all that apply.)</p>
 	<div class="ans-left">
 		<input type="checkbox" id="s4q1a1" name="s4q1a" value="" class="A" /><label for="s4q1a1">Sits in regular chair with feet on floor</label><br>
 		<input type="checkbox" id="s4q1a2" name="s4q1a" value="" class="A" /><label for="s4q1a2">Sits in regular chair with pelvic belt or foot rest</label><br>
@@ -823,10 +822,10 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 		<input type="checkbox" id="s4q2a2" name="s4q2a" value="" class="A" /><label for="s4q2a2">Seating allows feet to be on floor or foot rest</label><br>
 		<input type="checkbox" id="s4q2a3" name="s4q2a" value="" class="A" /><label for="s4q2a3">Seating facilitates readiness to perform task</label><br>
 		<input type="checkbox" id="s4q2a4" name="s4q2a" value="" class="A" /><label for="s4q2a4">There are questions or concerns about patient’s seating</label><br>
-		<input type="checkbox" id="s4q2a5" name="s4q2a" value="" class="A" /><label for="s4q2a5">patient dislikes some positions</label><br>
-		<input type="checkbox" id="s4q2a6" name="s4q2a" value="" class="A" /><label for="s4q2a6">patient has difficulty using table or desk</label><br>
+		<input type="checkbox" id="s4q2a5" name="s4q2a" value="" class="A" /><label for="s4q2a5">Patient dislikes some positions</label><br>
+		<input type="checkbox" id="s4q2a6" name="s4q2a" value="" class="A" /><label for="s4q2a6">Patient has difficulty using table or desk</label><br>
 		<input type="checkbox" id="s4q2a7" name="s4q2a" value="" class="A"/><label for="s4q2a7">There are concerns or questions about current wheelchair</label><br>
-		<input type="checkbox" id="s4q2a8" name="s4q2a" value="" class="A"/><label for="s4q2a8">patient has difficulty achieving and maintaining head control</label><br>
+		<input type="checkbox" id="s4q2a8" name="s4q2a" value="" class="A"/><label for="s4q2a8">Patient has difficulty achieving and maintaining head control</label><br>
 	</div>
 	
 	<h3>Mobility</h3>	
@@ -1027,8 +1026,6 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 		<input type="radio" id="s6q8a1" name="s6q8a" value="" class="A questionEnable" /><label for="s6q8a1">Yes</label>
 		<input type="radio" id="s6q8a2" name="s6q8a" value="" class="A questionEnable" /><label for="s6q8a2">No</label>
 	</div>
-	
-	<!-- come back and add the optional class -->
 	<p class="Qn optional">7b. If so, has it been medically or surgically managed?</p>
 	<div class="ans-left">
 		<input type="radio" id="s6q9a1" name="s6q9a" value="" class="A" disabled /><label for="s6q9a1">Yes</label>
@@ -1104,7 +1101,7 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 		</tr>
 	</table>
 	
-	<p class="Qn">10. Otoacoustic Emission (OAE) Screening:
+	<p class="Qn">10. Otoacoustic Emission (OAE) Screening:</p>
 	<div class="ans-left">
 		<input type="radio" id="s6q17a1" name="s6q17a" value="" class="A" /><label for="s6q17a1">TEOAE</label>
 		<input type="radio" id="s6q17a2" name="s6q17a" value="" class="A" /><label for="s6q17a2">DPOAE</label>
@@ -1202,8 +1199,11 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 	<p class="Qn" class="s7">4. Does patient fatigue easily or experience a change in performance at different times of the day?</p>
 	<textarea id="s7q4c" class="comment" placeholder="Enter comments here"></textarea>
 		
-	<p class="Qn" class="s7">5. Any other comments?</p>
+	<p class="Qn" class="s7">5. What motivating factors are there for the patient to communicate (i.e. music, toys, etc.)?</p>
 	<textarea id="s7q5c" class="comment" placeholder="Enter comments here"></textarea>
+		
+	<p class="Qn" class="s7">6. Any other comments?</p>
+	<textarea id="s7q6c" class="comment" placeholder="Enter comments here"></textarea>
 </div><!-------------------------------------- END OF COMMENTS SECTION!!! ----------------------------------------------------------->
 
 </div><!--content-->
@@ -1212,8 +1212,6 @@ This site requires JavaScript to function. Enable JavaScript and try again.
 <div class="submit_button submit-disabled">
 	<a href="javascript:;" onclick="putAnswersInStorage()" target="_self">Submit</a> 
 </div>
-<!--Stops the user from accessing the results page when clicking the submit button without answering all of the assessment questions-->
-<div id="popUp" style="z-index:5; margin: 20px; padding: 5px; visibility: collapse">Warning: <br />.........</div>
 
 <!--for downloading the save file. This is separate from the button the user clicks to save the file-->
 <a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
