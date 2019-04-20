@@ -1,6 +1,7 @@
 //Global variables
 var currentLen = [];	//tracks the current width of each progress bar
 var numQs = [];			//the number of questions in each section
+var originalNumQs = [];			//the original number of questions in each section since numQs might change
 var done = false;		//true when every (required) answer has been answered. false otherwise
 var saved = false;		//keeps track of whether assessment progress has been saved. unimplemented currently
 var started = false;	//tracks whether the user has answered a question. used to display warning
@@ -66,7 +67,7 @@ function initialize(){
 	console.log("Questions Answered");
 	console.log(questionAnswered);
 	console.log(numberAnswered);
-	
+	originalNumQs = numQs.slice();	//originalNumQs is a copy of numQs
 	////console.log("CurrentLen: " + currentLen);
 	//getAnswers();
 	//console.timeEnd('initialize');
@@ -96,6 +97,8 @@ function changeBar(section){
 	}
 	//console.log("start: " + curLen + "\nStop: " + len);
 	currentLen[section-1] = len;
+	console.log(numQs[5]);
+	console.log(numberAnswered[5]);
 	/*//console.log("Length Before: " + curLen);
 	//console.log("Length After: " + len);
 	if (curLen < len) {
@@ -266,10 +269,11 @@ $(function(){
 
 	$("td").click(function (){
 		var x = $(this).find("input").first();
-		console.log("AAA");
-		console.log("In this jquery function the id is " + x.prop("id"));
-		if (x){
-			document.getElementById(x.prop("id")).click();
+		var input = document.getElementById(x.prop("id"));
+		if (input){
+			console.log(input.id);
+			input.focus();
+			input.click();
 		}
 	});
 	
@@ -349,7 +353,7 @@ $(function(){
 					numberAnswered[s] -= 1;
 				}
 			});
-			changeBar(id[1]-1,len);
+			changeBar(id[1]-1);
 		}*/
 		
 		//enable or disable comment questions depending on answer selected
@@ -389,7 +393,9 @@ $(function(){
 				var otherAns = id.substr(0, id.length - 1) + "1";
 				console.log(otherAns);
 				if (enableQs.hasOwnProperty(otherAns)){
-					numQs[s] -= enableQs[otherAns].length;
+					if (numQs[s] > originalNumQs[s]){
+						numQs[s] -= enableQs[otherAns].length;
+					}
 					enableQs[otherAns].forEach(function(q){
 						console.log(q);
 						$('input[name=' + q + ']').prop('disabled', true);

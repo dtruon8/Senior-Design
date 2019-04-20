@@ -103,4 +103,11 @@ $(function() {
 		}
 		meterLen = x;
 	});
-});
+
+	//Toggles the password reveal icon when clicked
+	$('.pwToggle').click(function (){
+		togglePW($(this).prop("value"));
+		$(this).find(".changeme").first().toggleClass("fa-eye-slash fa-eye");
+		//console.log(okay);
+	});
+});											   

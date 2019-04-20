@@ -24,4 +24,13 @@ function check_form(){
 	}
 
 	return false;
-}	
+}
+
+function passwordToggle() {
+  var x = document.getElementById("myInput");
+  if (x.type === "password") {
+    x.type = "text";
+  } else {
+    x.type = "password";
+  }
+}																													
