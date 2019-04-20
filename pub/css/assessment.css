@@ -1,0 +1,368 @@
+/*DEVELOPED BY STEVEN AMEDEE AND DENNIS TRUONG
+//TEAM #57 - AAC DIAGNOSTIC TOOL
+SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */									  
+
+	* {box-sizing: border-box;}
+	/**:not(.bar) {box-sizing: border-box;}*/
+	
+	h1 {
+		font-size: 2em;
+		padding: initial;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+	
+	/* Style the tab */
+	.tab {
+	  float: left;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+	  /*width: 28%;*/
+	  width: 30%;
+	  height: 509px;
+	  overflow: auto;
+	}
+
+	/* Style the buttons inside the tab */
+	.tab button {
+	  display: block;
+	  background-color: inherit;
+	  color: black;
+	  padding: 22px 16px;
+	  width: 100%;
+	  border: none;
+	  outline: none;
+	  text-align: left;
+	  cursor: pointer;
+	  transition: 0.3s;
+	  font-size: 17px;
+	  height: 72.4px;
+	}
+
+	/* Change background color of buttons on hover */
+	.tab button:hover {
+		background-color: #6a5acd;
+	}
+
+	/* Create an active/current "tab button" class */
+	.tab button.active {
+		background-color: #ccc;
+	}
+
+	/* Style the tab content */
+	.tabcontent {
+	  /*float: left;*/
+	  border: 1px solid #ccc;
+	  /*width: 55%;*/
+	  width: auto;
+	  border-left: none;
+	  height: 509px;
+	  overflow: auto;
+	  display: none;
+	}
+
+	.tabcontent:after {
+		content: "";
+		clear: both;
+		height: 10%;
+		display: block;
+	}
+	
+	/* Aligns elements to the center of the page */
+	.submit_button {     
+		position: static;
+		margin: 0 auto;
+		width: 100px;
+		box-sizing: border-box;
+	}
+	
+	
+	.submit-disabled a {
+		background-color: gray !important;
+		text-decoration: none;
+		cursor: default;
+	}
+	
+	/* Hides the green checkmark */
+	.fa-check {
+		font-size: 26px;
+		color: #32CD32;
+		float: right;
+		visibility: hidden;
+	}
+	
+	#timer {
+		position: relative;
+		border: 3px double;
+		height: 40px;
+		padding: 5px;
+		margin-bottom: 4px;
+	}
+	
+	.stop_timer, .resume_timer, .save_button {
+		float: right;
+	}
+	
+	.timer-buttons {
+		position: relative;
+		font-size: 14px;
+		text-align: center;
+		border: none;
+		background-color: #c0c0ff;
+		cursor: pointer;
+		padding: 5px;
+		margin: 3px;
+		border-radius: 5px;
+	}
+	.timer-buttons:hover {
+		background-color: #6a5acd;
+	}	
+	
+	.timer-buttons:focus {
+		outline: none;
+	}
+	
+	textarea {
+		height: 4em;
+		width: 35em;
+	}
+	
+	div.sticky {
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;
+		bottom: 0;
+		background-color: lavender;
+		padding: 1px 0 7px 0;
+		z-index: 5;
+		height: 72.4px;
+	}
+	.sticky h2 {
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	.text-q {
+		width: 50px;
+		margin: 5px;
+	}
+	
+	p.Qn {
+		clear: both;
+		margin: 5%;
+		margin-top: 15px;
+		margin-bottom: 5px;
+		width: 90%;
+		text-align:left;
+	}
+	
+	p.Qn:not(:empty):before {
+		content: "";
+		clear: both;
+		height: 10px;
+		display: block;
+	}
+	
+	input.A {
+		text-align: left;
+	}
+	
+	table {
+		margin-left: 8%;
+		margin-right: 8%;
+		text-align: left;
+		border-collapse: separate;
+		border-spacing: 0;
+		/*border: 1.5px solid black;*/
+		/*border-top: none !important;*/
+	}
+
+	th, td {
+		text-align: center;
+		vertical-align: middle;
+		border: 1px solid black;
+		width: 20%;
+	}
+	
+	th {
+		border-top: 1px solid !important;
+		border-bottom: 1px solid !important;
+		border-right: 1px solid;
+	}
+	
+	td {
+		border-bottom: 1px solid;
+		border-right: 1px solid;
+	}
+	
+	table th:first-child, table td:first-child {
+		border-left: 1px solid;
+	}
+
+	thead th{
+		position: sticky;
+		top: 72.2px;
+		background-color: white;
+		background-clip: padding-box;
+		overflow: hidden;
+		z-index: 1
+	}	
+
+	td label {
+		min-width: 100%;
+		height: 100%;
+		width: 100%;
+		display: block;
+		padding: 15px;
+	}
+	
+	th:not(label) {
+		padding: 5px;
+	}
+	
+	label > input.A {
+		float: none;
+	}
+	
+	#page-heading {
+		margin: auto;
+		display: inline-block;
+		top: 0;
+		width: 50%;
+		left: 25%;
+	}
+	
+	#top-right {
+		right: 6%;
+		top: 40px;
+		height: auto;
+		position: absolute;
+	}
+	
+	#head-wrapper {
+		margin: 0 5% 0 5%;
+	}
+
+	#content-wrapper {
+		margin: 0 5% 10px 5%;
+	}
+		
+	h3, h4 {
+		clear: both;
+	}
+	
+	.bar {
+		width: 350px;
+		height: 20px;
+		line-height: 17px;
+		border-radius: 5px;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		background: white;
+		border: 2px solid black;
+		display: inline-block;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.pbar {
+		height: inherit;
+		line-height: inherit;
+		border-radius: 3px;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		background-color: #00CD00;
+		width: 0;
+
+	}
+
+	.barTxt {
+		color: black;
+		font-weight: bold;
+		width: inherit;
+		vertical-align: middle;
+		text-align: center;
+		position: absolute;
+	}
+
+	.questions {
+		background-color: white;
+	}
+	
+	div.top {
+		float: left;
+		text-align: left;
+		display: inline-block;
+		margin-left: 8%;
+		width: 45%;
+	}
+	
+	div.top-r {
+		float: left;
+		text-align: left;
+		display: inline-block;
+		width: 45%;	
+	}
+	
+	div.top-r:after {
+		content: "";
+		clear: both;
+		height: 15px;
+		display: block;
+	}
+	
+	.ans-left {
+		float: left;
+		text-align: left;
+		margin-left: 8%;
+	}
+	
+	.selection {
+		float: left;
+		text-align: left;
+		margin-left: 8%;
+		padding: 5px 10px 5px 10px;
+		overflow: scroll;
+		max-height: 200px;
+	}
+	
+	.selectionAlt {
+		padding: 5px;
+		overflow: scroll;
+		max-height: 200px;
+	}
+	
+	.ans-left label {
+		margin-right: 10px;
+	}
+	
+	.ans-left input[type="text"] {
+		margin-left: -5px;
+	}
+	
+	.ans-left + h3 {
+		padding-top: 20px;
+	}
+	
+	h3 + p.Qn, h4 + p.Qn {
+		margin-top: 10px;
+	}
+	
+	.ans-cent {
+		margin-left: 8%;
+		margin-right: 12%;
+	}
+	
+	.answer-aln {
+		display: inline-block;
+		width: 32.5%;
+		padding: 10px 0 10px 0;
+		vertical-align: top;
+	}
+	.answer-aln input, .answer-aln label {
+		float: left;
+	}

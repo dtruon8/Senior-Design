@@ -1,0 +1,31 @@
+/*DEVELOPED BY STEVEN AMEDEE AND DENNIS TRUONG
+//TEAM #57 - AAC DIAGNOSTIC TOOL
+SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
+
+	/* Changes size and position of paragraph text */
+	p {
+		margin-top: 40px;
+		font-size: 20px;
+	}	
+	div input[type="file"] {
+		width: 180px;
+	}
+	/* Aligns elements to the center of the page */
+	.center {     
+		margin: auto;
+		width: 100%;
+	}
+	div.home {
+		top:0;
+		left:0;
+	}
+	
+	h1 {
+		font-size: 32px;
+	}
+	
+	#fileError {
+		color: red;
+		font-size: 20px;
+		display: none;
+	}

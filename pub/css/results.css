@@ -1,0 +1,72 @@
+	/*prevetns the hidden answers from affecting the page layout*/
+	body {
+		overflow: hidden;
+		height: 800px;
+	}
+
+	p {
+		clear: both;
+		font-weight: bold;
+		page-break-after: avoid;
+		float:left;
+		text-align: left;
+	}
+	/*formats the answers to be saved to pdf*/
+	#ans {
+		font-family: "Times New Roman", serif;
+		visibility: hidden;
+		float: left;
+		text-align: left;
+		margin-left: 20mm;
+	}
+	#ans h4, #ans h3 {
+		float: left;
+		text-align: left;
+		page-break-before: avoid;
+		padding-top: 10px;
+		page-break-inside: avoid;
+	}
+	.answers, .comments {
+		display: block;
+		clear: both;
+		float: left;
+		text-align: left;
+		margin-left: 37mm;
+		page-break-before: avoid;
+		page-break-inside: avoid;
+	}
+	.answers span, .answers div {
+		page-break-before: avoid;	
+	}
+	.answers div {
+		margin-left: 37mm;
+	}	
+	p.table {
+		page-break-after: avoid;
+		text-align: left;
+		float: left;
+		margin-left: 22mm;
+	}
+	
+	.save-button {
+		font-size: 18px;
+		max-width:100%;
+		border: none;
+		background-color: #c0c0ff;
+		cursor: pointer;
+		padding: 14px 15px;
+		border-radius: 5px;
+	}
+	
+	.save-button:hover {
+		background-color: #6a5acd;
+	}
+	#resultsError {
+		margin: auto;
+		margin-top: 10px;
+		font-weight: bold;
+		font-size: 20px;
+		color: red;
+		text-align: center;
+		display: none;
+	}
