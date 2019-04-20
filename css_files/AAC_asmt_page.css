@@ -1,3 +1,7 @@
+/*DEVELOPED BY STEVEN AMEDEE AND DENNIS TRUONG
+//TEAM #57 - AAC DIAGNOSTIC TOOL
+SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */									  
+
 	* {box-sizing: border-box;}
 	/**:not(.bar) {box-sizing: border-box;}*/
 	
@@ -34,16 +38,17 @@
 	  cursor: pointer;
 	  transition: 0.3s;
 	  font-size: 17px;
+	  height: 72.4px;
 	}
 
 	/* Change background color of buttons on hover */
-	  .tab button:hover {
-	  background-color: #6a5acd;
+	.tab button:hover {
+		background-color: #6a5acd;
 	}
 
 	/* Create an active/current "tab button" class */
-	  .tab button.active {
-	  background-color: #ccc;
+	.tab button.active {
+		background-color: #ccc;
 	}
 
 	/* Style the tab content */
@@ -56,7 +61,6 @@
 	  height: 509px;
 	  overflow: auto;
 	  display: none;
-	  /*padding-bottom: 30px; */ /*Doesn't work in firefox*/
 	}
 
 	.tabcontent:after {
@@ -113,7 +117,7 @@
 		border-radius: 5px;
 	}
 	.timer-buttons:hover {
-		background-color: yellow;
+		background-color: #6a5acd;
 	}	
 	
 	.timer-buttons:focus {
@@ -126,18 +130,20 @@
 	}
 	
 	div.sticky {
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 		position: -webkit-sticky;
 		position: sticky;
 		top: 0;
-		bottom: 5;
+		bottom: 0;
 		background-color: lavender;
 		padding: 1px 0 7px 0;
-		z-index: 5
+		z-index: 5;
+		height: 72.4px;
 	}
 	.sticky h2 {
 		margin-top: 5px;
-		margin-bottom: 15px;
-/*		display: inline-block;*/
+		margin-bottom: 5px;
 	}
 	
 	.text-q {
@@ -162,21 +168,19 @@
 	}
 	
 	input.A {
-		/*margin-left: 5%;*/
 		text-align: left;
 	}
 	
 	table {
-		margin-left: 5%;
-		margin-right: 5%;
+		margin-left: 8%;
+		margin-right: 8%;
 		text-align: left;
-		border-collapse: collapse;
-		border: 1.5px solid black;
-		border-top: none !important;
+		border-collapse: separate;
+		border-spacing: 0;
+		/*border: 1.5px solid black;*/
+		/*border-top: none !important;*/
 	}
-	tr {
-		height: 1px;
-	}
+
 	th, td {
 		text-align: center;
 		vertical-align: middle;
@@ -184,6 +188,30 @@
 		width: 20%;
 	}
 	
+	th {
+		border-top: 1px solid !important;
+		border-bottom: 1px solid !important;
+		border-right: 1px solid;
+	}
+	
+	td {
+		border-bottom: 1px solid;
+		border-right: 1px solid;
+	}
+	
+	table th:first-child, table td:first-child {
+		border-left: 1px solid;
+	}
+
+	thead th{
+		position: sticky;
+		top: 72.2px;
+		background-color: white;
+		background-clip: padding-box;
+		overflow: hidden;
+		z-index: 1
+	}	
+
 	td label {
 		min-width: 100%;
 		height: 100%;
@@ -210,11 +238,9 @@
 	
 	#top-right {
 		right: 6%;
-		/*top: 7%;*/
 		top: 40px;
 		height: auto;
 		position: absolute;
-		/*width: 20%;*/
 	}
 	
 	#head-wrapper {
@@ -271,7 +297,7 @@
 		float: left;
 		text-align: left;
 		display: inline-block;
-		margin-left: 60px;
+		margin-left: 8%;
 		width: 45%;
 	}
 	
@@ -298,7 +324,13 @@
 	.selection {
 		float: left;
 		text-align: left;
-		margin-left: 9%;
+		margin-left: 8%;
+		padding: 5px 10px 5px 10px;
+		overflow: scroll;
+		max-height: 200px;
+	}
+	
+	.selectionAlt {
 		padding: 5px;
 		overflow: scroll;
 		max-height: 200px;
@@ -333,29 +365,4 @@
 	}
 	.answer-aln input, .answer-aln label {
 		float: left;
-	}
-	
-	thead th:last-child {
-		border-left: 1px solid black !important;
-		border-right: 1px solid black !important;
-	}
-	thead th:not(:last-child) {
-		border-left: 1px solid black !important;
-		border-right: 1px solid black !important;
-	}
-		
-	table.sticky-head {
-		position: sticky;
-		top: 85.3px;
-		box-shadow: inset 0 1px 0 black, inset 0 -1px black, inset 0.5px 0 black, inset -0.5px 0 black;
-		/*border-bottom: none !important;
-		border-top: none !important;*/
-		border: none !important;
-		background-color: white;
-		overflow: visible;
-		z-index: 1
-	}
-	
-	table tbody:nth-of-type(1) tr:nth-of-type(1) td, table tbody:nth-of-type(1) tr:nth-of-type(1) th {
-		border-top: none !important;
 	}

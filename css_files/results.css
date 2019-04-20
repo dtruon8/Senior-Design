@@ -1,6 +1,7 @@
+	/*prevetns the hidden answers from affecting the page layout*/
 	body {
-		/*overflow: hidden;
-		height: 800px;*/
+		overflow: hidden;
+		height: 800px;
 	}
 
 	p {
@@ -10,13 +11,13 @@
 		float:left;
 		text-align: left;
 	}
+	/*formats the answers to be saved to pdf*/
 	#ans {
 		font-family: "Times New Roman", serif;
-		/*visibility: hidden;*/
+		visibility: hidden;
 		float: left;
 		text-align: left;
 		margin-left: 20mm;
-		/* margin-left: 8%; */
 	}
 	#ans h4, #ans h3 {
 		float: left;
@@ -30,7 +31,6 @@
 		clear: both;
 		float: left;
 		text-align: left;
-		/*margin-left: 12%;*/
 		margin-left: 37mm;
 		page-break-before: avoid;
 		page-break-inside: avoid;
@@ -40,6 +40,12 @@
 	}
 	.answers div {
 		margin-left: 37mm;
+	}	
+	p.table {
+		page-break-after: avoid;
+		text-align: left;
+		float: left;
+		margin-left: 22mm;
 	}
 	
 	.save-button {
@@ -53,5 +59,5 @@
 	}
 	
 	.save-button:hover {
-		background-color: yellow;
+		background-color: #6a5acd;
 	}	
