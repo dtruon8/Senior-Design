@@ -69,18 +69,48 @@ function initialize(){
 
 	originalNumQs = numQs.slice();	//originalNumQs is a copy of numQs
 
-	//getAnswers();
-
 	document.getElementById("defaultOpen").click();
 	var y = sessionStorage.getItem("uploadSuccessful");
 
-    if (sessionStorage.getItem("uploadSuccessful")) {
+    if (y) {
         upload = true;
         stopTimer();
 		getAnswersFromStorage();
+		var numAnsZero = numberAnswered.filter(val => val > 0);	//some browsers don't update the progress for some reason. this fixes that.
+		if (numAnsZero.length == 0){
+			var sel = $(".A:checked, .selection option:selected, .selectionAlt option:selected");
+			sel.each(function(){
+				console.log(this.id);
+				var id = this.id;
+				if (id){
+					var s = id[1] - 1 ;
+					var a_pos = id.indexOf("a");	//find "a" in the id
+					var q = Number(id.substring(3, a_pos)) - 1; //question index
+					console.log(s, q);
+					if (!questionAnswered[s][q]){
+						numberAnswered[s] += 1;
+						questionAnswered[s][q] = true;
+					}
+				}
+			});
+			var texts = $(".required-text").filter(function() { return $(this).val()});
+			texts.each(function(){
+				var id = this.id;
+				var s = id[1]-1;
+				var c_pos = id.indexOf("c");
+				var q = Number(id.substring(3, c_pos)) - 1;
+				if (!questionAnswered[s][q]){
+					numberAnswered[s] += 1;
+					questionAnswered[s][q] = true;
+				}
+			});
+			for (var i = 0; i < numSec; i++){
+				changeBar(i);
+			}
+		}
 	}
 }
-	
+
 /*
 Checks whether the bar width should be increased or decreased. 
 Calls the appropriate function and then changes currentLen
@@ -222,14 +252,14 @@ function checkCompletion(){
 		submit.find("a").prop("href", "results.html");
 		if (!upload){
 			sessionStorage.setItem("time", totalSeconds);
-			stopTimer();
+			//stopTimer();
 		}
 	} else {
 		submit.addClass("submit-disabled");
 		submit.prop("href", "javascript:;");
-		resumeTimer();
+		//resumeTimer();
 		if(!upload){
-			sessionStorage.removeItem("time");
+			//sessionStorage.removeItem("time");
 		}
 	}
 }
@@ -430,6 +460,7 @@ function getAnswersFromStorage(){
 
     for (var i = 0; i < x.length; i++) {
         $("#" + x[i]).click();
+        console.log(x[i]);
 	}
 
 
