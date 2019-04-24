@@ -82,6 +82,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	.submit-disabled a {
 		background-color: gray !important;
 		text-decoration: none;
+		pointer-events: none;
 		cursor: default;
 	}
 	
