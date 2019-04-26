@@ -11,7 +11,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/all.css">
-    <link rel="stylesheet" type="text/css" href="css/assessment.css">
+    <link rel="stylesheet" type="text/css" href="css/assessment-view.css">
     <script src="js/jquery-3.3.1.js"></script>
     <script src="js/assessment.js"></script>
     <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
@@ -44,6 +44,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS -->
 
         <div id="top-right">
             <div id="timer">00:00:00</div>
+			<div id="button-wrapper">
             <button class="save_button timer-buttons" onclick="saveFile()">
                 <i class="fas fa-save">
                     <br>
@@ -62,6 +63,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS -->
                     <div class="buttonTxt">Pause</div>
                 </i>
             </button>
+			</div>
         </div>
 
     </div>
@@ -1289,7 +1291,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS -->
     </div>
 
     <!--for downloading the save file. This is separate from the button the user clicks to save the file-->
-    <a href="javascript:;" id="saveBtn" target="_blank" style="visibility:hidden; display:none;"></a>
+    <a href="javascript:;" id="saveBtn" style="visibility:hidden; display:none;"></a>
 
 </body>
 </html> 
