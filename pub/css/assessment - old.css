@@ -5,26 +5,6 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	* {box-sizing: border-box;}
 	/**:not(.bar) {box-sizing: border-box;}*/
 	
-	@media (max-width: 800px) {
-		div.sticky {
-			vertical-align: middle;
-		}
-		div.sticky h2 {
-			vertical-align: middle;
-			font-size: 2vh;
-			margin-top: 1.3vh;
-		}
-		div.bar {
-			margin-top: 1.5vh;
-		}
-		.tab button {
-			font-size: 1.93vw; 
-		}
-		table {
-			font-size: 1.4vw;
-		}
-	}
-	
 	h1 {
 		font-size: 2em;
 		padding: initial;
@@ -37,12 +17,11 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	/* Style the tab */
 	.tab {
 	  float: left;
-	  border: 1.5px solid #ccc;
-	  border-right: 1px solid #ccc;
-	  background-color: white;
+	  border: 1px solid #ccc;
+	  background-color: #f1f1f1;
+	  /*width: 28%;*/
 	  width: 30%;
-	  height: inherit;
-	  min-height: 500px;
+	  height: 509px;
 	  overflow: auto;
 	}
 
@@ -59,7 +38,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	  cursor: pointer;
 	  transition: 0.3s;
 	  font-size: 17px;
-	  height: 14.28%;
+	  height: 72.4px;
 	}
 
 	/* Change background color of buttons on hover */
@@ -79,8 +58,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	  /*width: 55%;*/
 	  width: auto;
 	  border-left: none;
-	  height: inherit;
-	  min-height: 500px;
+	  height: 509px;
 	  overflow: auto;
 	  display: none;
 	}
@@ -128,11 +106,6 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		float: right;
 	}
 	
-	#button-wrapper {
-		width: inherit;
-		max-width: inherit;
-	}
-	
 	.timer-buttons {
 		position: relative;
 		font-size: 14px;
@@ -141,17 +114,9 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		background-color: #c0c0ff;
 		cursor: pointer;
 		padding: 5px;
-		margin: 0.36vw;
+		margin: 3px;
 		border-radius: 5px;
 	}
-	
-	.timer-buttons:first-child{
-		margin-right: 0;
-	}
-	.timer-buttons:last-child{
-		margin-left: 0;
-	}
-	
 	.timer-buttons:hover {
 		background-color: #6a5acd;
 	}	
@@ -161,9 +126,8 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	}
 	
 	textarea {
-		height: 4.5em;
-		width: 80%;
-		padding: 5px;
+		height: 4em;
+		width: 35em;
 	}
 	
 	div.sticky {
@@ -174,14 +138,13 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		top: 0;
 		bottom: 0;
 		background-color: lavender;
-		padding: 1px 0 0.4vh 0;
+		padding: 1px 0 7px 0;
 		z-index: 5;
-		height: 14.28%;
+		height: 72.4px;
 	}
 	.sticky h2 {
-		font-size:	 1.5em;
-		margin-top: 0.4vh;
-		margin-bottom: 0.4vh;
+		margin-top: 5px;
+		margin-bottom: 5px;
 	}
 	
 	.text-q {
@@ -243,7 +206,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 
 	thead th{
 		position: sticky;
-		top: 14.28%;
+		top: 72.2px;
 		background-color: white;
 		background-clip: padding-box;
 		overflow: hidden;
@@ -277,22 +240,16 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	#top-right {
 		right: 6%;
 		top: 40px;
-		width: 22vw;
-		max-width: 172px;
 		height: auto;
 		position: absolute;
 	}
 	
 	#head-wrapper {
 		margin: 0 5% 0 5%;
-		height: 18vh;
-		min-height: 125px;
 	}
 
 	#content-wrapper {
 		margin: 0 5% 10px 5%;
-		height: 70vh;
-		min-height: 500px;
 	}
 		
 	h3, h4 {
@@ -363,7 +320,6 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		float: left;
 		text-align: left;
 		margin-left: 8%;
-		margin-right: 8%;
 	}
 	
 	.selection {
@@ -399,16 +355,15 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	
 	.ans-cent {
 		margin-left: 8%;
-		margin-right: 8%;
+		margin-right: 12%;
 	}
 	
 	.answer-aln {
-		text-align: left;
 		display: inline-block;
-		width: 32%;
+		width: 32.5%;
 		padding: 10px 0 10px 0;
 		vertical-align: top;
 	}
 	.answer-aln input, .answer-aln label {
-		/*float: left;*/
+		float: left;
 	}
