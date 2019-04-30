@@ -23,6 +23,12 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		table {
 			font-size: 1.4vw;
 		}
+		#page-heading h1 {
+			font-size: 1.7em;
+		}
+		#page-heading h2 {
+			font-size: 1.3em;
+		}
 	}
 	
 	h1 {
