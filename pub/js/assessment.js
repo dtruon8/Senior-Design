@@ -66,7 +66,8 @@ function initialize(){
     if (y) {
         upload = true;
         stopTimer();
-		getAnswersFromStorage();
+        getAnswersFromStorage();
+        resumeTimer();
 		var numAnsZero = numberAnswered.filter(val => val > 0);	//numAnsZero contains the nonzero elements of numberAnswered
 		//some browsers don't update the progress tracking. this fixes that.
 		if (numAnsZero.length == 0){
@@ -77,7 +78,6 @@ function initialize(){
 					var s = id[1] - 1 ;
 					var a_pos = id.indexOf("a");	//find "a" in the id
 					var q = Number(id.substring(3, a_pos)) - 1; //question index
-					console.log(s, q);
 					if (!questionAnswered[s][q]){
 						numberAnswered[s] += 1;
 						questionAnswered[s][q] = true;
@@ -104,7 +104,9 @@ function initialize(){
 			for (var i = 0; i < numSec; i++){
 				changeBar(i);
 			}
-		}
+        }
+        checkCompletion();
+        upload = false;
 	}
 }
 
@@ -220,9 +222,9 @@ function checkCompletion(){
 	var submit = $(".submit_button");
 	if (done){
 		submit.removeClass("submit-disabled");
-		submit.find("a").prop("href", "results.html");
-		stopTimer();
-		if (!upload){
+		submit.find("a").prop("href", "summary.html");
+        if (!upload) {
+            stopTimer();
 			//sessionStorage.setItem("time", totalSeconds);
 		}
 	} else {
@@ -232,10 +234,6 @@ function checkCompletion(){
 			//sessionStorage.removeItem("time");
 		}
 	}
-}
-function press(){
-	$("#s4q2").val($("#s4q1").val());
-	checkCompletion();
 }
 
 //display a warning message if the user has unsaved work and is not done
@@ -423,7 +421,6 @@ function enableQSelected(id){
 //on page load, get the uploaded answers
 function getAnswersFromStorage(){
     totalSeconds = sessionStorage.getItem("timer");
-    resumeTimer();
     var x = sessionStorage.getItem("selectedAnswers");
     x = x.split(',');
     x = x.filter(function (el) {
@@ -468,12 +465,12 @@ function getAnswersFromStorage(){
         }
     });
 
-	checkCompletion();
-	upload = false;
+	//checkCompletion();
+	//upload = false;
 	sessionStorage.clear();
 }
 
-//put the selected ids and comment text in sessionStorage for use on the results page
+//put the selected ids and comment text in sessionStorage for use on the summary page
 function putAnswersInStorage(){
 	var checks = [];
 	$('.A:checked').each(function() {
