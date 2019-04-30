@@ -37,8 +37,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	/* Style the tab */
 	.tab {
 	  float: left;
-	  border: 1.5px solid #ccc;
-	  border-right: 1px solid #ccc;
+	  border: 1px solid #ccc;
 	  background-color: white;
 	  width: 30%;
 	  height: inherit;
@@ -128,20 +127,14 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 		float: right;
 	}
 	
-	#button-wrapper {
-		width: inherit;
-		max-width: inherit;
-	}
-	
 	.timer-buttons {
 		position: relative;
-		font-size: 14px;
 		text-align: center;
 		border: none;
 		background-color: #c0c0ff;
 		cursor: pointer;
 		padding: 5px;
-		margin: 0.36vw;
+		margin: 0.4vw;
 		border-radius: 5px;
 	}
 	
@@ -277,7 +270,7 @@ SENIOR DESIGN FALL 2018 - SPRING 2019 CLASS */
 	#top-right {
 		right: 6%;
 		top: 40px;
-		width: 22vw;
+		width: 22.4vw;
 		max-width: 172px;
 		height: auto;
 		position: absolute;
