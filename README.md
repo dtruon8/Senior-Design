@@ -25,6 +25,19 @@ In addition to the assessment, there is a timer on the page, showing the time th
 On this page, the user can save a PDF summary of the selected answers and their input text answers by clicking the *Save Assessment Summary* button. The user can also return to the **Home Page** by clicking the *Home* button.
 
 ## Technical Details
+To track progress, the app uses the arrays `numQs`, `numberAnswered`, and `questionAnswered`. Each element in `numQs` represents the number of required questions in a section of the assessment. `numberAnswered`'s elements are the number of required questions that have been answered in a section. `questionAnswered` is a two-dimensional array that keeps track of whether a particular question in a section has been answered. It only includes the required and conditionally-required questions, and not the optional questions.
+
+Each answer is identified by its section and question number using the HTML `id` attribute. The `id` of all required questions is of the form `sXqYZ`, where X is a section number 1-6; Y is a one- or two-digit number; and Z is `a#` for non-text `input` or `select` HTML elements or `c` for text `input` or `textarea` elements. One sample `id` is `s2q1a4`, which is a `select` dropdown answer of question 1 in section 2 (the **Communication** section); another is `s1q5c` for the `textarea` input of question 5 in section 1 (the **Motor Skills** section). 
+
+	Note that in section 6 (the **Audiological Status** section), the question numbers in the `id`s do not line up with the order questions are presented in. Instead, the numbering of text-based input questions starts at 20, after the last non-text question in the section. The `id`s could be changed, but references to the specific `id`s of the text answers must be changed in the JavaScript files.
+
+When an answer is selected, the indices of the `questionAnswered` are determined using the `id`. If the element of `questionAnswered` for that question is `false`, it is changed to `true` and `numberAnswered` incremented. Next, the `changeBar` function is called. It updates the current length of the section's progress bar and the bar's text and if all questions in that section are answered, the checkmark next to the section name is displayed. Finally, it calls `checkCompletion` to determine if all required questions in the entire assessment have been answered. If so, the *Submit* button on the **Assessment Page** becomes available to click. 
+
+When the *Save* button is clicked, the `id`s of all selected answers, along with the timer's current value, are put into a string variable. Any text questions which have been answered also have their values added to the string. Finally, the string is saved to a text file.
+
+The app makes use of the browser's sessionStorage for the file upload and summary features. After a valid file has been uploaded on the **Home Page**, its contents are read and put into sessionStorage. It also sets the `uploadSuccessful` key in storage. On the **Assessment Page**, the app initializes variables with the `initialize` function and if `uploadSuccessful` is in storage, the contents of sessionStorage are read and the answers from storage are selected.
+
+When the *Submit* button on the **Assessment Page** is pressed, the `id`s of the selected answers and all input text is put into sessionStorage. On the **Summary Page**, before loading all answers are present in a hidden `div` tag. The answers whose `id`s are not present in storage are removed and the text is added to the page from storage. When the user clicks the `Save Assessment Summary` button, a PDF is generated from the HTML in the hidden `div` tag. This is done using jsPDF.
 
 ## Modifying the Assessment
 
