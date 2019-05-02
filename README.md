@@ -46,7 +46,8 @@ The procedure for resuming an assessment:
 	4. Click "Start AAC Assessment" button
 
 ### Known Issues
-* In the summary PDF, if the first line on a new page is an answer it is aligned to the left of the page rather than the proper alignment.
-* On iOS devices, the table headers don't stick when scrolling. This is likely due to different handling of the "position: sticky" CSS property.
-* On mobile devices (or at least iOS devices), extra steps are required to save the assessment progres to a text file. (this is an issue with those devices, not with the code)
+* In the summary PDF, if the first line on a new page is an answer to a question, it is aligned to the left of the page rather than the proper alignment.
+<img src="/images/unaligned.PNG" alt="Unaligned Answer in PDF" width="300">
+
+* On iOS devices, the table headers don't stick when scrolling. This is likely due to different handling of the `position: sticky` CSS property. It may be possible to fix this by applying the `position: sticky` to the `thead` element rather than the individual `th` elements.
 	
