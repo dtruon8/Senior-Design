@@ -39,13 +39,14 @@ On mobile devices (or maybe just Apple devices? We couldn't test on other mobile
     5. Save the file to the desired location. The easiest way would be to click "Save to Files" and save it to iCloud Drive.
 
 The procedure for resuming an assessment:
-1. On the Home Page, click the file upload button ("Choose File" on Apple devices). 
-2. Click "Browse" and browse to the location where a saved assessment text file is. 
-3. Choose the desired file. 
-4. Click "Start AAC Assessment" button
+
+	1. On the Home Page, click the file upload button ("Choose File" on Apple devices). 
+	2. Click "Browse" and browse to the location where a saved assessment text file is. 
+	3. Choose the desired file. 
+	4. Click "Start AAC Assessment" button
 
 ### Known Issues
-	* In the summary PDF, if the first line on a new page is an answer it is aligned to the left of the page rather than the proper alignment.
-	* On iOS devices, the table headers don't stick when scrolling. This is likely due to different handling of the "position: sticky" CSS property.
-	* On mobile devices (or at least iOS devices), extra steps are required to save the assessment progres to a text file. (this is an issue with those devices, not with the code)
+* In the summary PDF, if the first line on a new page is an answer it is aligned to the left of the page rather than the proper alignment.
+* On iOS devices, the table headers don't stick when scrolling. This is likely due to different handling of the "position: sticky" CSS property.
+* On mobile devices (or at least iOS devices), extra steps are required to save the assessment progres to a text file. (this is an issue with those devices, not with the code)
 	
