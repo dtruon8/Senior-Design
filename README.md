@@ -8,7 +8,7 @@ Currently, the web application is using the code in the 'pub' folder. This inclu
 ## User Manual
 
 ### Home Page:
-![Home Page](/images/home.PNG?s=250)
+![Home Page](/images/home.PNG | width=250)
 
 Here, the user can either begin a new AAC assessmnt or upload a previously-saved file to resume an assessment. If the user uploads an invalid file, an error message is displayed in red.
 
