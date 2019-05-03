@@ -51,6 +51,21 @@ The app makes use of the browser's sessionStorage for the file upload and summar
 When the *Submit* button on the **Assessment Page** is pressed, the `id`s of the selected answers and all input text is put into sessionStorage. On the **Summary Page**, before loading all answers are present in a hidden `div` tag. The answers whose `id`s are not present in storage are removed and the text is added to the page from storage. When the user clicks the `Save Assessment Summary` button, a PDF is generated from the HTML in the hidden `div` tag. This is done using jsPDF.
 
 ## Modifying the Assessment
+### Adding or Removing Questions to Existing Sections
+To modify existing sections, ensure that any new answers follow the `id` format explained in the [Technical Details](#technical-details) section. Also, ensure that there are no question numbers missing for required questions within a section (i.e.: If the last question has `id=”sXq55aZZ”`, the answers to the next question should have `id=”sXq56aZZ”` or  `id=”sXq56c”`. In addition, if questions are removed from a section, any questions after it must have their `id`s be renumbered. 
+
+If any text-based questions are added or removed, the places in the JavaScript code that use the `id`s of the answer must be changed. These occur in the `putAnswersInStorage` and  `getAnswersFromStorage`functions in `assessment.js` and the `getAnswerVals` function in `summary.js`. 
+
+For new answers, the HTML attributes `id`, `name`, and `class=”A”` must be included for each non-text input. The `<input>` tags for a question can be wrapped in at least one `div` to format the answers on the HTML page. If using one `div` with the class `ans-left`, the answers will be aligned to the left of the section with a margin. To display the answers in two columns, use the `top` class for the left column and the `top-r` class for the right column. To have the answers in three columns use an outer `div` with `class=”ans-cent”` and three inner `div`s with `class=”answer-aln”`. You should try to balance the amount of text in the columns if possible.
+
+Questions that can enable text-based questions should also have the `commentEnable` class for all answers, not just the enabling answer. Similarly, for questions which enable non-text questions, all answers must have the `questionEnable` class. The `assessment.js` file contains the `enableCom` array and `enableQs` object, along with the `enableQAnswered` object.The values in `enableCom` are the `id`s of questions which enable a text-based question that has an `id` of the form `sXqYc`, where the question number for the text input and enabling answer are the same. The `enableQs` object and `enableQAnswered` should have the same keys, which are the `id`s of the answer that enables other question’s answers. The values for the keys in `enableQs` must be an array with the `name`s of the answers that it enables. The values in `enableQAnswered` must be initialized to `false`, as they will be changed to `true` when the enabling answer is selected. This is done to handle making those questions required.
+
+### Adding or Removing Sections
+To add or remove a section, add a `button` to the `div` with `class=”tab questions”` and follow the format of the ones on the page. The **Comments** section should be the final section. Also, add a `div` with `class=”tabcontent”` within the `<div class=”content-wrapper”>`. If the **Comment** section’s number is changed, in the `openSection` function of the `assessment.js` file, change the reference to `s7` to whatever the **Comments** section’s `id` is.
+
+### Using the Incomplete Files
+The files in the `/incomplete/` directory were intended to be used to implement login, registration, and password recovery features. This was not completed due to time constraints. If these are used as a base for implementing those features, note that the files are not be up to date with the other files, and may contain references to files and functions that have changed names.
+
 
 ## Additional Notes
 ### Saving Assessment Progress Text File on Mobile Devices
