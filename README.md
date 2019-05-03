@@ -29,9 +29,7 @@ To track progress, the app uses the arrays `numQs`, `numberAnswered`, and `quest
 
 Each answer is identified by its section and question number using the HTML `id` attribute. The `id` of all required questions is of the form `sXqYZ`, where X is a section number 1-6; Y is a one- or two-digit number; and Z is `a#` for non-text `input` or `select` HTML elements or `c` for text `input` or `textarea` elements. One sample `id` is `s2q1a4`, which is a `select` dropdown answer of question 1 in section 2 (the **Communication** section); another is `s1q5c` for the `textarea` input of question 5 in section 1 (the **Motor Skills** section). 
 
-	Note that in section 6 (the **Audiological Status** section), the question numbers in the `id`s do not line up with the order questions are presented in. 
-	Instead, the numbering of text-based input questions starts at 20, after the last non-text question in the section. 
-	The `id`s could be changed, but references to the specific `id`s of the text answers must be changed in the JavaScript files.
+> Note that in section 6 (the **Audiological Status** section), the question numbers in the `id`s do not line up with the order questions are presented in. Instead, the numbering of text-based input questions starts at 20, after the last non-text question in the section. The `id`s could be changed, but references to the specific `id`s of the text answers must be changed in the JavaScript files.
 
 When an answer is selected, the indices of the `questionAnswered` are determined using the `id`. If the element of `questionAnswered` for that question is `false`, it is changed to `true` and `numberAnswered` incremented. Next, the `changeBar` function is called. It updates the current length of the section's progress bar and the bar's text and if all questions in that section are answered, the checkmark next to the section name is displayed. Finally, it calls `checkCompletion` to determine if all required questions in the entire assessment have been answered. If so, the *Submit* button on the **Assessment Page** becomes available to click. 
 
