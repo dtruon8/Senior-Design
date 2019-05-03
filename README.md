@@ -45,18 +45,18 @@ When the *Submit* button on the **Assessment Page** is pressed, the `id`s of the
 ### Saving Assessment Progress Text File on Mobile Devices
 On mobile devices (or maybe just Apple devices? We couldn't test on other mobile devices), the procedure for saving the text file is:
     
-    1. On the assessment page, click "Save" at the top right.
-    2. You will be brought to a page containing the text from the file.
-    3. Highlight all of the text.
-    4. Click "Share..."
-    5. Save the file to the desired location. The easiest way would be to click "Save to Files" and save it to iCloud Drive.
+> 1. On the assessment page, click "Save" at the top right.
+> 2. You will be brought to a page containing the text from the file.
+> 3. Highlight all of the text.
+> 4. Click "Share..."
+> 5. Save the file to the desired location. The easiest way would be to click "Save to Files" and save it to iCloud Drive.
 
 The procedure for resuming an assessment:
 
-	1. On the Home Page, click the file upload button ("Choose File" on Apple devices). 
-	2. Click "Browse" and browse to the location where a saved assessment text file is. 
-	3. Choose the desired file. 
-	4. Click "Start AAC Assessment" button
+> 1. On the Home Page, click the file upload button ("Choose File" on Apple devices). 
+> 2. Click "Browse" and browse to the location where a saved assessment text file is. 
+> 3. Choose the desired file. 
+> 4. Click "Start AAC Assessment" button
 
 ### Known Issues
 * In the summary PDF, if the first line on a new page is an answer to a question, it is aligned to the left of the page rather than the proper alignment.
