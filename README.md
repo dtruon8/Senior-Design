@@ -1,4 +1,4 @@
-# Augmentative and Alternative Communication Diagnostic Tool
+# AAC Diagnostic Tool
 Project for LSU Senior Design 2018-2019
 
 > 1. [Introduction](#introduction)
