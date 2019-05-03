@@ -1,6 +1,7 @@
 # AAC Diagnostic Tool
 Project for LSU Senior Design 2018-2019
 
+## Table of Contents
 > 1. [Introduction](#introduction)
 > 2. [User Manual](#user-manual)
 > 3. [Technical Details](#technical-details)
