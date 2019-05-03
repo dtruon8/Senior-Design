@@ -51,8 +51,7 @@ On mobile devices (or maybe just Apple devices? We couldn't test on other mobile
     2. You will be brought to a page containing the text from the file.
     3. Highlight all of the text.
     4. Click "Share..."
-    5. Save the file to the desired location. 
-    The easiest way would be to click "Save to Files" and save it to iCloud Drive.
+    5. Save the file to the desired location. The easiest way would be to click "Save to Files" and save it to iCloud Drive.
 
 The procedure for resuming an assessment:
 
@@ -63,7 +62,7 @@ The procedure for resuming an assessment:
 
 ### Known Issues
 * In the summary PDF, if the first line on a new page is an answer to a question, it is aligned to the left of the page rather than the proper alignment.
-<img src="/images/unaligned.PNG" alt="Unaligned Answer in PDF" height="300">
+<img src="/images/unaligned.PNG" alt="Unaligned Answer in PDF">
 
 * On iOS devices, the table headers don't stick when scrolling. This is likely due to different handling of the `position: sticky` CSS property. It may be possible to fix this by applying the `position: sticky` to the `thead` element rather than the individual `th` elements.
 	
