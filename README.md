@@ -1,5 +1,5 @@
-# Senior-Design
-AAC Diagnostic Tool
+# Augmentative and Alternative Communication Diagnostic Tool
+Project for LSU Senior Design 2018-2019
 
 > 1. [Introduction](#introduction)
 > 2. [User Manual](#user-manual)
